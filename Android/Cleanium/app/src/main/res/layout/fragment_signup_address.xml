@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scroll"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@android:color/white">
+
+    <TextView
+        android:id="@+id/info"
+        style="@style/SignupFragmentTitleBaseStyle"
+        android:layout_width="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:layout_height="wrap_content"
+        android:text="@string/address_information" />
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/addressLine1"
+                style="@style/SignupFragmentEditTextBaseStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/edittext_address_line_1_icon_gray"
+                android:hint="@string/signup_address_line1"
+                android:inputType="text|textCapSentences" />
+
+            <EditText
+                android:id="@+id/addressLine2"
+                style="@style/SignupFragmentEditTextBaseStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/edittext_address_line_2_icon_blue"
+                android:hint="@string/signup_address_line2"
+                android:inputType="text|textCapSentences" />
+
+            <EditText
+                android:id="@+id/city"
+                style="@style/SignupFragmentEditTextBaseStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/edittext_city_icon_gray"
+                android:hint="@string/signup_city"
+                android:inputType="text|textCapSentences" />
+
+            <EditText
+                android:id="@+id/state"
+                style="@style/SignupFragmentEditTextBaseStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/edittext_state_icon_gray"
+                android:hint="@string/signup_state"
+                android:inputType="text|textCapSentences" />
+
+            <EditText
+                android:id="@+id/postCode"
+                style="@style/SignupFragmentEditTextBaseStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/edittext_email_icon_gray"
+                android:hint="@string/signup_post_code"
+                android:inputType="number" />
+
+            <TextView
+                android:id="@+id/location"
+                style="@style/SignupFragmentEditTextBaseStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/edittext_location_icon_gray"
+                android:text="@string/location" />
+
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/SignupFragmentEditTextBaseStyle"
+                android:paddingBottom="@dimen/signup_radio_group_vertical_padding"
+                android:paddingLeft="@dimen/signup_radio_group_horizontal_padding"
+                android:paddingRight="@dimen/signup_radio_group_horizontal_padding"
+                android:paddingTop="@dimen/signup_radio_group_vertical_padding"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <RadioButton
+                    android:id="@+id/choice1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/home" />
+
+                <RadioButton
+                    android:id="@+id/choice2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/work" />
+
+                <RadioButton
+                    android:id="@+id/choice3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/other" />
+            </RadioGroup>
+
+            <EditText
+                android:id="@+id/accessNotes"
+                style="@style/SignupFragmentEditTextBaseStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/edittext_access_notes_icon_blue"
+                android:hint="@string/access_notes"
+                android:inputType="text|textCapSentences"
+                android:paddingBottom="@dimen/signup_access_notes_padding_bottom" />
+
+            <LinearLayout
+                android:id="@+id/bottomBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:id="@+id/backBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/back_fragment_button_blue"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/signup_edittext_horizontal_padding"
+                    android:paddingTop="@dimen/signup_edittext_horizontal_padding"
+                    android:text="@string/back" />
+
+                <TextView
+                    android:id="@+id/nextBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/next_fragment_button_blue"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/signup_edittext_horizontal_padding"
+                    android:paddingTop="@dimen/signup_edittext_horizontal_padding"
+                    android:text="@string/next" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/bottomBar2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center|bottom"
+                android:visibility="gone"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:id="@+id/deleteBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/place_order_icon_rotated"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/signup_edittext_horizontal_padding"
+                    android:paddingTop="@dimen/signup_edittext_horizontal_padding"
+                    android:text="@string/delete" />
+
+                <TextView
+                    android:id="@+id/saveBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/place_order_icon"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/signup_edittext_horizontal_padding"
+                    android:paddingTop="@dimen/signup_edittext_horizontal_padding"
+                    android:text="@string/save" />
+
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

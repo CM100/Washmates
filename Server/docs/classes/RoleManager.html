@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>RoleManager - Cleanium_Server</title>
+    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+</head>
+<body class="yui3-skin-sam">
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <h1 class="brand" style="padding: 10px 16px 10px; height: 20px; line-height: 20px; margin-left: 0;">
+	    <img alt="Cleanium_Server" src="..\..\..\Android\Cleanium\app\src\main\res\drawable-xxhdpi\logo.png" style="max-height: 65%;" title="Cleanium_Server">
+            Cleanium_Server
+        </h1>
+	<div class="nav">
+            <li class="divider-vertical"></li>
+            <li>
+                <p class="navbar-text">
+                    API Docs for Version: <b>0.0.0</b>
+                </p>
+            </li>
+        </div>
+        <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/AsyncUtils", "classes/Cloud", "classes/Errors", "classes/Heap", "classes/Logger", "classes/NotificationUtils", "classes/Order", "classes/OrderDate", "classes/OrderRestrictions", "classes/OrderStatus", "classes/OrderValidator", "classes/RoleManager", "classes/Schedule", "classes/Stripe", "classes/StripeAmount", "classes/User"]'>
+        </form>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="span3">
+	    <div>
+	        <h3>APIs</h3>
+	        <div id="sidebar">
+	            <ul id="main-nav" class="nav nav-tabs" style="margin-bottom:0;">
+	                <li class="active"><a href="#classes" data-toggle="tab">Classes</a></li>
+	                <li><a href="#modules" data-toggle="tab">Modules</a></li>
+	            </ul>
+	    
+	            <div id="api-tabview-filter">
+	                <input type="search" placeholder="Type to filter APIs">
+	            </div>
+	    
+	            <div class="tab-content" style="border: 1px solid #DDD; border-top:0;">
+	                <div class="tab-pane active" id="classes">
+	                    <ul id="api-classes" class="nav nav-list">
+	                            <li><a href="../classes/AsyncUtils.html">AsyncUtils</a></li>
+	                            <li><a href="../classes/Cloud.html">Cloud</a></li>
+	                            <li><a href="../classes/Errors.html">Errors</a></li>
+	                            <li><a href="../classes/Heap.html">Heap</a></li>
+	                            <li><a href="../classes/Logger.html">Logger</a></li>
+	                            <li><a href="../classes/NotificationUtils.html">NotificationUtils</a></li>
+	                            <li><a href="../classes/Order.html">Order</a></li>
+	                            <li><a href="../classes/OrderRestrictions.html">OrderRestrictions</a></li>
+	                            <li><a href="../classes/RoleManager.html">RoleManager</a></li>
+	                            <li><a href="../classes/Schedule.html">Schedule</a></li>
+	                            <li><a href="../classes/Stripe.html">Stripe</a></li>
+	                            <li><a href="../classes/User.html">User</a></li>
+	                    </ul>
+	                </div>
+	    
+	                <div class="tab-pane" id="modules">
+	                    <ul id="api-modules" class="nav nav-list">
+	                    </ul>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+        </div>
+        <div class="span9">
+                <form id="options-form" class="form-inline pull-right">
+                    Show:
+                    <label for="api-show-inherited" class="checkbox">
+                        <input type="checkbox" id="api-show-inherited" checked>
+                        Inherited
+                    </label>
+            
+                    <label for="api-show-protected" class="checkbox">
+                        <input type="checkbox" id="api-show-protected">
+                        Protected
+                    </label>
+            
+                    <label for="api-show-private" class="checkbox">
+                        <input type="checkbox" id="api-show-private">
+                        Private
+                    </label>
+                    <label for="api-show-deprecated" class="checkbox">
+                        <input type="checkbox" id="api-show-deprecated">
+                        Deprecated
+                    </label>
+            
+                </form>
+            
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+<div class="page-header">
+    <h1>RoleManager <small>Class</small></h1>
+</div>
+
+<div class="well well-small">
+
+
+        <div class="foundat">
+            Defined in: <a href="../files/cloud_roleManager.js.html#l2"><code>cloud\roleManager.js:2</code></a>
+        </div>
+
+
+</div>
+
+
+<div class="well well-small">
+    
+</div>
+
+
+<div>
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#index">Index</a></li>
+
+            <li><a data-toggle="tab" href="#methods">Methods</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div id="index" class="tab-pane active">
+            <h2 class="off-left">Item Index</h2>
+
+                <div class="index-section methods">
+                    <h3>Methods</h3>
+
+                    <ul class="index-list methods">
+                            <li class="index-item method private">
+                                <a href="#" data-tabid="#methods" data-anchor="#method_checkIfUserInRoles" data-tablink="checkIfUserInRoles">checkIfUserInRoles</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#" data-tabid="#methods" data-anchor="#method_getAll
+Gets all entries from a table that passed as parameter. Can be passed different query criteria." data-tablink="getAll
+Gets all entries from a table that passed as parameter. Can be passed different query criteria.">getAll
+Gets all entries from a table that passed as parameter. Can be passed different query criteria.</a>
+
+                            </li>
+                            <li class="index-item method private">
+                                <a href="#" data-tabid="#methods" data-anchor="#method_setPrivateAccess" data-tablink="setPrivateAccess">setPrivateAccess</a>
+
+                            </li>
+                            <li class="index-item method private">
+                                <a href="#" data-tabid="#methods" data-anchor="#method_setUserRole" data-tablink="setUserRole">setUserRole</a>
+
+                            </li>
+                    </ul>
+                </div>
+
+
+
+        </div>
+
+            <div id="methods" class="tab-pane">
+                <h2 class="off-left">Methods</h2>
+
+                    <div id="method_checkIfUserInRoles" class="method item private">
+                        <h3 class="name"><code>checkIfUserInRoles</code></h3>
+                    
+                            <div class="args">
+                                <span class="paren">(</span><ul class="args-list inline commas">
+                                    <li class="arg">
+                                            <code>user</code>
+                                    </li>
+                                    <li class="arg">
+                                            <code>roleName</code>
+                                    </li>
+                                </ul><span class="paren">)</span>
+                            </div>
+                    
+                            <span class="returns-inline">
+                                <span class="type">Promise</span>
+                            </span>
+                    
+                    
+                            <span class="flag private">private</span>
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/cloud_roleManager.js.html#l167"><code>cloud\roleManager.js:167</code></a>
+                            </p>
+                    
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Checks if a user belongs to a specific role</p>
+                    
+                        </div>
+                    
+                            <div class="params">
+                                <h4>Parameters:</h4>
+                    
+                                <ul class="params-list">
+                                    <li class="param">
+                                            <code class="param-name">user</code>
+                                            <span class="type">Object</span>
+                    
+                    
+                                        <div class="param-description">
+                                            <p>The user in question</p>
+                    
+                                        </div>
+                    
+                                    </li>
+                                    <li class="param">
+                                            <code class="param-name">roleName</code>
+                                            <span class="type">Array | String</span>
+                    
+                    
+                                        <div class="param-description">
+                                            <p>The names of the Roles as array or a string space separated.
+                    Please use roleManager's role constants</p>
+                    
+                                        </div>
+                    
+                                    </li>
+                                </ul>
+                            </div>
+                    
+                            <div class="returns">
+                                <h4>Returns:</h4>
+                    
+                                <div class="returns-description">
+                                            <span class="type">Promise</span>:
+                                        <p>A Parse.Promise. If successfull return either true/false depending on the user
+                    is in role or not</p>
+                    
+                                </div>
+                            </div>
+                    
+                    </div>
+                    <div id="method_getAll
+                    Gets all entries from a table that passed as parameter. Can be passed different query criteria." class="method item">
+                        <h3 class="name"><code>getAll
+                    Gets all entries from a table that passed as parameter. Can be passed different query criteria.</code></h3>
+                    
+                            <div class="args">
+                                <span class="paren">(</span><ul class="args-list inline commas">
+                                    <li class="arg">
+                                            <code>table</code>
+                                    </li>
+                                    <li class="arg">
+                                            <code>include</code>
+                                    </li>
+                                    <li class="arg">
+                                            <code>criteria</code>
+                                    </li>
+                                </ul><span class="paren">)</span>
+                            </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/cloud_main.js.html#l20"><code>cloud\main.js:20</code></a>
+                            </p>
+                    
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            
+                        </div>
+                    
+                            <div class="params">
+                                <h4>Parameters:</h4>
+                    
+                                <ul class="params-list">
+                                    <li class="param">
+                                            <code class="param-name">table</code>
+                                            <span class="type">String</span>
+                    
+                    
+                                        <div class="param-description">
+                                            <p>The name of the table from which the results will be returned.</p>
+                    
+                                        </div>
+                    
+                                    </li>
+                                    <li class="param">
+                                            <code class="param-name">include</code>
+                                            <span class="type">Array</span>
+                    
+                    
+                                        <div class="param-description">
+                                            <p>An array of tables to include.
+                    e.g.
+                    <code>javascript ['user', 'deliveryAddress']</code></p>
+                    
+                                        </div>
+                    
+                                    </li>
+                                    <li class="param">
+                                            <code class="param-name">criteria</code>
+                                            <span class="type">Object</span>
+                    
+                    
+                                        <div class="param-description">
+                                            <p>The criteria for restricting the query to certain results. Criteria should
+                    have as key the column name on which restrictions will be applied and as value
+                    another object with compare function name as key and compare value as value .
+                    Compare function name is a parse query comparisson function while value the
+                    value to compare the column against.
+                    e.g.
+                    <code>javascript criteria = { objectId: {equalTo: '142sfa1'} }</code></p>
+                    
+                                        </div>
+                    
+                                    </li>
+                                </ul>
+                            </div>
+                    
+                    
+                    </div>
+                    <div id="method_setPrivateAccess" class="method item private">
+                        <h3 class="name"><code>setPrivateAccess</code></h3>
+                    
+                            <div class="args">
+                                <span class="paren">(</span><ul class="args-list inline commas">
+                                    <li class="arg">
+                                            <code>user</code>
+                                    </li>
+                                    <li class="arg">
+                                            <code>resource</code>
+                                    </li>
+                                    <li class="arg">
+                                            <code>restrictions</code>
+                                    </li>
+                                    <li class="arg">
+                                            <code>applyToExistingResource</code>
+                                    </li>
+                                </ul><span class="paren">)</span>
+                            </div>
+                    
+                            <span class="returns-inline">
+                                <span class="type">Promise</span>
+                            </span>
+                    
+                    
+                            <span class="flag private">private</span>
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/cloud_roleManager.js.html#l74"><code>cloud\roleManager.js:74</code></a>
+                            </p>
+                    
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Sets private access for a user. Additional restrictions can be enforced for public read/write access
+                    as well for declared roles. An example of restrictions cound be
+                    <code>{}</code></p>
+                    
+                        </div>
+                    
+                            <div class="params">
+                                <h4>Parameters:</h4>
+                    
+                                <ul class="params-list">
+                                    <li class="param">
+                                            <code class="param-name">user</code>
+                                            <span class="type">Object</span>
+                    
+                    
+                                        <div class="param-description">
+                                            <p>A valid Parse user</p>
+                    
+                                        </div>
+                    
+                                    </li>
+                                    <li class="param">
+                                            <code class="param-name">resource</code>
+                                            <span class="type">Object</span>
+                    
+                    
+                                        <div class="param-description">
+                                            <p>A Parse Object. The resource where restrictions will apply</p>
+                    
+                                        </div>
+                    
+                                    </li>
+                                    <li class="param">
+                                            <code class="param-name">restrictions</code>
+                                            <span class="type">Object</span>
+                    
+                    
+                                        <div class="param-description">
+                                            <p>An object with <code>read</code>/<code>write</code> restrictions for public and Roles. As an example could be:
+                    <code>{public: ["read"], Admin: ["read", "write]}</code></p>
+                    
+                                        </div>
+                    
+                                    </li>
+                                    <li class="param">
+                                            <code class="param-name">applyToExistingResource</code>
+                                            <span class="type">Boolean</span>
+                    
+                    
+                                        <div class="param-description">
+                                            <p>Setup the restrictions to existing users as well. By default the restrictions are applied
+                    only on a newly created user</p>
+                    
+                                        </div>
+                    
+                                    </li>
+                                </ul>
+                            </div>
+                    
+                            <div class="returns">
+                                <h4>Returns:</h4>
+                    
+                                <div class="returns-description">
+                                            <span class="type">Promise</span>:
+                                        <p>A Parse.Promise. If successful returns the resource passed as argument. Otherwise an error message</p>
+                    
+                                </div>
+                            </div>
+                    
+                    </div>
+                    <div id="method_setUserRole" class="method item private">
+                        <h3 class="name"><code>setUserRole</code></h3>
+                    
+                            <div class="args">
+                                <span class="paren">(</span><ul class="args-list inline commas">
+                                    <li class="arg">
+                                            <code>user</code>
+                                    </li>
+                                    <li class="arg">
+                                            <code>roleName</code>
+                                    </li>
+                                </ul><span class="paren">)</span>
+                            </div>
+                    
+                            <span class="returns-inline">
+                                <span class="type">Promise</span>
+                            </span>
+                    
+                    
+                            <span class="flag private">private</span>
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/cloud_roleManager.js.html#l39"><code>cloud\roleManager.js:39</code></a>
+                            </p>
+                    
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Sets a Role to a user</p>
+                    
+                        </div>
+                    
+                            <div class="params">
+                                <h4>Parameters:</h4>
+                    
+                                <ul class="params-list">
+                                    <li class="param">
+                                            <code class="param-name">user</code>
+                                            <span class="type">Object</span>
+                    
+                    
+                                        <div class="param-description">
+                                            <p>A Parse.User object</p>
+                    
+                                        </div>
+                    
+                                    </li>
+                                    <li class="param">
+                                            <code class="param-name">roleName</code>
+                                            <span class="type">String</span>
+                    
+                    
+                                        <div class="param-description">
+                                            <p>The name of the desired role.</p>
+                    
+                                        </div>
+                    
+                                    </li>
+                                </ul>
+                            </div>
+                    
+                            <div class="returns">
+                                <h4>Returns:</h4>
+                    
+                                <div class="returns-description">
+                                            <span class="type">Promise</span>:
+                                        <p>A Parse.Promise</p>
+                    
+                                </div>
+                            </div>
+                    
+                    </div>
+            </div>
+
+
+
+    </div>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/jquery/jquery-1.8.2.min.js"></script>
+<script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script src="../assets/js/yuidoc-bootstrap.js"></script>
+<script>prettyPrint();</script>
+</body>
+</html>

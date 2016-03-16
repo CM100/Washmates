@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>cloud\Stripe\amount.js - Cleanium_Server</title>
+    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+</head>
+<body class="yui3-skin-sam">
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <h1 class="brand" style="padding: 10px 16px 10px; height: 20px; line-height: 20px; margin-left: 0;">
+	    <img alt="Cleanium_Server" src="..\..\..\Android\Cleanium\app\src\main\res\drawable-xxhdpi\logo.png" style="max-height: 65%;" title="Cleanium_Server">
+            Cleanium_Server
+        </h1>
+	<div class="nav">
+            <li class="divider-vertical"></li>
+            <li>
+                <p class="navbar-text">
+                    API Docs for Version: <b>0.0.0</b>
+                </p>
+            </li>
+        </div>
+        <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/AsyncUtils", "classes/Cloud", "classes/Errors", "classes/Heap", "classes/Logger", "classes/NotificationUtils", "classes/Order", "classes/OrderDate", "classes/OrderRestrictions", "classes/OrderStatus", "classes/OrderValidator", "classes/RoleManager", "classes/Schedule", "classes/Stripe", "classes/StripeAmount", "classes/User"]'>
+        </form>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="span3">
+	    <div>
+	        <h3>APIs</h3>
+	        <div id="sidebar">
+	            <ul id="main-nav" class="nav nav-tabs" style="margin-bottom:0;">
+	                <li class="active"><a href="#classes" data-toggle="tab">Classes</a></li>
+	                <li><a href="#modules" data-toggle="tab">Modules</a></li>
+	            </ul>
+	    
+	            <div id="api-tabview-filter">
+	                <input type="search" placeholder="Type to filter APIs">
+	            </div>
+	    
+	            <div class="tab-content" style="border: 1px solid #DDD; border-top:0;">
+	                <div class="tab-pane active" id="classes">
+	                    <ul id="api-classes" class="nav nav-list">
+	                            <li><a href="../classes/AsyncUtils.html">AsyncUtils</a></li>
+	                            <li><a href="../classes/Cloud.html">Cloud</a></li>
+	                            <li><a href="../classes/Errors.html">Errors</a></li>
+	                            <li><a href="../classes/Heap.html">Heap</a></li>
+	                            <li><a href="../classes/Logger.html">Logger</a></li>
+	                            <li><a href="../classes/NotificationUtils.html">NotificationUtils</a></li>
+	                            <li><a href="../classes/Order.html">Order</a></li>
+	                            <li><a href="../classes/OrderRestrictions.html">OrderRestrictions</a></li>
+	                            <li><a href="../classes/RoleManager.html">RoleManager</a></li>
+	                            <li><a href="../classes/Schedule.html">Schedule</a></li>
+	                            <li><a href="../classes/Stripe.html">Stripe</a></li>
+	                            <li><a href="../classes/User.html">User</a></li>
+	                    </ul>
+	                </div>
+	    
+	                <div class="tab-pane" id="modules">
+	                    <ul id="api-modules" class="nav nav-list">
+	                    </ul>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+        </div>
+        <div class="span9">
+                <form id="options-form" class="form-inline pull-right">
+                    Show:
+                    <label for="api-show-inherited" class="checkbox">
+                        <input type="checkbox" id="api-show-inherited" checked>
+                        Inherited
+                    </label>
+            
+                    <label for="api-show-protected" class="checkbox">
+                        <input type="checkbox" id="api-show-protected">
+                        Protected
+                    </label>
+            
+                    <label for="api-show-private" class="checkbox">
+                        <input type="checkbox" id="api-show-private">
+                        Private
+                    </label>
+                    <label for="api-show-deprecated" class="checkbox">
+                        <input type="checkbox" id="api-show-deprecated">
+                        Deprecated
+                    </label>
+            
+                </form>
+            
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+<div class="page-header">
+    <h1>cloud\Stripe\amount.js <small>File</small></h1>
+</div>
+
+<div class="file">
+    <pre class="prettyprint linenums">
+/*globals require, exports, Parse*/
+var errors = require(&#x27;cloud/Utils/errors&#x27;);
+var logger = require(&#x27;cloud/Utils/logger&#x27;);
+/**
+ * It translates the amount on Stripe acceptable amount since Stripe requires it to be
+ * in cents. Also validates the amount given on constructor against basic and Stripe&#x27;s
+ * restrictions.
+ * 
+ * @class StripeAmount
+ * @constructor StripeAmount
+ * @protected
+ * @param   {Number} chargeAmount The amount to be converted in cents
+ * @returns {Number} Amount in cents. Rounded up to the closest digit since javascript
+ *                   gets sometime quirky with math calculations.
+ */
+function StripeAmount(chargeAmount) {
+	var amount;
+	Number.parseFloat = Number.parseFloat || parseFloat;
+	Number.isNaN = Number.isNaN || isNaN;
+
+	function _Amount() {
+		/**
+		 * @property isValid 
+		 */
+		this.isValid = false;
+		/**
+		 * @property errorMessage 
+		 */
+		this.errorMessage = &#x27;Not validated&#x27;;
+
+		this._init = function () {
+			this._validateAmount();
+		};
+
+		/**
+		 * Validates the amount. Ensures the amount is a number is greater than 50 cents
+		 * which is the minimum allowed amount per transaction for Stripe. Sets the
+		 * &#x60;isValid&#x60; &amp; &#x60;errorMessage&#x60; properties to the results of the validation.
+		 * 
+		 * @private
+		 * @method _validateAmount
+		 */
+		this._validateAmount = function () {
+			logger.log(&#x27;Validating given amount.&#x27;);
+
+			if (Number.isNaN(this.valueOf())) {
+				logger.error(&#x27;The amount of &#x27; + this.valueOf() + &#x27; is considered invalid. Amount from request: &#x27; + chargeAmount);
+
+				this.isValid = false;
+				this.errorMessage = errors.CHARGE_AMOUNT_NOT_VALID;
+				return;
+			}
+			if (this.valueOf() &lt; 50) {
+				logger.error(&#x27;The amount of &#x27; + this.valueOf() + &#x27; cents is too small to processed.&#x27;);
+
+				this.isValid = false;
+				this.errorMessage = errors.CHARGE_AMOUNT_TOO_SMALL;
+				return;
+			}
+			this.isValid = true;
+			this.errorMessage = undefined;
+			logger.log(&#x27;The amount is valid.&#x27;);
+		}
+
+		this._init();
+		return this;
+	}
+
+	if (this instanceof StripeAmount) {
+		var chargeAmountCents = Math.ceil(Number.parseFloat(+chargeAmount) * 100);
+		logger.debug(&#x27;Charge amount : &#x27; + chargeAmount);
+		logger.debug(&#x27;Charge amount in cents: &#x27; + chargeAmountCents);
+		amount = new Number(chargeAmountCents);
+		var boundAmountCtor = _Amount.bind(amount);
+		return boundAmountCtor();
+	}
+}
+exports.Ctor = StripeAmount;
+    </pre>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/jquery/jquery-1.8.2.min.js"></script>
+<script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script src="../assets/js/yuidoc-bootstrap.js"></script>
+<script>prettyPrint();</script>
+</body>
+</html>

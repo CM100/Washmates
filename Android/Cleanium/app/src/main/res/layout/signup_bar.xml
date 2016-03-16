@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="@android:color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageButton
+            android:id="@+id/back"
+            android:layout_width="48dp"
+            android:layout_height="match_parent"
+            android:paddingLeft="12dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:paddingRight="12dp"
+            android:background="@null"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/back_blue"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_toLeftOf="@+id/logo"
+            android:layout_toRightOf="@+id/back"
+            android:text="@string/signup"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/font_size_16sp"
+            android:textStyle="bold" />
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="32dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="8dp"
+            android:scaleType="centerInside"
+            android:background="@null"
+            android:src="@drawable/logo_menu"/>
+    </RelativeLayout>
+</android.support.v7.widget.Toolbar>

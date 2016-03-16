@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>cloud\Order\schedule.js - Cleanium_Server</title>
+    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+</head>
+<body class="yui3-skin-sam">
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <h1 class="brand" style="padding: 10px 16px 10px; height: 20px; line-height: 20px; margin-left: 0;">
+	    <img alt="Cleanium_Server" src="..\..\..\Android\Cleanium\app\src\main\res\drawable-xxhdpi\logo.png" style="max-height: 65%;" title="Cleanium_Server">
+            Cleanium_Server
+        </h1>
+	<div class="nav">
+            <li class="divider-vertical"></li>
+            <li>
+                <p class="navbar-text">
+                    API Docs for Version: <b>0.0.0</b>
+                </p>
+            </li>
+        </div>
+        <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/AsyncUtils", "classes/Cloud", "classes/Errors", "classes/Heap", "classes/Logger", "classes/NotificationUtils", "classes/Order", "classes/OrderDate", "classes/OrderRestrictions", "classes/OrderStatus", "classes/OrderValidator", "classes/RoleManager", "classes/Schedule", "classes/Stripe", "classes/StripeAmount", "classes/User"]'>
+        </form>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="span3">
+	    <div>
+	        <h3>APIs</h3>
+	        <div id="sidebar">
+	            <ul id="main-nav" class="nav nav-tabs" style="margin-bottom:0;">
+	                <li class="active"><a href="#classes" data-toggle="tab">Classes</a></li>
+	                <li><a href="#modules" data-toggle="tab">Modules</a></li>
+	            </ul>
+	    
+	            <div id="api-tabview-filter">
+	                <input type="search" placeholder="Type to filter APIs">
+	            </div>
+	    
+	            <div class="tab-content" style="border: 1px solid #DDD; border-top:0;">
+	                <div class="tab-pane active" id="classes">
+	                    <ul id="api-classes" class="nav nav-list">
+	                            <li><a href="../classes/AsyncUtils.html">AsyncUtils</a></li>
+	                            <li><a href="../classes/Cloud.html">Cloud</a></li>
+	                            <li><a href="../classes/Errors.html">Errors</a></li>
+	                            <li><a href="../classes/Heap.html">Heap</a></li>
+	                            <li><a href="../classes/Logger.html">Logger</a></li>
+	                            <li><a href="../classes/NotificationUtils.html">NotificationUtils</a></li>
+	                            <li><a href="../classes/Order.html">Order</a></li>
+	                            <li><a href="../classes/OrderRestrictions.html">OrderRestrictions</a></li>
+	                            <li><a href="../classes/RoleManager.html">RoleManager</a></li>
+	                            <li><a href="../classes/Schedule.html">Schedule</a></li>
+	                            <li><a href="../classes/Stripe.html">Stripe</a></li>
+	                            <li><a href="../classes/User.html">User</a></li>
+	                    </ul>
+	                </div>
+	    
+	                <div class="tab-pane" id="modules">
+	                    <ul id="api-modules" class="nav nav-list">
+	                    </ul>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+        </div>
+        <div class="span9">
+                <form id="options-form" class="form-inline pull-right">
+                    Show:
+                    <label for="api-show-inherited" class="checkbox">
+                        <input type="checkbox" id="api-show-inherited" checked>
+                        Inherited
+                    </label>
+            
+                    <label for="api-show-protected" class="checkbox">
+                        <input type="checkbox" id="api-show-protected">
+                        Protected
+                    </label>
+            
+                    <label for="api-show-private" class="checkbox">
+                        <input type="checkbox" id="api-show-private">
+                        Private
+                    </label>
+                    <label for="api-show-deprecated" class="checkbox">
+                        <input type="checkbox" id="api-show-deprecated">
+                        Deprecated
+                    </label>
+            
+                </form>
+            
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+<div class="page-header">
+    <h1>cloud\Order\schedule.js <small>File</small></h1>
+</div>
+
+<div class="file">
+    <pre class="prettyprint linenums">
+/*globals require, Parse*/
+/**
+ * @class Schedule
+ * @static
+ */
+var _ = require(&#x27;underscore&#x27;);
+var logger = require(&#x27;cloud/Utils/logger&#x27;);
+var errors = require(&#x27;cloud/Utils/errors&#x27;);
+var orderRestrictions = require(&#x27;cloud/Order/restrictions&#x27;);
+var Heap = require(&#x27;cloud/Utils/heap&#x27;);
+var cloud = require(&#x27;cloud/cloud&#x27;);
+
+exports.init = function (config) {};
+
+cloud.beforeSave(&#x27;DriverSchedule&#x27;, function(request, response, config){
+	var driverSchedule = request.object;
+	var newFromDate = driverSchedule.get(&#x27;fromDate&#x27;), newToDate = driverSchedule.get(&#x27;toDate&#x27;);
+	
+	if( driverSchedule.existed() &amp;&amp;  
+	   !driverSchedule.dirty(&#x27;fromDate&#x27;) &amp;&amp;  
+	   !driverSchedule.dirty(&#x27;driver&#x27;) &amp;&amp; 
+	   !driverSchedule.dirty(&#x27;toDate&#x27;) ) {
+		response.success();
+	}
+	
+	if( !driverSchedule.get(&#x27;driver&#x27; ) || !newFromDate || !newToDate ) {
+		return response.error(errors.INVALID_ARGUMENT);
+	} 
+	if ( newFromDate.getTime() &gt;= newToDate.getTime() ) {
+		return response.error(errors.SCHEDULE_BAD_DATES);
+	}
+	if( !driverSchedule.get(&#x27;isTimeOff&#x27;) &amp;&amp; !driverSchedule.get(&#x27;toAddress&#x27;) ) {
+		return response.error(errors.INVALID_ARGUMENT);
+	}
+	
+	var driverExistsScheduleQuery = createDriverWithRecurringSchedulesQuery(newFromDate, newToDate);
+	driverExistsScheduleQuery.equalTo(&#x27;driver&#x27;, driverSchedule.get(&#x27;driver&#x27;));
+	if( driverSchedule.get(&#x27;toAddress&#x27;) ) {
+		driverExistsScheduleQuery.include(&#x27;toAddress&#x27;);
+	}
+	driverExistsScheduleQuery.find()
+		.done(function(driverSchedules){
+			var allSchedulesAsObject = getSchedulesAsObjects(driverSchedules, newFromDate, newToDate);
+			var overLappingSchedules = _.filter(allSchedulesAsObject, function(existingScheduleObject){
+				var existingFromTime = existingScheduleObject.fromDate.getTime();
+				var existingToTime = existingScheduleObject.toDate.getTime();
+				
+				var existingStartsInBetween = existingFromTime &gt; newFromDate.getTime() &amp;&amp; existingFromTime &lt;= newToDate.getTime()
+				var existingEndsInBetween =  existingToTime &gt; newFromDate.getTime() &amp;&amp; existingToTime &lt;= newToDate.getTime()
+				var existingCompletlyOverlaps = existingFromTime &gt;= newFromDate.getTime() &amp;&amp; existingToTime &lt;= newToDate.getTime()
+				
+				return existingCompletlyOverlaps || existingEndsInBetween || existingStartsInBetween
+			});
+		
+			if( overLappingSchedules.length ) {
+				response.error(errors.SCHEDULE_DRIVER_EXISTS);
+			} else {
+				response.success();
+			}
+		})
+		.fail(function(error){
+			response.error(errors.getErrorResponse(error));
+		})
+});
+
+/**
+ * Creates a query that queries for reccuring and none reccuring schedules for laundries that serve within
+ * the given postcodes. Also looks only for schedules within certain dates.
+ * 
+ * @method createLaundryScheduleQueryForPostCodes
+ * @private
+ * @param   {Array}  postCodes   An array with the postcodes. A valid laundry should serve at least one of them.
+ * @param   {Date}   fromDateMin A minimum date to be used as criterion. Finding schedules later than that date.
+ * @param   {Date}   toDateMax   A maximum date to be used as criterion. Finding schedules earlier than that date.
+ * @returns {Object} A &#x60;Parse.Query&#x60; object.
+ */
+var createLaundryScheduleQueryForPostCodes = function createQueryForLaundrySchedulesInPostCodes(postCodes, fromDateMin, toDateMax) {
+	logger.debug(&#x27;Start constructing query for layndrySchedules where serve the given postcodes. Looking for dates between &#x27; + fromDateMin + &#x27; - &#x27; + toDateMax);
+
+	if (fromDateMin &gt; toDateMax) {
+		logger.warn(&#x27;The minimum date(&#x27; + fromDateMin + &#x27;) to look for laundry schedules is higher that the maximum date(&#x27; + toDateMax + &#x27;).&#x27;)
+	}
+
+	var laundriesFromPostCodeQuery = new Parse.Query(Parse.Object.extend(&#x27;Laundry&#x27;));
+	laundriesFromPostCodeQuery.containedIn(&#x27;postCodes&#x27;, postCodes);
+
+	laundriesFromPostCodeQuery.find().then(function laundriesFromPostCodeQueryResponse(r) {
+		logger.warn(JSON.stringify(r));
+	});
+
+
+	//One time scheduling
+	var laundriesOneTimeOffQueryRepeatWeekdaysNo = new Parse.Query(Parse.Object.extend(&#x27;LaundrySchedule&#x27;));
+	laundriesOneTimeOffQueryRepeatWeekdaysNo.equalTo(&#x27;repeatWeekdays&#x27;, false);
+
+	var laundriesOneTimeOffQueryRepeatWeekendsNo = new Parse.Query(Parse.Object.extend(&#x27;LaundrySchedule&#x27;));
+	laundriesOneTimeOffQueryRepeatWeekendsNo.equalTo(&#x27;repeatWeekends&#x27;, false);
+
+	var laundriesOneTimeOffQueryNoRepeat = new Parse.Query(Parse.Object.extend(&#x27;LaundrySchedule&#x27;));
+	laundriesOneTimeOffQueryNoRepeat.doesNotExist(&#x27;repeatWeekdays&#x27;);
+	laundriesOneTimeOffQueryNoRepeat.doesNotExist(&#x27;repeatWeekends&#x27;);
+
+	var laundriesOneTimeOffQuery = new Parse.Query.or(laundriesOneTimeOffQueryRepeatWeekdaysNo, laundriesOneTimeOffQueryRepeatWeekendsNo, laundriesOneTimeOffQueryNoRepeat);
+	laundriesOneTimeOffQuery.greaterThan(&#x27;fromDate&#x27;, fromDateMin);
+
+	//Recurring scheduling
+	var laundriesReccuringTimeOffQueryWeekends = new Parse.Query(Parse.Object.extend(&#x27;LaundrySchedule&#x27;));
+	laundriesReccuringTimeOffQueryWeekends.equalTo(&#x27;repeatWeekends&#x27;, true);
+
+	var laundriesReccuringTimeOffQueryWeekdays = new Parse.Query(Parse.Object.extend(&#x27;LaundrySchedule&#x27;));
+	laundriesReccuringTimeOffQueryWeekdays.equalTo(&#x27;repeatWeekends&#x27;, true);
+
+
+	// Joined queries for scheduling
+	var laundriesTimeOffQuery = new Parse.Query.or(laundriesOneTimeOffQuery, laundriesReccuringTimeOffQueryWeekdays, laundriesReccuringTimeOffQueryWeekends);
+	laundriesTimeOffQuery.include(&#x27;laundry&#x27;);
+	//	laundriesTimeOffQuery.equalTo(&#x27;isTimeOff&#x27;, true);
+	laundriesTimeOffQuery.matchesKeyInQuery(&#x27;laundry&#x27;, &#x27;objectId&#x27;, laundriesFromPostCodeQuery);
+	laundriesTimeOffQuery.ascending(&#x27;fromDate&#x27;);
+	laundriesTimeOffQuery.lessThanOrEqualTo(&#x27;toDate&#x27;, toDateMax);
+	//
+	//	laundriesTimeOffQuery.find().then(function laundriesTimeOffQueryResponse(r) {
+	//		logger.warn(JSON.stringify(r));
+	//	});
+
+	logger.debug(&#x27;Query generated: &#x27; + JSON.stringify(laundriesTimeOffQuery));
+	return laundriesTimeOffQuery;
+};
+
+/**
+ * Creates a query that queries for  reccuring and none reccuring schedules for drivers that work for specific
+ * laundries. Also looks only for schedules within certain dates.
+ *
+ * @method createDriverScheduleQueryForLaundries
+ * @private
+ * @param   {Array}  postCodes   An array with the laundries. A valid driver should work for one of them.
+ * @param   {Date}   fromDateMin A minimum date to be used as criterion. Finding schedules later than that date.
+ * @param   {Date}   toDateMax   A maximum date to be used as criterion. Finding schedules earlier than that date.
+ * @returns {Object} A &#x60;Parse.Query&#x60; object.
+ */
+var createDriverScheduleQueryForLaundries = function createQueryForDriverScheduleOfLaundries(laundries, fromDateMin, toDateMax) {
+	logger.debug(&#x27;These laundries given as criteria: &#x27; + JSON.stringify(laundries));
+	logger.debug(&#x27;Start constructing query for driverSchedules for drivers who belong to the given laundries. Looking for dates between &#x27; + fromDateMin + &#x27; - &#x27; + toDateMax);
+
+	if (fromDateMin &gt; toDateMax) {
+		logger.warn(&#x27;The minimum date(&#x27; + fromDateMin + &#x27;) to look for driver schedules is higher that the maximum date(&#x27; + toDateMax + &#x27;).&#x27;)
+	}
+
+	var driversForLaundryQuery = new Parse.Query(&#x27;Driver&#x27;);
+	driversForLaundryQuery.containedIn(&#x27;laundry&#x27;, laundries);
+	
+	var driverScheduleQuery = createDriverWithRecurringSchedulesQuery(fromDateMin, toDateMax);
+	driverScheduleQuery.matchesKeyInQuery(&#x27;driver&#x27;, &#x27;objectId&#x27;, driversForLaundryQuery);
+
+	logger.debug(&#x27;Query generated: &#x27; + JSON.stringify(driverScheduleQuery));
+	return driverScheduleQuery;
+};
+
+
+var createDriverWithRecurringSchedulesQuery = function createDriverScheduleQuery(fromDateMin, toDateMax){
+	logger.debug(&#x27;Start constructing query for driverSchedules for drivers. Looking for dates between &#x27; + fromDateMin + &#x27; - &#x27; + toDateMax);
+
+	if (fromDateMin &gt; toDateMax) {
+		logger.warn(&#x27;The minimum date(&#x27; + fromDateMin + &#x27;) to look for driver schedules is higher that the maximum date(&#x27; + toDateMax + &#x27;).&#x27;)
+	}
+
+	//One time scheduling
+	var driverScheduleOneTimeOffQueryRepeatWeekdaysNo = new Parse.Query(Parse.Object.extend(&#x27;DriverSchedule&#x27;));
+	driverScheduleOneTimeOffQueryRepeatWeekdaysNo.equalTo(&#x27;repeatWeekdays&#x27;, false);
+
+	var driverScheduleOneTimeOffQueryRepeatWeekendsNo = new Parse.Query(Parse.Object.extend(&#x27;DriverSchedule&#x27;));
+	driverScheduleOneTimeOffQueryRepeatWeekendsNo.equalTo(&#x27;repeatWeekends&#x27;, false);
+
+	var driverScheduleOneTimeOffQueryNoRepeat = new Parse.Query(Parse.Object.extend(&#x27;DriverSchedule&#x27;));
+	driverScheduleOneTimeOffQueryNoRepeat.doesNotExist(&#x27;repeatWeekends&#x27;);
+	driverScheduleOneTimeOffQueryNoRepeat.doesNotExist(&#x27;repeatWeekdays&#x27;);
+
+	var driverScheduleOneTimeOffQuery = new Parse.Query.or(driverScheduleOneTimeOffQueryRepeatWeekdaysNo, driverScheduleOneTimeOffQueryRepeatWeekendsNo, driverScheduleOneTimeOffQueryNoRepeat);
+	driverScheduleOneTimeOffQuery.greaterThanOrEqualTo(&#x27;fromDate&#x27;, fromDateMin);
+
+	//Recurring scheduling
+	var driverScheduleReccuringTimeOffQueryWeekends = new Parse.Query(Parse.Object.extend(&#x27;DriverSchedule&#x27;));
+	driverScheduleReccuringTimeOffQueryWeekends.equalTo(&#x27;repeatWeekends&#x27;, true);
+
+	var driverScheduleReccuringTimeOffQueryWeekdays = new Parse.Query(Parse.Object.extend(&#x27;DriverSchedule&#x27;));
+	driverScheduleReccuringTimeOffQueryWeekdays.equalTo(&#x27;repeatWeekdays&#x27;, true);
+
+	// Joined query for scheduling
+	var driverScheduleQuery = new Parse.Query.or(driverScheduleOneTimeOffQuery, driverScheduleReccuringTimeOffQueryWeekends, driverScheduleReccuringTimeOffQueryWeekdays);
+	driverScheduleQuery.include(&#x27;driver&#x27;);
+	driverScheduleQuery.include(&#x27;toAddress&#x27;);
+	//	driverScheduleQuery.equalTo(&#x27;isTimeOff&#x27;, true);
+	driverScheduleQuery.lessThanOrEqualTo(&#x27;toDate&#x27;, toDateMax);
+	driverScheduleQuery.ascending(&#x27;fromDate&#x27;);
+
+	logger.debug(&#x27;Query generated: &#x27; + JSON.stringify(driverScheduleQuery));
+	return driverScheduleQuery;	
+}
+
+/**
+ * Given the schedules both of driver and laundries, it calculates the reserved hours for each driver on
+ * each post code he may serve.
+ * 
+ * @method getAllSchedules
+ * @private
+ * @param {Array} [laundrySchedules=[]] The schedule with reserved hours of the laundry service providers
+ * @param {Array} [driverSchedules=[]]  The drivers&#x27; schedule with all the reserved hours.
+ * @param {Object}[dateRestrictions]  	A &#x60;DateRestrictions&#x60; instance with restrictions for minimum and maximum
+ * 										allowed date where the schedule will be rendered.
+ * @returns {Array} Returns an array of objects where each object describes the diver availability per post
+ *                  code. 
+ */
+var getAllSchedules = function getAllSchedules(laundrySchedules, driverSchedules, minimumAllowedScheduleDate, maximumAllowedScheduleDate) {
+	laundrySchedules = laundrySchedules || [];
+	driverSchedules = driverSchedules || [];
+
+
+	var scheduleResponse = {};
+
+	scheduleResponse.minPickUpDate = minimumAllowedScheduleDate;
+	scheduleResponse.maxDeliveryDate = maximumAllowedScheduleDate;
+	scheduleResponse.reserved = [];
+
+	//Object {kTAN9H4G5O: Array[1]}
+	var lSchedulesPerLaundry = _.groupBy(laundrySchedules, function (schedule) {
+		return schedule.get(&#x27;laundry&#x27;).id;
+	});
+
+	var driverSchedulesPerLaundry = _.groupBy(driverSchedules, function (schedule) {
+		return schedule.get(&#x27;driver&#x27;).get(&#x27;laundry&#x27;).id;
+	});
+
+	Object.keys(lSchedulesPerLaundry).forEach(function (laundryId) {
+		//Getting the reserved time for drivers of each laundry
+		var numberOfDriversForLaundry = _.uniq(_.map(driverSchedulesPerLaundry[laundryId], function (driverSched) {
+			return driverSched.get(&#x27;driver&#x27;).id;
+		})).length;
+		var driverSchedulesForLaundry = getDriverReservedHours(driverSchedulesPerLaundry[laundryId], numberOfDriversForLaundry, minimumAllowedScheduleDate, maximumAllowedScheduleDate);
+		driverSchedulesForLaundry = driverSchedulesForLaundry.concat(_.map(lSchedulesPerLaundry[laundryId]), function (laundrySchedules) {
+			return {
+				fromDate: laundrySchedules.get(&#x27;fromDate&#x27;),
+				toDate: laundrySchedules.get(&#x27;toDate&#x27;)
+			}
+		});
+		scheduleResponse.reserved = scheduleResponse.reserved.concat(driverSchedulesForLaundry);
+	});
+
+	return scheduleResponse;
+};
+
+
+function getDriverReservedHours(schedules, numOfDrivers, minimumAllowedScheduleDate, maximumAllowedScheduleDate) {
+	var schedulesHeap = getHeapForSchedules(schedules, minimumAllowedScheduleDate, maximumAllowedScheduleDate);
+
+	var freeDrivers = numOfDrivers;
+	var reservedSchedule = {
+		fromDate: undefined,
+		toDate: undefined,
+		postCodes: []
+	};
+
+	var allReservedSchedules = [];
+	while (schedulesHeap.size &gt; 1) {
+		var scheduleFragmet = schedulesHeap.pop();
+		if (scheduleFragmet.start) {
+			freeDrivers--;
+			reservedSchedule.postCodes = reservedSchedule.postCodes.concat(scheduleFragmet.postCodes);
+			reservedSchedule.fromDate = scheduleFragmet.time;
+
+		} else {
+			freeDrivers++;
+			if (freeDrivers === 1) {
+				reservedSchedule.toDate = scheduleFragmet.time;
+				reservedSchedule.postCodes = _.uniq(reservedSchedule.postCodes);
+				allReservedSchedules.push(_.clone(reservedSchedule));
+				reservedSchedule.postCodes = [];
+				reservedSchedule.toDate = undefined;
+				reservedSchedule.fromDate = undefined;
+			} else {
+				scheduleFragmet.postCodes.forEach(function (postCode) {
+					var indexOfPostCode = reservedSchedule.postCodes.indexOf(postCode);
+					while (~indexOfPostCode) {
+						reservedSchedule.postCodes.splice(indexOfPostCode, 1);
+						indexOfPostCode = reservedSchedule.postCodes.indexOf(postCode);
+					}
+				});
+			}
+		}
+	}
+
+	return allReservedSchedules;
+}
+
+
+function getHeapForSchedules(schedules, minimumAllowedScheduleDate, maximumAllowedScheduleDate) {
+	var heapComparator = function (aObject, anotherObject) {
+		if (aObject.time &lt; anotherObject.time) {
+			return true;
+		}
+		if (aObject.time === anotherObject.time) {
+			return aObject.start === true;
+		}
+		return false;
+	};
+	var schedulesAsObjects = getSchedulesAsObjects(schedules, minimumAllowedScheduleDate, maximumAllowedScheduleDate);
+
+	var heap = Heap.create([], heapComparator);
+
+	_.forEach(schedulesAsObjects, function (scheduleObject) {
+		var shouldRepeat = !!scheduleObject.repeatWeekdays || !!scheduleObject.repeatWeekends;
+
+		heap.push({
+			time: scheduleObject.fromDate,
+			repeat: shouldRepeat,
+			postCodes: scheduleObject.postCodes,
+			start: true
+		});
+
+		heap.push({
+			time: scheduleObject.toDate,
+			repeat: shouldRepeat,
+			postCodes: scheduleObject.postCodes,
+			start: false
+		});
+	});
+
+	return heap;
+}
+
+
+function getSchedulesAsObjects(schedules, minimumAllowedScheduleDate, maximumAllowedScheduleDate) {
+	var expandedSchedules = [];
+	schedules = schedules || [];
+
+	schedules.forEach(function (schedule) {
+		var scheduleObject = {
+			fromDate: schedule.get(&#x27;fromDate&#x27;),
+			toDate: schedule.get(&#x27;toDate&#x27;),
+			repeatWeekdays: !!schedule.get(&#x27;repeatWeekdays&#x27;),
+			repeatWeekends: !!schedule.get(&#x27;repeatWeekends&#x27;)
+		}
+		
+		try {
+			scheduleObject.postCodes = [schedule.get(&#x27;toAddress&#x27;).get(&#x27;postCode&#x27;)];
+		} catch (e) {
+			logger.warn(JSON.stringify(schedule));
+			logger.error(e);
+		}
+
+		if ((scheduleObject.repeatWeekdays || scheduleObject.repeatWeekends)) {
+			expandedSchedules = expandedSchedules.concat(getExpandedSchedulesForRecurring(scheduleObject, minimumAllowedScheduleDate, maximumAllowedScheduleDate));
+		} else {
+			expandedSchedules.push(scheduleObject);
+		}
+	});
+
+	return expandedSchedules;
+}
+
+
+function getExpandedSchedulesForRecurring(schedule, minimumAllowedScheduleDate, maximumAllowedScheduleDate) {
+	var oneHourInMilliSeconds = 60 * 60 * 1000;
+	var oneDayInMilliSeconds = 24 * oneHourInMilliSeconds;
+	var expandedSchedules = [];
+
+
+	var scheduleFromDate = new Date(schedule.fromDate);
+
+	var scheduleDurationInMs = schedule.toDate.getTime() - schedule.fromDate.getTime();
+
+	if (schedule.fromDate &lt; minimumAllowedScheduleDate) {
+		scheduleFromDate.setDate(minimumAllowedScheduleDate.getDate());
+		scheduleFromDate.setMonth(minimumAllowedScheduleDate.getMonth());
+		scheduleFromDate.setYear(minimumAllowedScheduleDate.getFullYear());
+		//schedule.toDate = new Date(schedule.fromDate.getTime() + scheduleDurationInMs);
+	}
+
+	while (scheduleFromDate &lt;= maximumAllowedScheduleDate) {
+		var dayOfWeek = scheduleFromDate.getDay();
+		var isWeekEnd = dayOfWeek === 6 || dayOfWeek === 0; //Sat=6, Sun=0
+
+		if ((schedule.repeatWeekdays &amp;&amp; !isWeekEnd) || (schedule.repeatWeekends &amp;&amp; isWeekEnd)) {
+			var clonedSchedule = _.clone(schedule);
+			clonedSchedule.fromDate = scheduleFromDate;
+			clonedSchedule.toDate = new Date(clonedSchedule.fromDate.getTime() + scheduleDurationInMs);
+			expandedSchedules.push(clonedSchedule);
+		}
+
+		scheduleFromDate = new Date(scheduleFromDate.getTime() + oneDayInMilliSeconds);
+	}
+
+	return expandedSchedules;
+}
+
+
+/**
+ * Gets all the reserved hours a business will have in conjuction with the schedule of its drivers
+ * 
+ * @method getSchedulesForPostCodes
+ * @param {Array}  postCodes The post codes on where to look for available laundries. Is an array
+ *                           since the user may have more than one adresses registered to him. 
+ * @param {Object} response  An object with reserved hours per post code.
+ *                           An example of result would be:
+ *                           &#x60;&#x60;&#x60;javascript
+ *                           {
+ *                  	     	minPickUpDate: 29 Jul 2015T12:00,
+ *                   	       	maxDeliveryDate: 12 Aug 2015T12:00,
+ *                    	      	reserved: [{
+ * 					      			fromDate: 29 Jul 2015T15:00,
+ *	 				        		toDate: 29 Jul 2015T15:30,
+ *  	             				postCode: 34111
+ * 						      	},{
+ * 						      		fromDate: 29 Jul 2015T15:00,
+ * 					        		toDate: 29 Jul 2015T15:30,
+ *               					postCode: 58100
+ * 					    	  	}]
+ *			                  }
+ *                     &#x60;&#x60;&#x60;
+ *
+ */
+Parse.Cloud.define(&#x27;getSchedulesForPostCodes&#x27;, function getSchedulesForAddresses(request, response) {
+
+	Parse.Cloud.useMasterKey();
+	var laundrySchedules, driverSchedules, laundriesTimeOffQuery;
+	var orderDateRestrictions = new orderRestrictions.OrderDate();
+	var postCodes = request.params.postCodes;
+	if (!_.isArray(postCodes)) {
+		logger.error(&#x27;An array was expected as postCodes parameter by the client. Instead received as parameter: &#x27; + JSON.stringify(postCodes));
+		response.error(errors.INVALID_ARGUMENT);
+	}
+
+	logger.debug(&#x27;Trying to calculate schedule based on post codes: &#x27; + JSON.stringify(postCodes));
+
+	/*
+	 *
+	 *
+	 *
+	 * Mock response
+	 *
+	 *
+	 * */
+		var driverAvailabilityInterval = 1800000;
+	
+		var scheduleResponseMock = {
+			minPickUpDate: orderDateRestrictions.minimumAllowed,
+			maxDeliveryDate: orderDateRestrictions.maximumAllowed,
+			reserved: []
+		};
+	
+		var numberOfreservedSlots = 10 + Math.random() * (100 - 10)
+		for (var i = 0; i &lt;= numberOfreservedSlots; i++) {
+			var reserved = {
+				fromDate: getRandomDateForMock(orderDateRestrictions.minimumAllowed, orderDateRestrictions.maximumAllowed),
+				postCode: [getRandomPostCode()]
+			};
+			reserved.toDate = new Date(reserved.fromDate.getTime() + driverAvailabilityInterval);
+			scheduleResponseMock.reserved.push(reserved);
+		}
+	
+		function getRandomDateForMock(from, to) {
+			if (!from) {
+				from = new Date(1900, 0, 1).getTime();
+			} else {
+				from = from.getTime();
+			}
+			if (!to) {
+				to = new Date(2100, 0, 1).getTime();
+			} else {
+				to = to.getTime();
+			}
+			var randomDate = new Date(from + Math.random() * (to - from));
+	
+			randomDate.setMinutes(0);
+			randomDate.setSeconds(0);
+			randomDate.setMilliseconds(0);
+			return new Date(randomDate.getTime());
+		}
+	
+		function getRandomPostCode() {
+			return postCodes[Math.floor(Math.random() * postCodes.length)];
+		}
+	
+		/*End of mock response*/
+		response.success(scheduleResponseMock);
+
+//	laundriesTimeOffQuery = createLaundryScheduleQueryForPostCodes(postCodes, orderDateRestrictions.minimumAllowed, orderDateRestrictions.maximumAllowed);
+//	laundriesTimeOffQuery.find()
+//		.done(function getDriversForLaundries(laundrySchedulesResponse) {
+//			logger.debug(&#x27;Found &#x27; + laundrySchedulesResponse.length + &#x27; reserved timeslots from laudries. &#x27; + JSON.stringify(laundrySchedulesResponse));
+//			if (!laundrySchedulesResponse || !laundrySchedulesResponse.length) {
+//				response.success([]);
+//			}
+//
+//			laundrySchedules = laundrySchedulesResponse;
+//
+//
+//			var laundries = _.map(laundrySchedules, function (schedule) {
+//				var laundry = schedule.get(&#x27;laundry&#x27;);
+//				return laundry;
+//			});
+//
+//			var driverScheduleQuery = createDriverScheduleQueryForLaundries(laundries, orderDateRestrictions.minimumAllowed, orderDateRestrictions.maximumAllowed);
+//
+//			logger.debug(&#x27;About to look for driver schedules&#x27;);
+//			return driverScheduleQuery.find();
+//		})
+//		.done(function calculateSchedules(driverSchedulesResponse) {
+//			logger.debug(&#x27;Based on laundries results found the following driver schedule timeslots: &#x27; + JSON.stringify(driverSchedules));
+//			if (!driverSchedulesResponse || !driverSchedulesResponse.length) {
+//				response.success([]);
+//				return;
+//			}
+//			driverSchedules = driverSchedulesResponse;
+//
+//			var scheduleResponse = getAllSchedules(laundrySchedules, driverSchedules, orderDateRestrictions.minimumAllowed, orderDateRestrictions.maximumAllowed);
+//
+//			logger.debug(&#x27;The final result for schedules is &#x27; + JSON.stringify(scheduleResponse));
+//
+//			response.success(scheduleResponse);
+//
+//		})
+//		.fail(function (error) {
+//			logger.warn(&#x27;An error occured while lookign for schedules. Error response: &#x27; + JSON.stringify(error));
+//			logger.error(error);
+//			response.error(errors.getErrorResponse(error));
+//		})
+});
+    </pre>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/jquery/jquery-1.8.2.min.js"></script>
+<script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script src="../assets/js/yuidoc-bootstrap.js"></script>
+<script>prettyPrint();</script>
+</body>
+</html>

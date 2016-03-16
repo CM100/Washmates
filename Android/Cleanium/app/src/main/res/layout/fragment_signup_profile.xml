@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scroll"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/info"
+        style="@style/SignupFragmentTitleBaseStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/profile_information" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <EditText
+                android:id="@+id/firstName"
+                style="@style/SignupFragmentEditTextBaseStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/edittext_user_icon_gray"
+                android:hint="@string/signup_first_name"
+                android:inputType="textPersonName|textCapSentences" />
+
+            <EditText
+                android:id="@+id/lastName"
+                style="@style/SignupFragmentEditTextBaseStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/edittext_user_icon_gray"
+                android:hint="@string/signup_last_name"
+                android:inputType="textPersonName|textCapSentences" />
+
+            <EditText
+                android:id="@+id/email"
+                style="@style/SignupFragmentEditTextBaseStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/edittext_email_icon_gray"
+                android:hint="@string/signup_email"
+                android:inputType="textEmailAddress" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <TextView
+                    android:id="@+id/phone_area_code"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.88"
+                    android:paddingLeft="@dimen/signup_edittext_vertical_padding"
+                    android:gravity="center_vertical"
+                    android:text="@string/signup_phone_number_area_code"
+                    android:textColor="@android:color/black"
+                    android:background="@drawable/signup_edittext_background"/>
+
+                <EditText
+                    android:id="@+id/phone"
+                    style="@style/SignupFragmentEditTextBaseStyle"
+                    android:layout_weight="0.12"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableRight="@drawable/edittext_phone_icon_gray"
+                    android:hint="@string/signup_phone_number"
+                    android:inputType="phone" />
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/password"
+                style="@style/SignupFragmentEditTextBaseStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/edittext_password_icon_gray"
+                android:gravity="center_vertical"
+                android:hint="@string/signup_password"
+                android:inputType="textPassword" />
+
+            <EditText
+                android:id="@+id/confirmPassword"
+                style="@style/SignupFragmentEditTextBaseStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/edittext_confirm_pass_icon_gray"
+                android:hint="@string/signup_confirm_password"
+                android:inputType="textPassword" />
+
+
+            <LinearLayout
+                android:id="@+id/bottomBar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center|bottom"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/nextBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/next_fragment_button_blue"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/signup_edittext_horizontal_padding"
+                    android:paddingTop="@dimen/signup_edittext_horizontal_padding"
+                    android:text="@string/next" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/bottomBar2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center|bottom"
+                android:visibility="gone"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/saveBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/place_order_icon"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/signup_edittext_horizontal_padding"
+                    android:paddingTop="@dimen/signup_edittext_horizontal_padding"
+                    android:text="@string/save" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -1,0 +1,183 @@
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <RelativeLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/navigationDrawer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:popupTheme="@style/Theme.AppCompat"
+            app:theme="@style/ToolbarTheme">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/toolbar_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:layout_toLeftOf="@+id/logo"
+                    android:text="@string/settings_screen_header"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/font_size_16sp"
+                    android:textStyle="bold" />
+                <ImageView
+                    android:id="@+id/logo"
+                    android:layout_width="32dp"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerInside"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="8dp"
+                    android:src="@drawable/logo_menu" />
+            </RelativeLayout>
+        </android.support.v7.widget.Toolbar>
+
+
+        <ScrollView
+            android:layout_below="@id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/profile_wrapper"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:layout_marginBottom="1dp"
+                    android:background="#6dc1e3">
+
+                    <ImageView
+                        android:id="@+id/profile_info_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentLeft="true"
+                        android:src="@drawable/settings_profile_icon"/>
+
+                    <TextView
+                        android:id="@+id/profile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="12dp"
+                        android:layout_toRightOf="@id/profile_info_icon"
+                        android:text="Profile Information"
+                        android:textSize="@dimen/font_size_16sp"
+                        android:textColor="@android:color/white"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/settings_page_arrow"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/address_wrapper"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:layout_marginBottom="1dp"
+                    android:background="#6dc1e3">
+
+                    <ImageView
+                        android:id="@+id/address_info_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentLeft="true"
+                        android:src="@drawable/settings_address_icon"/>
+
+                    <TextView
+                        android:id="@+id/address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="12dp"
+                        android:layout_toRightOf="@id/address_info_icon"
+                        android:text="Address Information"
+                        android:textSize="@dimen/font_size_16sp"
+                        android:textColor="@android:color/white"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/settings_page_arrow"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/payment_wrapper"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:background="#6dc1e3">
+
+                    <ImageView
+                        android:id="@+id/payment_info_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentLeft="true"
+                        android:src="@drawable/settings_payment_info"/>
+
+                    <TextView
+                        android:id="@+id/payment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="12dp"
+                        android:layout_toRightOf="@id/payment_info_icon"
+                        android:text="Payment Information"
+                        android:textSize="@dimen/font_size_16sp"
+                        android:textColor="@android:color/white"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/settings_page_arrow"/>
+
+                </RelativeLayout>
+            </LinearLayout>
+        </ScrollView>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/toolbar"
+            android:background="@drawable/toolbar_shadow"/>
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/navigation_drawer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="left"
+        android:background="@color/navigation_drawer_background"
+        android:scrollbars="none">
+    </android.support.v7.widget.RecyclerView>
+</android.support.v4.widget.DrawerLayout>

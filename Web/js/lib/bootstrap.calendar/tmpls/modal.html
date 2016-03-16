@@ -1,0 +1,121 @@
+<% 	event.date_start = new Date(parseInt(event.start));
+	event.date_end = new Date(parseInt(event.end)); 
+   	schedule = event.parseObject;
+    schedule.driver.user.image = schedule.driver.user.image || '../dist/img/user_profile_default.png'; 
+    isRecurring = schedule.repeatWeekends || schedule.repeatWeekdays;
+   %>
+<div id = "event-meta" data-driver-id="<%=schedule.driver.objectId%>" data-schedule-id="<%= schedule.objectId %>">
+	<div class="panel panel-info" data-roles-allowed="admin laundry">
+		<div class="panel-heading">
+			<i class = "fa fa-bus"></i> <span>Driver Details</span>
+		</div>
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-md-2 col-sm-4">
+					<img alt="Profile Image" class="img-responsive hidden-sm img-circle hidden-xs" src="<%=schedule.driver.user.image %>">
+				</div>
+				<div class="col-md-5 col-sm-4">
+					<ul class="list-unstyled">
+						
+						<li><i class="fa fa-user"></i> <%- schedule.driver.user.fname + ' ' + schedule.driver.user.lname %></li>
+						<li><i class="fa fa-envelope-o"></i> <a href="mailto:<%- schedule.driver.user.email %>" target="_top"> <%- schedule.driver.user.email %></a></li>
+						<li><i class="fa fa-phone"></i> <a href="tel:<%- schedule.driver.user.phone %>"><%- schedule.driver.user.phone %></a></li>
+					</ul>
+				</div>
+				
+				<div class="col-md-5 col-sm-4">
+					<ul class="list-unstyled">
+						<li><i class="fa fa-truck"></i> <span><%- schedule.driver.postCodes.join(', ') %></span></li>
+						<li><i class="fa fa-building-o"></i> <span><%- schedule.driver.laundry.name %></span></li>
+					</ul>
+				</div>
+			</div>
+			<br />	
+		</div>
+		<% if ( !schedule.isTimeOff && !isRecurring ) { %>
+		<div class="panel-footer">
+			<div class="form-group">
+				<select id='driver-schedule-assign' name="driver-schedule-assign" class="form-control">
+					<option value='' disabled selected>Assign it to driver</option>
+				</select>
+			</div>
+		</div>
+		<% } %>
+	</div>
+	<div class="panel panel-info">
+		<div class="panel-heading">
+			<i class = "fa fa-clock-o"></i> <span>Time</span>
+			<% if( schedule.repeatWeekends ) { %>
+				<span class="label label-warning">Recurring Sat-Sun </span><br/>
+			<% }
+			   if( schedule.repeatWeekdays ) { %>
+				<span class="label label-info">Recurring Workdays</span><br/>
+			<% } %>
+		</div>
+		<div class="panel-body">
+		<span><% if( !schedule.isTimeOff ) { %>Should arrive between <% } else { %>Has time off between <%}%>
+			<time datetime="<%= event.date_start %>"><code><%= event.date_start.getDate() %> <%= calendar.locale["m" + event.date_start.getMonth()] %> <%= event.date_start.getFullYear() %>, at <%= event.date_start.getHours() %>:<%= event.date_start.getMinutes() %> </code></time>
+			and <time datetime="<%= event.date_end %>"><code> <%= event.date_end.getDate() %> <%= calendar.locale["m" + event.date_end.getMonth()] %> <%= event.date_end.getFullYear() %> at <%= event.date_end.getHours() %>:<%= event.date_end.getMinutes() %> </code></time> </span><br />	
+		</div>
+		<% if( !isRecurring ) { %>
+		<div class="panel-footer" data-roles-allowed="admin laundry">
+			<div class="form-group form-inline">
+				<label for="change-schedule-timepicker-from" class="control-label">From</label>
+				<div class='input-group date' >
+					<input type='text' class="form-control" id='change-schedule-timepicker-from'/>
+					<span class="input-group-addon">
+					<span class="glyphicon glyphicon-calendar"></span>
+					</span>
+				</div>
+				<label for="change-schedule-timepicker-to" class="control-label">To</label>
+				<div class='input-group date' >
+					<input type='text' class="form-control" id='change-schedule-timepicker-to'/>
+					<span class="input-group-addon">
+					<span class="glyphicon glyphicon-calendar"></span>
+					</span>
+				</div>
+			</div>
+		</div>
+		<% } %>
+	</div>
+	<div>
+	<div class="panel panel-info">
+		<div class="panel-heading">
+			<i class="fa fa-map-marker"></i> <span>Location Info</span>
+		</div>
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-md-6">
+					<p><span>Client's full address is:</span></p>
+					<pre>
+			<% if( schedule.toAddress.streetTwo ) { %>
+<i><u>Street:</u></i> 
+<b><%-schedule.toAddress.street %>,<%-schedule.toAddress.streetTwo %></b>
+<i><u>City:</u></i> 
+<%-schedule.toAddress.city %>
+<i><u>State:</u></i> 
+<%-schedule.toAddress.state %>
+<i><u>Postal:</u></i> 
+<%-schedule.toAddress.postCode %>
+<% } else { %>
+<i><u>Street:</u></i> <b>
+<%-schedule.toAddress.street %></b>
+<i><u>City:</u></i> 
+<%-schedule.toAddress.city %>
+<i><u>State:</u></i> 
+<%-schedule.toAddress.state %>
+<i><u>Postal:</u></i> 
+<%-schedule.toAddress.postCode %>
+<% }%></pre>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<% if( !isRecurring ) { %>
+ <a data-roles-allowed="admin laundry" href = "<%= event.url %>" class = "btn btn-primary change-schedule-save-btn"><i class = "fa fa-save"></i>Save Changes</a>
+ <a data-roles-allowed="admin laundry driver" href = "<%= event.url %>" class = "btn btn-danger change-schedule-delete-btn"><i class = "fa fa-remove"></i>Delete This</a>
+<% } %>
+</div>
+
+

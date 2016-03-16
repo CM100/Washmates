@@ -1,0 +1,310 @@
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <RelativeLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/navigationDrawer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:popupTheme="@style/Theme.AppCompat"
+            app:theme="@style/ToolbarTheme">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/toolbar_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:layout_toLeftOf="@+id/logo"
+                    android:text="@string/washing_status_header"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/font_size_16sp"
+                    android:textStyle="bold" />
+                <ImageView
+                    android:id="@+id/logo"
+                    android:layout_width="32dp"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerInside"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="8dp"
+                    android:src="@drawable/logo_menu" />
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.Toolbar>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/toolbar">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <singularity.com.cleanium.controls.WashingStagesControl
+                    android:id="@+id/progress_stages_view"
+                    android:layout_width="@dimen/washing_status_custom_control_size"
+                    android:layout_height="@dimen/washing_status_custom_control_size"
+                    android:layout_marginTop="@dimen/washing_status_custom_control_margin_top"
+                    android:layout_marginBottom="@dimen/washing_status_custom_control_margin_top"
+                    android:layout_gravity="center_horizontal"/>
+
+                <LinearLayout
+                    android:id="@+id/pickupDropoffHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="100">
+
+                    <TextView
+                        android:id="@+id/pickupHeader"
+                        style="@style/ScheduleHeaderStyleBase"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:drawableRight="@drawable/pickup"
+                        android:gravity="center_vertical"
+                        android:text="@string/pickup"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/font_size_16sp" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/white" />
+
+                    <TextView
+                        android:id="@+id/dropOffHeader"
+                        style="@style/ScheduleHeaderStyleBase"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:drawableRight="@drawable/dropoff"
+                        android:gravity="center_vertical"
+                        android:text="@string/dropoff"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/font_size_16sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/pickupDropoffDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    android:orientation="horizontal"
+                    android:weightSum="100">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/ScheduleButtonStyleBase"
+                        android:layout_weight="50"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/pickupDate"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left"
+                            android:text="01/16"
+                            android:textColor="@android:color/black"
+                            android:textSize="@dimen/font_size_24sp" />
+
+                        <TextView
+                            android:id="@+id/pickupDay"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left"
+                            android:text="Thursday"
+                            android:textColor="@color/headers_background"
+                            android:textSize="@dimen/font_size_10sp" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/divider_background" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:layout_weight="50"
+                        style="@style/ScheduleButtonStyleBase"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/dropOffDate"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left"
+                            android:text="01/17"
+                            android:textColor="@android:color/black"
+                            android:textSize="@dimen/font_size_24sp" />
+
+                        <TextView
+                            android:id="@+id/dropOffDay"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left"
+                            android:text="Friday"
+                            android:textColor="@color/headers_background"
+                            android:textSize="@dimen/font_size_10sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/one_dp"
+                    android:background="@color/divider_background" />
+
+                <LinearLayout
+                    android:id="@+id/pickupDropoffTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/pickupDropoffDate"
+                    android:background="@android:color/white"
+                    android:orientation="horizontal"
+                    android:weightSum="100">
+
+                    <TextView
+                        android:id="@+id/pickupTime"
+                        style="@style/ScheduleButtonStyleBase"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:paddingBottom="24dp"
+                        android:paddingTop="24dp"
+                        android:layout_gravity="left"
+                        android:gravity="center_vertical"
+                        android:text="09:00 - 09:30 AM"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/font_size_16sp" />
+
+                    <View
+                        android:layout_width="@dimen/one_dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/divider_background" />
+
+                    <TextView
+                        android:id="@+id/dropOffTime"
+                        style="@style/ScheduleButtonStyleBase"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:paddingBottom="24dp"
+                        android:paddingTop="24dp"
+                        android:layout_gravity="left"
+                        android:gravity="center_vertical"
+                        android:text="09:00 - 09:30 AM"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/font_size_16sp" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/statusNotes"
+                    style="@style/ScheduleHeaderStyleBase"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableRight="@drawable/status_notes_icon"
+                    android:gravity="center_vertical"
+                    android:text="@string/status_notes_text"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/font_size_16sp" />
+
+                <TextView
+                    android:id="@+id/notes"
+                    style="@style/ScheduleHeaderStyleBase"
+                    android:background="@android:color/transparent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/font_size_16sp"
+                    android:textColor="@android:color/black" />
+
+                <FrameLayout
+                    android:id="@+id/bill"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/assignedDriver"
+                    style="@style/ScheduleHeaderStyleBase"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableRight="@drawable/status_notes_icon"
+                    android:gravity="center_vertical"
+                    android:text="@string/assigned_driver_text"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/font_size_16sp" />
+
+                <RelativeLayout
+                    android:id="@+id/driver_data_wrapper"
+                    android:layout_width="match_parent"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/drivers_picture"
+                        android:layout_width="137dp"
+                        android:layout_height="137dp"
+                        android:scaleType="centerCrop"
+                        android:layout_centerHorizontal="true"/>
+                    <TextView
+                        android:id="@+id/drivers_name"
+                        android:background="@android:color/transparent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/drivers_picture"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="8dp"
+                        android:textSize="@dimen/font_size_16sp"
+                        android:textColor="@android:color/black" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/cancel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="@dimen/pay_button_margin_top"
+                    android:paddingBottom="@dimen/place_order_horizontal_padding"
+                    android:paddingTop="@dimen/place_order_horizontal_padding"
+                    android:text="@string/cancel_button_text"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/font_size_16sp"
+                    android:background="@color/pay_submit_button_background"/>
+            </LinearLayout>
+         </ScrollView>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/toolbar"
+            android:background="@drawable/toolbar_shadow"/>
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/navigation_drawer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="left"
+        android:background="@color/navigation_drawer_background"
+        android:scrollbars="none">
+    </android.support.v7.widget.RecyclerView>
+</android.support.v4.widget.DrawerLayout>

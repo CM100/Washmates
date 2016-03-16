@@ -1,0 +1,212 @@
+<resources>
+    <string name="app_name">Washmates</string>
+    <string name="title_activity_splashscreen">SplashscreenActivity</string>
+    <string name="loading_message">Loading... please wait</string>
+    <string name="no_internet">No internet connection available</string>
+    <string name="email_not_verified">Please verify your email first.</string>
+    <string name="error_title">Error</string>
+    <string name="ok">OK</string>
+    <string name="success">Success</string>
+    <string name="success_reset_password_message">Your password is sent to your email address.</string>
+    <string name="profile_updated">Profile updated successfully.</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_prelogin_screen">PreloginScreen</string>
+
+    <string name="parse_app_id">cGiRSDM8unMmInG0iDO4DG3oesrWm00QGNcU6eUN</string>
+    <string name="parse_client_key">u8U82JgEj8CNehEA9xBL2exXTfMjsY4l348RAdz8</string>
+
+
+    <!-- Starting Fragment -->
+    <string name="login_button_text">LOGIN</string>
+    <string name="signup_button_text">SIGN UP</string>
+
+    <!-- Login Fragment -->
+    <string name="login_button_hint_text">email</string>
+    <string name="password_button_hint_text">password</string>
+    <string name="forgot_password_text">Forgot you login details?</string>
+    <string name="forgot_password_click_text">Click</string>
+    <string name="forgot_password_link_text">HERE</string>
+    <string name="login_succesful">Login successful.</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_signup">SignupActivity</string>
+
+    <!-- Signup screens -->
+    <string name="profile_information">Profile Information</string>
+    <string name="address_information">Address Information</string>
+    <string name="payment_information">Payment Information</string>
+    <string name="signup_first_name">First Name</string>
+    <string name="signup_last_name">Last Name</string>
+    <string name="signup_phone_number_area_code">+614</string>
+    <string name="signup_phone_number">Phone Number</string>
+    <string name="signup_email">E-Mail</string>
+    <string name="signup_password">Password</string>
+    <string name="signup_confirm_password">Confirm Password</string>
+    <string name="signup_address_line1">Address Line 1</string>
+    <string name="signup_address_line2">Address Line 2</string>
+    <string name="signup_city">City</string>
+    <string name="signup_state">State</string>
+    <string name="signup_post_code">Post Code</string>
+    <string name="access_notes">Access Notes</string>
+    <string name="signup">SIGN UP</string>
+    <string name="signup_credit_card_number">Credit Card Number</string>
+    <string name="signup_cvc_number">CVC Number</string>
+    <string name="finish">Finish</string>
+    <string name="back">Back</string>
+    <string name="next">Next</string>
+    <string name="save">Save</string>
+    <string name="delete">Delete</string>
+    <string name="home">Home</string>
+    <string name="work">Work</string>
+    <string name="other">Other</string>
+    <string name="location">Location</string>
+    <string name="email_not_valid">E-Mail address not valid</string>
+    <string name="phone_number_scale">Phone number must have 9 to 13 digits</string>
+    <string name="password_not_match">Confirm password does not match</string>
+    <string name="expiration_date">Expiration date</string>
+    <string name="month">MM</string>
+    <string name="year">YYYY</string>
+    <string name="authenticationError">We are experiencing technicalissues in the moment, please try later</string>
+    <string name="registration_successful">Your account has been created, please validate your email before login.</string>
+    <string name="email_taken">This email is already registered. If you don\'t remember your password please reset it.</string>
+    <string name="invalidPhoneNumber">Phone number is not valid</string>
+    <string name="invalidFirstName">First name</string>
+    <string name="invalidLastName">Last name</string>
+    <string name="invalidEmailAddress">Email address is not valid</string>
+    <string name="invalidPassword">Password is too short</string>
+    <string name="isNotSameConfirmPassword">Password and confirm password are not same</string>
+    <string name="invalidPostCode">Post code invalid</string>
+    <string name="step_not_mandatory">This step is not mandatory.You can add payment information later</string>
+    <string name="credit_card_data_invalid">Credit card data is not valid. Please change the data and try again.</string>
+    <string name="credit_card_saved">Credit card data is saved.</string>
+
+
+    <string name="logout_are_you_sure">Are you sure that you want to log out?</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
+
+    <!-- Pricing screen -->
+    <string name="pricing_title">PRICING</string>
+    <string name="bag_of_laundry">Bag of laundry (max 10kg)</string>
+    <string name="bag_of_laundry_price">$24 per bag</string>
+    <string name="iron_shirts">Iron shirts</string>
+    <string name="iron_shirts_price">$3.50 each</string>
+    <string name="dry_cleaning">Dry cleaning standard items\nThis includes: Trousers, Slacks, Jackets, Vests, Skirts, Jumpers, Ties, Blouses</string>
+    <string name="dry_cleaning_price">$10 each</string>
+    <string name="dry_cleaning_not_standard">Dry cleaning not standard items as per a list.\nThis includes: Full length coats, Dresses, Doonas, Bedspreads</string>
+    <string name="pickup_and_delivery_free">Pickup and Delivery: Free for orders over $20</string>
+    <string name="pickup_and_delivery_free_price">Free</string>
+    <string name="pickup_and_delivery_otherwise">Pickup and Delivery: For orders below $20</string>
+    <string name="pickup_and_delivery_otherwise_price">$7</string>
+    <string name="no_show">No show fee</string>
+    <string name="no_show_price">$7</string>
+
+    <!-- Schedule a pickup screen -->
+    <string name="schedule_pickup">SCHEDULE A PICKUP</string>
+    <string name="title_activity_schedule_pickup">SchedulePickupActivity</string>
+    <string name="please_choose_location">Please choose location</string>
+    <string name="address">Address</string>
+    <string name="pick_date">Pick a Date</string>
+    <string name="pick_a_time">Pick Time</string>
+    <string name="invalid_address">Please choose location.</string>
+    <string name="order_invalid">Pick up and drop off times are not valid.</string>
+    <string name="pickup_invalid">Please choose pickup date and time.</string>
+    <string name="delivery_invalid">Please choose drop off date and time.</string>
+    <string name="order_already_exists">You have a pending order. You can not make multiple orders. Please try again after completion of the current order.</string>
+
+    <!-- Bill dialog -->
+    <string name="invalid_order_bill">This order doesn\'t has a bill or is not in valid format.</string>
+    <string name="status_notes">Status Notes</string>
+    <string name="bill_breakdown">Costs Breakdown</string>
+    <string name="total">Billing Total (Inclusive GST)</string>
+
+    <string name="menu_home">Wash status</string>
+    <string name="menu_schedule_pickup">Schedule a pickup</string>
+    <string name="menu_pricing">Pricing</string>
+    <string name="menu_faq">Faq</string>
+    <string name="menu_terms_of_use">Terms of use</string>
+    <string name="menu_order_history">Order history</string>
+    <string name="menu_contact_us">Contact us</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_support">Support</string>
+    <string name="menu_coupons">Coupons</string>
+    <string name="menu_logout">Logout</string>
+    <string name="other_services">Other Services</string>
+    <string name="other_services_message">Include washing and dry cleaning</string>
+    <string name="pickup">Pickup</string>
+    <string name="dropoff">Drop Off</string>
+    <string name="notes">Notes</string>
+    <string name="note_hint">i.e. use scent-free detergent</string>
+    <string name="place_order">Place Order</string>
+    <string name="title_activity_test">TestActivity</string>
+    <string name="title_activity_rate_service">RateServiceActivity</string>
+
+    <!-- Rate Service screen -->
+
+    <string name="rate_our_service">RATE OUR SERVICE</string>
+    <string name="rate_service">HOW DO YOU RATE OUR SERVICE?</string>
+    <string name="rate_price">HOW DO YOU RATE OUR PRICE?</string>
+    <string name="rate_timing">HOW DO YOU RATE OUR TIMING?</string>
+    <string name="submit">SUBMIT</string>
+
+    <!-- Washing status screen -->
+    <string name="washing_status_header">WASH STATUS</string>
+    <string name="status_notes_text">Status Notes</string>
+    <string name="assigned_driver_text">Assigned Driver</string>
+    <string name="cancel_button_text">CANCEL</string>
+    <string name="you_have_no_orders">No orders made</string>
+    <string name="na">N/A</string>
+    <string name="discount">Discount</string>
+
+    <!-- Tutorial screens -->
+    <string name="tutorial_first_page_header_text">SCHEDULE A WASH</string>
+    <string name="tutorial_first_page_content_text">After creating an account, you will be able to select your locatioin, whether you have dry cleaning and shirts to be ironed or just laundry, and choose pickup and drop off times which are convenient for you.</string>
+    <string name="tutorial_first_page_button_text">Next</string>
+    <string name="tutorial_second_page_header_text">THE PICKUP</string>
+    <string name="tutorial_second_page_content_text">A wash mate will arrive at your door at the chosen time. If this is your first time, they will provide the laundry bags - one for dry cleaning and shirts to be ironed, and another for everything else. Place you clothes in these bags and hand back to you wash mate.</string>
+    <string name="tutorial_second_page_button_text">Next</string>
+    <string name="tutorial_third_page_header_text">ENJOY CLEAN CLOTHES</string>
+    <string name="tutorial_third_page_content_text">Your clothes will be taken to our eco-friendly laundry facilities where they will be cleaned to the highest standard, folded and placed back in the laundry bag for a wash mate to deliver to your door. Your account will be automatically charged, and an invoice emailed. You can keep the laundry bags, making it easier for subsequent pickups.</string>
+    <string name="tutorial_third_page_button_text">Get Started</string>
+
+    <!-- Settings Screen -->
+    <string name="settings_screen_header">SETTINGS</string>
+
+    <!-- Profile screen header -->
+    <string name="profile_title">PROFILE</string>
+
+    <!-- Payment info -->
+    <string name="payment_information_title">PAYMENT INFORMATION</string>
+
+    <!-- Addresses info -->
+    <string name="addresses_information_title">ADDRESS INFORMATION</string>
+    <string name="address_updated_successfully">Address updated successfully.</string>
+    <string name="address_added_successfully">Address added successfully.</string>
+    <string name="add_new_address_text">Add new address</string>
+
+    <!-- Order History screen -->
+    <string name="order_history_screen_header">ORDER HISTORY</string>
+    <string name="order_history_pickup">Pickup:</string>
+    <string name="order_history_drop_off">Drop Off:</string>
+    <string name="order_history_cost">Cost:</string>
+
+    <!-- Forgot Password Screen -->
+    <string name="forgot_password_button_text">Reset</string>
+
+    <!-- Coupon screen -->
+    <string name="coupon_header_text">COUPONS</string>
+    <string name="coupon_edittext_hint">Enter a coupon code</string>
+    <string name="coupon_submit_button_text">Submit</string>
+
+    <!-- Support screen -->
+    <string name="support_header_text">SUPPORT</string>
+    <string name="support_content_text"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam convallis magna massa, et maximus elit ultrices nec. Mauris iaculis eget augue malesuada gravida. Aenean nec mollis eros. Nunc ut dui sed enim vestibulum dapibus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nullam nec malesuada augue, non porta mi. Nulla sodales sodales metus, vel placerat ex ultricies mollis. Aenean in odio eros. Pellentesque pretium posuere mattis. Aenean fermentum maximus purus sed maximus. Maecenas blandit neque vel mauris pellentesque, at iaculis velit vestibulum. Phasellus at fermentum lorem, sit amet molestie dolor. Integer non dictum diam. Mauris viverra erat sed tellus pharetra posuere. Maecenas orci velit, efficitur id iaculis et, ornare vitae mauris.
+
+Maecenas consequat velit a ligula feugiat, sit amet ultricies nisi ullamcorper. Morbi at ultrices diam. Integer id sollicitudin nunc, et varius arcu. Ut eget sodales ligula. Curabitur sapien turpis, condimentum quis congue ut, imperdiet vel lectus. Sed tortor velit, tempus sed enim eget, scelerisque luctus dui. Maecenas vitae mauris tristique, volutpat lacus at, bibendum elit. Vestibulum blandit eros sodales, semper augue quis, placerat mi. Aliquam consequat leo arcu, vel sodales sapien tincidunt eu. Phasellus a fermentum tortor, eget egestas quam.
+
+Pellentesque sed lectus nisl. Fusce eget nibh sit amet magna posuere tempus ac a eros. Quisque at aliquam ligula. Etiam lacinia sapien eget purus suscipit, vitae fermentum enim lobortis. Donec vel varius lectus. Pellentesque scelerisque non diam at ultrices. Aliquam enim risus, posuere vel purus at, dapibus bibendum lorem.
+
+Fusce tempus egestas lorem, eu vehicula tortor tristique gravida. In dapibus urna id risus egestas, vitae convallis purus imperdiet. In sed scelerisque est. Suspendisse odio diam, maximus aliquam consequat non, eleifend sit amet augue. Integer at cursus purus. Nunc vitae eros tellus. Aenean at condimentum sem. Donec felis arcu, bibendum vitae ullamcorper vitae, tempor a arcu. Nulla cursus quis massa eget maximus. Nullam in finibus est. Sed a erat a nulla pulvinar sollicitudin sed sed arcu. Cras quis finibus libero, at volutpat lorem. </string>
+</resources>

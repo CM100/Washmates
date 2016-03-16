@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>cloud\cloud.js - Cleanium_Server</title>
+    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+</head>
+<body class="yui3-skin-sam">
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <h1 class="brand" style="padding: 10px 16px 10px; height: 20px; line-height: 20px; margin-left: 0;">
+	    <img alt="Cleanium_Server" src="..\..\..\Android\Cleanium\app\src\main\res\drawable-xxhdpi\logo.png" style="max-height: 65%;" title="Cleanium_Server">
+            Cleanium_Server
+        </h1>
+	<div class="nav">
+            <li class="divider-vertical"></li>
+            <li>
+                <p class="navbar-text">
+                    API Docs for Version: <b>0.0.0</b>
+                </p>
+            </li>
+        </div>
+        <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/AsyncUtils", "classes/Cloud", "classes/Errors", "classes/Heap", "classes/Logger", "classes/NotificationUtils", "classes/Order", "classes/OrderDate", "classes/OrderRestrictions", "classes/OrderStatus", "classes/OrderValidator", "classes/RoleManager", "classes/Schedule", "classes/Stripe", "classes/StripeAmount", "classes/User"]'>
+        </form>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="span3">
+	    <div>
+	        <h3>APIs</h3>
+	        <div id="sidebar">
+	            <ul id="main-nav" class="nav nav-tabs" style="margin-bottom:0;">
+	                <li class="active"><a href="#classes" data-toggle="tab">Classes</a></li>
+	                <li><a href="#modules" data-toggle="tab">Modules</a></li>
+	            </ul>
+	    
+	            <div id="api-tabview-filter">
+	                <input type="search" placeholder="Type to filter APIs">
+	            </div>
+	    
+	            <div class="tab-content" style="border: 1px solid #DDD; border-top:0;">
+	                <div class="tab-pane active" id="classes">
+	                    <ul id="api-classes" class="nav nav-list">
+	                            <li><a href="../classes/AsyncUtils.html">AsyncUtils</a></li>
+	                            <li><a href="../classes/Cloud.html">Cloud</a></li>
+	                            <li><a href="../classes/Errors.html">Errors</a></li>
+	                            <li><a href="../classes/Heap.html">Heap</a></li>
+	                            <li><a href="../classes/Logger.html">Logger</a></li>
+	                            <li><a href="../classes/NotificationUtils.html">NotificationUtils</a></li>
+	                            <li><a href="../classes/Order.html">Order</a></li>
+	                            <li><a href="../classes/OrderRestrictions.html">OrderRestrictions</a></li>
+	                            <li><a href="../classes/RoleManager.html">RoleManager</a></li>
+	                            <li><a href="../classes/Schedule.html">Schedule</a></li>
+	                            <li><a href="../classes/Stripe.html">Stripe</a></li>
+	                            <li><a href="../classes/User.html">User</a></li>
+	                    </ul>
+	                </div>
+	    
+	                <div class="tab-pane" id="modules">
+	                    <ul id="api-modules" class="nav nav-list">
+	                    </ul>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+        </div>
+        <div class="span9">
+                <form id="options-form" class="form-inline pull-right">
+                    Show:
+                    <label for="api-show-inherited" class="checkbox">
+                        <input type="checkbox" id="api-show-inherited" checked>
+                        Inherited
+                    </label>
+            
+                    <label for="api-show-protected" class="checkbox">
+                        <input type="checkbox" id="api-show-protected">
+                        Protected
+                    </label>
+            
+                    <label for="api-show-private" class="checkbox">
+                        <input type="checkbox" id="api-show-private">
+                        Private
+                    </label>
+                    <label for="api-show-deprecated" class="checkbox">
+                        <input type="checkbox" id="api-show-deprecated">
+                        Deprecated
+                    </label>
+            
+                </form>
+            
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+<div class="page-header">
+    <h1>cloud\cloud.js <small>File</small></h1>
+</div>
+
+<div class="file">
+    <pre class="prettyprint linenums">
+/*globals Parse, exports, require  */
+/**
+ * @class Cloud
+ * @static
+ */
+Parse._skippedHooks = [];
+
+var logger = require(&#x27;cloud/Utils/logger&#x27;);
+var _ = require(&#x27;underscore&#x27;);
+var SKIP_HOOK_FLAG = &#x27;skipWebHooks&#x27;;
+
+function SkippedHook(resource, hook) {
+	var hookComponents = hook.split(/(?=[A-Z])/);
+	this.resourceName = _.isString(resource) ? resource : resource.prototype.className;
+
+	this.precondition = hookComponents[0]; //before|after
+	this.action = hookComponents[1]; //Save|Delete...
+
+	this._skippedHooksIndex = _.indexOf(_.pluck(Parse._skippedHooks, &#x27;resource&#x27;), this.resourceName);
+
+	this.register = function (shouldSkip) {
+		if (~this._skippedHooksIndex) {
+			logger.log(&#x27;Skipped hook already registered. Aborting hook registration&#x27;).
+			return;
+		} else {
+			var hookMeta = {
+				resource: resource
+			};
+			hookMeta[&#x27;before&#x27; + this.action] = !!shouldSkip;
+			hookMeta[&#x27;after&#x27; + this.action] = !!shouldSkip;
+			this._skippedHooksIndex = Parse._skippedHooks.length;
+			Parse._skippedHooks.push(hookMeta);
+		}
+	}
+
+	this.unregister = function () {
+		if (this.precondition === &#x27;after&#x27;) {
+			Parse._skippedHooks[this._skippedHooksIndex][hook] = false;
+		}
+		Parse._skippedHooks[this._skippedHooksIndex][&#x27;before&#x27; + this.action] = false;
+	}
+
+	this.shouldSkip = function () {
+		return Parse._skippedHooks[this._skippedHooksIndex][hook];
+	}
+
+}
+/**
+ * Wrapper around beforeSave hook in order to skip triggering any logic when flag &#x60;skipWebHooks&#x60; is set
+ * Also stores the name of the resource in an array in order to propagate similar logic on afterSave
+ * @param {String|Parse.Object} resource The Parse Class as string or Parse Object (e.g. Parse.User) 
+ *                                       on which the hook will apply
+ * @param {Function}            action   A function to be called on beforeSave hook
+ */
+var beforeSave = function beforeSave(resource, action) {
+	var hook = new SkippedHook(resource, &#x27;beforeSave&#x27;);
+
+	Parse.Cloud.beforeSave(resource, function (request, response) {
+		var wrapperAction = function wrapperBeforeSave(request, response) {
+			hook.register(request.object.get(SKIP_HOOK_FLAG));
+			if (hook.shouldSkip()) {
+				logger.log(&#x27;Before save called with skip set. Aborting hook&#x27;);
+				request.object.unset(SKIP_HOOK_FLAG);
+				response.success();
+			} else {
+				logger.log(&#x27;Before save called with skip unset. Continuing...&#x27;);
+				action.apply(null, arguments)
+			}
+		}
+		if (_.isEmpty(Parse.Config.current())) {
+			logger.debug(&#x27;Config present on before save, sending local config.&#x27;)
+			wrapperAction(request, response, Parse.Config.current());
+		} else {
+			Parse.Config.get()
+				.done(function (config) {
+					logger.debug(&#x27;Config not present on before save, getting config.&#x27;)
+					wrapperAction(request, response, config);
+				});
+		}
+	});
+
+};
+
+var afterSave = function (resource, action) {
+	var hook = new SkippedHook(resource, &#x27;afterSave&#x27;);
+
+	Parse.Cloud.afterSave(resource, function (request, response) {
+		var wrapperAction = function wrappedAfterSave(request, response) {
+			hook.register();
+			logger.log(&#x27;After save checks for skipped webhooks in &#x27; + JSON.stringify(Parse._skippedHooks));
+			if (hook.shouldSkip()) {
+				logger.log(&#x27;After save called with skip set. Unsetting skippedHooks and aborting hook .&#x27;);
+				hook.unregister();
+				response.success();
+			} else {
+				logger.log(&#x27;After save called with skip unset. Continuing...&#x27;);
+				action.apply(null, arguments)
+			}
+		};
+		if (_.isEmpty(Parse.Config.current())) {
+			logger.debug(&#x27;Config present on after save, sending local config.&#x27;)
+			wrapperAction(request, response, Parse.Config.current());
+		} else {
+			Parse.Config.get()
+				.done(function (config) {
+					logger.debug(&#x27;Config not present on after save, getting config.&#x27;)
+					wrapperAction(request, response, config);
+				});
+		}
+	});
+};
+
+exports.beforeSave = beforeSave;
+exports.afterSave = afterSave;
+    </pre>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/jquery/jquery-1.8.2.min.js"></script>
+<script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script src="../assets/js/yuidoc-bootstrap.js"></script>
+<script>prettyPrint();</script>
+</body>
+</html>

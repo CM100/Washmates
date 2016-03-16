@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<title>Washmates</title>
+
+	<!-- Bootstrap Core CSS -->
+	<link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+	<!-- MetisMenu CSS -->
+	<link href="../bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
+
+
+	<!-- Custom Fonts -->
+	<link href="../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+	<!-- Custom CSS -->
+	<link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+	<link href="../dist/css/main.css" rel="stylesheet">
+
+<!--	<script type="text/javascript" src="https://js.stripe.com/v2/"></script>-->
+</head>
+
+<body>
+
+	<div class="container">
+		<div class="row">
+			<div class="col-md-4 col-md-offset-4">
+
+				<div class="login-panel panel panel-default">
+					<input id="login" type="radio" name="site-access" value="login" class="option" checked="checked">
+					<label for="login">Login</label>
+					<input id="register" type="radio" name="site-access" value="register" class="option">
+					<label for="register">Register</label>
+
+					<div class="panel-heading">
+						<h3 class="panel-title"></h3>
+					</div>
+					<div class="panel-body">
+						<form role="form" class="login-form">
+							<fieldset>
+								<div class="form-group">
+									<input class="form-control" placeholder="E-mail" name="username" type="email" autofocus>
+								</div>
+								<div class="form-group">
+									<input class="form-control" placeholder="Password" name="password" type="password" value="">
+								</div>
+								<div class="checkbox">
+									<label>
+										<input name="remember" type="checkbox" value="Remember Me">Remember Me
+									</label>
+								</div>
+								<!-- Change this to a button or input when using this as a form -->
+								<input type="submit" value="Login" id="login-btn" class="btn btn-lg btn-success btn-block" />
+							</fieldset>
+						</form>
+						<form role="form" class="register-form">
+							<fieldset>
+								<div class="form-group">
+									<input class="form-control" placeholder="E-mail" name="email" type="email" autofocus>
+								</div>
+								<div class="form-group">
+									<input class="form-control" placeholder="Password" name="password" type="password" value="">
+								</div>
+								<!-- Change this to a button or input when using this as a form -->
+								<input type="submit" value="Register" id="register-btn" class="btn btn-lg btn-success btn-block" />
+							</fieldset>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+<!--
+		<div class="row">
+			<div class="col-md-4 col-md-offset-4">
+
+				<form role="form" action="" method="POST" class="payment-form">
+					<span class="payment-errors"></span>
+
+					<div class="form-row">
+						<label>
+							<span>Card Number</span>
+							<div class="form-group">
+								<input type="text" size="20" data-stripe="number" class="form-control" placeholder="Card Number" autofocus>
+							</div>
+
+						</label>
+					</div>
+
+					<div class="form-row">
+						<label>
+							<span>CVC</span>
+
+							<div class="form-group">
+								<input type="text" size="4" data-stripe="cvc" class="form-control" placeholder="CVC">
+							</div>
+
+						</label>
+					</div>
+
+					<div class="form-row">
+						<label>
+							<span>Expiration (MM/YYYY)</span>
+							<div class="form-group">
+								<input type="text" size="2" data-stripe="exp-month" class="form-control" placeholder="MM" />
+								<span> / </span>
+								<input type="text" size="4" data-stripe="exp-year" class="form-control" placeholder="YYYY" />
+							</div>
+						</label>
+					</div>
+
+					<button type="submit">Submit Payment</button>
+				</form>
+			</div>
+		</div>
+-->
+	</div>
+
+	<!-- jQuery -->
+	<script src="../bower_components/jquery/dist/jquery.min.js"></script>
+
+	<!-- Bootstrap Core JavaScript -->
+	<script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+	<!-- Metis Menu Plugin JavaScript -->
+	<script src="../bower_components/metisMenu/dist/metisMenu.min.js"></script>
+
+	<!-- Custom Theme JavaScript -->
+	<script src="../dist/js/sb-admin-2.js"></script>
+
+	<!-- Parse Javascript SDK -->
+	<script src="../js/parse.js"></script>
+
+	<!-- Moment DateTime JS library [http://momentjs.com] -->
+	<script src="../js/moment.js"></script>
+	
+	
+	<script>
+		var Smoothie = {
+			'requirePath': ['../js/']
+		};
+	</script>
+	
+	<script src="../js/require.js"></script>
+
+	<script>
+		var app = require('./app');
+		app.ready(function () {
+			if( Parse.User.current() ) {
+				app.utils.redirectTo('dashboard');
+			}
+			
+			$('.payment-form').on('submit', function (e) {
+				e.preventDefault();
+				e.stopPropagation();
+				var $form = $(this);
+
+				$form.find('button').prop('disabled', true);
+
+				Stripe.card.createToken($form, function (status, responseToken) {
+					console.log(responseToken);
+					if (status === 200 && responseToken.id) {
+						Parse.Cloud.run('createStripeCustomer', {
+								creditCardToken: responseToken.id
+							})
+							.then(function (responseClient) {
+								console.log(responseClient);
+								$form.find('button').removeAttr('disabled');
+							});
+					}
+				});
+			});
+		});
+
+		//		Parse.initialize('cGiRSDM8unMmInG0iDO4DG3oesrWm00QGNcU6eUN', 'wu1BKdGTuLdSe0XLgp0s0b8wVpIIXTGxH5B6G8Oi');
+		//		var config = Parse.Config.current();
+		//		
+		//		if( !config ) {
+		//			Parse.Config.get()
+		//			.then(function (config) {
+		//				Stripe.setPublishableKey(config.get('stripeApiKey'));
+		//				startApp();
+		//			});
+		//		} else {
+		//			Stripe.setPublishableKey(config.get('stripeApiKey'));
+		//			startApp();
+		//		}
+		//
+		//		function startApp() {
+		//			$(document).ready(function () {
+		//				$('.login-form').on('submit', function (e) {
+		//					e.preventDefault();
+		//					e.stopPropagation();
+		//					var user = new Parse.User();
+		//					$(this).serializeArray().forEach(function (input) {
+		//						user.set(input.name, input.value);
+		//					});
+		//					user.logIn()
+		//						.done(function () {
+		//							console.log('User is logged in')
+		//						})
+		//						.error(function (e) {
+		//							console.log('User login failed ' + e);
+		//						})
+		//
+		//				});
+		//
+		//				$('.register-form').on('submit', function (e) {
+		//					e.preventDefault();
+		//					e.stopPropagation();
+		//					var user = new Parse.User();
+		//					$(this).serializeArray().forEach(function (input) {
+		//						user.set(input.name, input.value);
+		//						if (input.name === 'email') {
+		//							user.set('username', input.value);
+		//						}
+		//					});
+		//					user.signUp()
+		//						.done(function () {
+		//							console.log(arguments);
+		//						})
+		//						.error(function (e) {
+		//							console.log(e);
+		//						});
+		//				});
+		//				
+		//			});
+		//		}
+
+		//
+		//			var LOG_LEVEL = {
+		//				WARN: 'warn',
+		//				INFO: 'info',
+		//				ERROR: 'error',
+		//				DEBUG: 'debug'
+		//			};
+		//			LOG_LEVEL['__default'] = LOG_LEVEL.DEBUG;
+		//			LOG_LEVEL['undefined'] = LOG_LEVEL.__default;
+		//			LOG_LEVEL['null'] = LOG_LEVEL.__default;
+		//
+		//
+		//			function MessageLog(message, logLevel) {
+		//				var jsonMessage = {
+		//					origin: '',
+		//					caller: '',
+		//					filePath: '',
+		//					level: logLevel || LOG_LEVEL.__default,
+		//					message: message
+		//				};
+		//
+		//				this.asJSON = function toJSON() {
+		//					return JSON.stringify(jsonMessage);
+		//				}
+		//				this.asString = function toString() {
+		//					var fileNameWithoutExtension = jsonMessage.origin.split('.');
+		//					fileNameWithoutExtension.pop();
+		//					return '[' + jsonMessage.level.toUpperCase() + ']' +
+		//						fileNameWithoutExtension.join('.') + '=>' + jsonMessage.caller + ':: ' +
+		//						jsonMessage.message;
+		//				}
+		//
+		//
+		//				var setCallerOriginFromStackArray = function (stackArray, fileName) {
+		//					var origin;
+		//					for (var i = 0; i < stackArray.length; i++) {
+		//						origin = stackArray[i + 1];
+		//						if (!origin) {
+		//							return;
+		//						}
+		//						if (~stackArray[i].indexOf('exportsLogMessage') || ~origin.indexOf(fileName)) {
+		//							var leftParenthesisIndex = origin.indexOf('(');
+		//							var filePath = origin.slice(leftParenthesisIndex + 1).split('/');
+		//							var filename = filePath.pop().split(':')[0];
+		//
+		//							if (~leftParenthesisIndex || (~leftParenthesisIndex && ~origin.indexOf(fileName))) {
+		//								jsonMessage.origin = filename
+		//								jsonMessage.caller = origin.slice(0, leftParenthesisIndex);
+		//								jsonMessage.caller = jsonMessage.caller.replace('Object.', '');
+		//								jsonMessage.filePath = filePath;
+		//							} else {
+		//								setCallerOriginFromStackArray(stackArray.slice(i + 2), filename);
+		//							}
+		//							i = stackArray.length; //exit for loop
+		//						}
+		//					}
+		//				}
+		//
+		//				try {
+		//					throw new Error('error')
+		//				} catch (e) {
+		//					//				var stack = 'Error: error '+
+		//					//						'at new MessageLog (Utils/logger.js:10:9) ' +
+		//					//						'at Logger.logMessage [as log] (Utils/logger.js:52:21)' +
+		//					//						'at Object.exportsLogMessage [as log] (Utils/logger.js:65:9)' +
+		//					//						'at Object.setPrivateAccess (roleManager.js:95:9)' +
+		//					//						'at User/index.js:42:16' +
+		//					//						'at wrapperACtion (cloud.js:35:11)';
+		//					//				
+		//					e.stack = 'Error: error' +
+		//						'at new MessageLog (Utils/logger.js:10:9)' +
+		//						'at Logger.logMessage [as log] (Utils/logger.js:52:20)' +
+		//						'at Object.exportsLogMessage [as log] (Utils/logger.js:62:9)' +
+		//						'at roleManager.js:130:11' +
+		//						'at Array.forEach (native)' +
+		//						'at Object.setPrivateAccess (roleManager.js:105:28)' +
+		//						'at applyAfterSaveHooks (User/index.js:43:16)' +
+		//						'at wrappedAfterSave (cloud.js:38:11)';
+		//					var stackArray = e.stack.split('at ');
+		//					setCallerOriginFromStackArray(stackArray);
+		//
+		//				}
+		//			}
+		//
+		//			function Logger() {
+		//				var DEV_PARSE_APP_ID = 'cGiRSDM8unMmInG0iDO4DG3oesrWm00QGNcU6eUN';
+		//				var isDevelopmentEnv = DEV_PARSE_APP_ID === Parse.applicationId;
+		//				this.log = function logMessage(message, level) {
+		//					var messageLog = new MessageLog(message, level);
+		//					if (message.level == LOG_LEVEL.DEBUG && !isDevelopmentEnv) {
+		//						return;
+		//					} else if (isDevelopmentEnv) {
+		//						console.log(messageLog.asString());
+		//					}
+		//				};
+		//			}
+		//
+		//			var logger = new Logger();
+		//
+		//			var log = function exportsLogMessage(message) {
+		//				logger.log(message);
+		//			}
+		//			var test = function () {
+		//				log('s');
+		//			}
+	</script>
+</body>
+
+
+
+</html>

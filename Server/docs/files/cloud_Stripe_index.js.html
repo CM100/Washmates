@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>cloud\Stripe\index.js - Cleanium_Server</title>
+    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+</head>
+<body class="yui3-skin-sam">
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <h1 class="brand" style="padding: 10px 16px 10px; height: 20px; line-height: 20px; margin-left: 0;">
+	    <img alt="Cleanium_Server" src="..\..\..\Android\Cleanium\app\src\main\res\drawable-xxhdpi\logo.png" style="max-height: 65%;" title="Cleanium_Server">
+            Cleanium_Server
+        </h1>
+	<div class="nav">
+            <li class="divider-vertical"></li>
+            <li>
+                <p class="navbar-text">
+                    API Docs for Version: <b>0.0.0</b>
+                </p>
+            </li>
+        </div>
+        <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/AsyncUtils", "classes/Cloud", "classes/Errors", "classes/Heap", "classes/Logger", "classes/NotificationUtils", "classes/Order", "classes/OrderDate", "classes/OrderRestrictions", "classes/OrderStatus", "classes/OrderValidator", "classes/RoleManager", "classes/Schedule", "classes/Stripe", "classes/StripeAmount", "classes/User"]'>
+        </form>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="span3">
+	    <div>
+	        <h3>APIs</h3>
+	        <div id="sidebar">
+	            <ul id="main-nav" class="nav nav-tabs" style="margin-bottom:0;">
+	                <li class="active"><a href="#classes" data-toggle="tab">Classes</a></li>
+	                <li><a href="#modules" data-toggle="tab">Modules</a></li>
+	            </ul>
+	    
+	            <div id="api-tabview-filter">
+	                <input type="search" placeholder="Type to filter APIs">
+	            </div>
+	    
+	            <div class="tab-content" style="border: 1px solid #DDD; border-top:0;">
+	                <div class="tab-pane active" id="classes">
+	                    <ul id="api-classes" class="nav nav-list">
+	                            <li><a href="../classes/AsyncUtils.html">AsyncUtils</a></li>
+	                            <li><a href="../classes/Cloud.html">Cloud</a></li>
+	                            <li><a href="../classes/Errors.html">Errors</a></li>
+	                            <li><a href="../classes/Heap.html">Heap</a></li>
+	                            <li><a href="../classes/Logger.html">Logger</a></li>
+	                            <li><a href="../classes/NotificationUtils.html">NotificationUtils</a></li>
+	                            <li><a href="../classes/Order.html">Order</a></li>
+	                            <li><a href="../classes/OrderRestrictions.html">OrderRestrictions</a></li>
+	                            <li><a href="../classes/RoleManager.html">RoleManager</a></li>
+	                            <li><a href="../classes/Schedule.html">Schedule</a></li>
+	                            <li><a href="../classes/Stripe.html">Stripe</a></li>
+	                            <li><a href="../classes/User.html">User</a></li>
+	                    </ul>
+	                </div>
+	    
+	                <div class="tab-pane" id="modules">
+	                    <ul id="api-modules" class="nav nav-list">
+	                    </ul>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+        </div>
+        <div class="span9">
+                <form id="options-form" class="form-inline pull-right">
+                    Show:
+                    <label for="api-show-inherited" class="checkbox">
+                        <input type="checkbox" id="api-show-inherited" checked>
+                        Inherited
+                    </label>
+            
+                    <label for="api-show-protected" class="checkbox">
+                        <input type="checkbox" id="api-show-protected">
+                        Protected
+                    </label>
+            
+                    <label for="api-show-private" class="checkbox">
+                        <input type="checkbox" id="api-show-private">
+                        Private
+                    </label>
+                    <label for="api-show-deprecated" class="checkbox">
+                        <input type="checkbox" id="api-show-deprecated">
+                        Deprecated
+                    </label>
+            
+                </form>
+            
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+<div class="page-header">
+    <h1>cloud\Stripe\index.js <small>File</small></h1>
+</div>
+
+<div class="file">
+    <pre class="prettyprint linenums">
+/*globals Parse, exports, require */
+/**
+ * @class Stripe
+ * @static
+ */
+var cloud = require(&#x27;cloud/cloud&#x27;);
+var roleManager = require(&#x27;cloud/roleManager&#x27;);
+var errors = require(&#x27;cloud/Utils/errors&#x27;);
+var logger = require(&#x27;cloud/Utils/logger&#x27;);
+var Stripe = require(&#x27;stripe&#x27;);
+var StripeAmount = require(&#x27;cloud/Stripe/amount&#x27;).Ctor;
+var discountCode = require(&#x27;cloud/DiscountCode/discount&#x27;);
+var _ = require(&#x27;underscore&#x27;);
+
+
+
+/**
+ * Creates a stripe customer for a user and saves the ID to the database for future use.
+ * In case the user is already stripe customer adds the new card to its stripe customer account.
+ * 
+ * @method createStripeCustomer
+ * @param {String} creditCardToken The token generated by stripe for a specific credit card.
+ */
+Parse.Cloud.define(&quot;createStripeCustomer&quot;, function createStripeCustomer(request, response) {
+	Parse.Cloud.useMasterKey();
+
+	var user = request.user;
+	var creditCardToken = request.params.creditCardToken;
+	if (user.get(&#x27;isStripeClient&#x27;)) {
+		logger.info(&quot;User &quot; + user.id + &quot; is already stripe customer. Adding credit card to his account.&quot;);
+		logger.info(&#x27;Getting user &#x27; + user.id + &#x27; stripe meta&#x27;);
+		getUserStripeMetaAsync(user)
+			.fail(function (error) {
+				logger.warn(&#x27;An error occured while trying to retrieve stripe meta for user &#x27; + user.id);
+				logger.error(error);
+				response.error(error);
+			})
+			.done(function (userStripeMeta) {
+				return Stripe.Customers.createSource(userStripeMeta.get(&#x27;stripeCustomerId&#x27;), {
+					source: creditCardToken
+				});
+			})
+			.done(function (creditCardResponse) {
+				response.success(creditCardResponse);
+			})
+			.fail(function (error) {
+				logger.warn(&#x27;An error occured while trying to add credit card with token &#x27; + creditCardToken + &#x27; to user &#x27; + user.id);
+				logger.error(error);
+				response.error(error);
+			});
+	} else {
+		logger.info(&#x27;Creating stripe customer for user &#x27; + user.id);
+		Stripe.Customers.create({
+				source: creditCardToken,
+				email: user.get(&#x27;email&#x27;),
+				description: &#x27;Cleanium customer&#x27;
+			})
+			.done(function saveCustomerId(customer) {
+				logger.info(&#x27;Customer created on stripe with id &#x27; + customer.id + &#x27; for user &#x27; + user.id);
+				var stripeMeta = new Parse.Object(&#x27;StripeMeta&#x27;);
+				stripeMeta.set(&#x27;user&#x27;, user);
+				stripeMeta.set(&#x27;stripeCustomerId&#x27;, customer.id);
+				return stripeMeta.save();
+			})
+			.done(response.success)
+			.fail(function (error) {
+				logger.warn(&#x27;Failed to create stripe customer with error &#x27; + JSON.stringify(error));
+				logger.error(error);
+				response.error(errors.getErrorResponse(error));
+			});
+	}
+
+});
+
+
+/**
+ * Listing all stripe cards available to a user. User required to be stripe customer already.
+ * In the process removes any expired card the user may have.
+ * 
+ * @method listStripeCards
+ * @returns {Array}    An array with all the valid stripe cards of the user.
+ */
+Parse.Cloud.define(&quot;listStripeCards&quot;, function listStripeCards(request, response) {
+	var user = request.user;
+
+	if (!user.get(&#x27;isStripeClient&#x27;)) {
+		response.error(errors.USER_NOT_STRIPE_CUSTOMER);
+	}
+
+	logger.info(&#x27;Attempting to list all cards for user &#x27; + user.id);
+
+	getUserStripeMetaAsync(user)
+		.fail(function (error) {
+			response.error(errors.getErrorResponse(error));
+		})
+		.done(function (stripeUserMeta) {
+			return Stripe.Customers.listCards(stripeUserMeta.get(&#x27;stripeCustomerId&#x27;));
+		})
+		.done(function (stripeCardsResponse) {
+			return removeAnyExpiredCardsAsync(stripeCardsResponse.data);
+		})
+		.done(function (validCards) {
+			response.success(validCards || []);
+		})
+		.fail(function (error) {
+			response.error(error);
+		});
+});
+
+
+/**
+ * Changes the user&#x27;s default card to the one of his choice. The default card is the one
+ * the user added first.
+ * 
+ * @method selectDefaultCard
+ * @param {Object|String} card     The card to be default. Can be either the id of the card or the card
+ *                                 object as per Stripe response of a card object.
+ */
+Parse.Cloud.define(&#x27;selectDefaultCard&#x27;, function selectDefaultCard(request, response) {
+	if (!request.params.card) {
+		response.error(errors.INVALID_ARGUMENT);
+	}
+	var user = request.user;
+
+	var selectedCardId = request.params.card.id || request.params.card;
+
+	logger.info(&#x27;Attempting to select as default the card with id &#x27; + selectedCardId + &#x27; for user &#x27; + user.id);
+
+	getUserStripeMetaAsync(user)
+		.fail(function (error) {
+			logger.warn(&#x27;Error while retrieving stripe meta for user &#x27; + user.id + &#x27;. Error: &#x27; + JSON.stringify(error));
+			logger.error(error);
+			response.error(error);
+		})
+		.done(function (stripeUserMeta) {
+			return Stripe.Customers.update(stripeUserMeta.get(&#x27;stripeCustomerId&#x27;), {
+				default_source: selectedCardId
+			});
+		})
+		.done(function () {
+			logger.info(&#x27;Default card changed succesfully&#x27;);
+			response.success();
+		})
+		.fail(function (error) {
+			logger.warn(&#x27;Failed to update default card to &#x27; + selectedCardId + &#x27; for user &#x27; + user.id + &#x27; with error &#x27; + JSON.stringify(error));
+			logger.error(error);
+			response.error(errors.getErrorResponse(error));
+		})
+
+
+});
+
+
+/**
+ * Removes the given credit card from stripe&#x27;s customer account. 
+ * 
+ * @method removeCard
+ * @param {Object|String} card     The card object as per stripe&#x27;s credit card response 
+ *                                 or the credit card id of the card to be deleted.
+ */
+Parse.Cloud.define(&#x27;removeCard&#x27;, function removeCard(request, response) {
+	if (!request.params.card) {
+		response.error(errors.INVALID_ARGUMENT);
+	}
+	var user = request.user;
+	var cardToRemoveId = request.params.card.id || request.params.card;
+
+	logger.info(&#x27;Attempting to remove card with id &#x27; + cardToRemoveId + &#x27;, from user &#x27; + user.id);
+
+	getUserStripeMetaAsync(user)
+		.fail(function (error) {
+			logger.warn(&#x27;Error while retrieving stripe meta for user &#x27; + user.id + &#x27;. Error: &#x27; + JSON.stringify(error));
+			logger.error(error);
+			response.error(error);
+		})
+		.done(function(stripeUserMeta){
+			logger.info(&#x27;Removing card &#x27; + cardToRemoveId + &#x27;for stripe customer &#x27; + stripeUserMeta.get(&#x27;stripeCustomerId&#x27;));
+			return removeCreditCardAsync(stripeUserMeta.get(&#x27;stripeCustomerId&#x27;), cardToRemoveId)
+		})
+		.done(function(stripeResponse){
+			/*Example response:
+				{
+				  &quot;deleted&quot;: true,
+				  &quot;id&quot;: &quot;card_16OuTKLSNzOOoFpYMU1xEROo&quot;
+				}
+			*/
+			if( stripeResponse.deleted &amp;&amp; stripeResponse.id === cardToRemoveId) {
+				logger.info(&#x27;The credit card with id &#x27; + cardToRemoveId + &#x27; succesfully removed.&#x27;);
+				response.success();				
+			} else {
+				logger.warn(&#x27;The response was positive but the credit card with id &#x27; + cardToRemoveId + &#x27; failed to be removed. Response: &#x27; + JSON.stringify(response));
+				logger.error(response);
+				response.error(errors.GENERIC_ERROR_RESPONSE);
+			}
+		})
+		.fail(function(error){
+			logger.warn(&#x27;The credit card with id &#x27; + cardToRemoveId + &#x27; failed to be removed. Response: &#x27; + JSON.stringify(response));
+			logger.error(response);
+			response.error(errors.getErrorResponse(error));
+		})
+
+});
+
+
+/**
+ * Allows the admin to refund an order. Params are send as a json object with the following properties:
+ * 
+ * @method refundOrder
+ * @param {String} orderId The id of the order about to be rated.
+ * @param {String} reason The reason for the refund.
+ */
+Parse.Cloud.define(&quot;refundOrder&quot;, function refundOrder(request, response) {
+	Parse.Cloud.useMasterKey();
+	var orderId = request.params.orderId;
+	var refundReason = request.params.reason || &#x27;Admin requested&#x27;;
+	var user = request.user;
+	var order;
+
+	if (!orderId || !_.isString(orderId)) {
+		response.error(errors.INVALID_ARGUMENT);
+	}
+
+	roleManager.checkIfUserInRoles(user, roleManager.ADMIN_ROLE)
+		.done(function (isAuthorized) {
+			if (!isAuthorized) {
+				logger.warn(&#x27;User with ID &#x27; + user.id + &#x27; attempted to issue a non authorized refund for order &#x27; + orderId);
+				response.error(errors.REFUND_NOT_AUTHORIZED);
+				return;
+			}
+
+			var orderQuery = new Parse.Query(Parse.Object.extend(&#x27;Order&#x27;));
+			orderQuery.include(&#x27;payment&#x27;);
+			orderQuery.equalTo(&#x27;objectId&#x27;, orderId);
+			return orderQuery.first();
+		})
+		.done(function (orderResponse) {
+			order = orderResponse;
+			if (!order) {
+				response.error(errors.NO_DATA_FOUND);
+			}
+			if (!order.get(&#x27;stripeTransactionID&#x27;)) {
+				response.error(errors.INVALID_ARGUMENT);
+			}
+			return Stripe.Charges.createRefund(
+				order.get(&#x27;stripeTransactionID&#x27;), {
+					reason: refundReason
+				}
+			);
+		})
+		.done(function onRefundSuccess(refundResponse) {
+			var payment = order.get(&#x27;payment&#x27;);
+			payment.set(&#x27;refundStripeTransactionID&#x27;, refundResponse.id);
+			return payment.save();
+		})
+		.fail(function onRefundError(error) {
+			logger.warn(&#x27;Error while attempting a refund for order &#x27; + orderId + &#x27; with reason &#x27; + refundReason + &#x27; from user &#x27; + user.id);
+			logger.error(error);
+			response.error(errors.getErrorResponse(error));
+		});
+});
+
+
+/**
+ * Allows the user to make a payment. Params are send as a json object on &#x60;request.params&#x60; with the following properties:
+ * 
+ * @method chargeOrder
+ * @param {String|Object} order     The order be charged. Can be the id as a string or an Order Parse.Object
+ * @param {Number} amount[amount=1] The amount to be charged. Minimum value is 0.5$.
+ */
+Parse.Cloud.define(&quot;chargeOrder&quot;, function chargeOrder(request, response) {
+	Parse.Cloud.useMasterKey();
+
+	var userRequestedCharge, order;
+
+	order = request.params.order;
+	userRequestedCharge = request.user;
+
+	logger.info(&#x27;Cloud function chargeOrder has been invocked by user &#x27; + userRequestedCharge.id + &#x27; for order &#x27; + order.id || order);
+	var orderQuery = new Parse.Object.extend(&#x27;Order&#x27;);
+	orderQuery.include(&#x27;user&#x27;);
+	orderQuery.include(&#x27;discountCode&#x27;);
+	orderQuery.equalsTo(&#x27;objectId&#x27;, request.params.order);
+	orderQuery.first()
+		.done(function (orderResponse) {
+			if (!orderResponse) {
+				logger.warning(&#x27;Non existing order requested to be charged with id &#x27; + order);
+				response.error(errors.NO_DATA_FOUND);
+				return;
+			}
+			if (orderResponse.get(&#x27;payment&#x27;)) {
+				logger.warning(&#x27;Attempted to charge an already already charged. Aborting&#x27;);
+				response.error(errors.CHARGE_ALREADY_OCCURED);
+			}
+			order = orderResponse;
+			return roleManager.checkIfUserInRoles(userRequestedCharge, roleManager.ADMIN_ROLE)
+		})
+		.done(function authorizeUserAndPay(isAdmin) {
+			if (!isAdmin || order.get(&#x27;user&#x27;).id !== userRequestedCharge) {
+				logger.warn(&#x27;Anauthorized charge attempted by user: &#x27; + userRequestedCharge.id + &#x27;.&#x27;)
+				response.error(errors.CHARGE_NOT_AUTHORIZED);
+			}
+			logger.info(&#x27;User allowed to make a payment. Issuing payment now.&#x27;)
+			return exports.chargeOrder(order);
+		})
+		.done(function (paymentInfo) {
+			logger.info(&#x27;Payment completed. Payment Id :&#x27; + paymentInfo.id);
+			order.set(&#x27;payment&#x27;, paymentInfo);
+			return order.save();
+		})
+		.done(function (order) {
+			logger.info(&#x27;Payment attached to order &#x27; + order.id);
+			response.success(order);
+		})
+		.fail(function (error) {
+			logger.warn(&#x27;Charge user for order &#x27; + order.id + &#x27; failed with error &#x27; + JSON.stringify(error));
+			logger.error(error);
+			response.error(errors.getErrorResponse(error));
+		});
+});
+
+
+function getUserStripeMetaAsync(user) {
+	var customerQuery = new Parse.Query(Parse.Object.extend(&#x27;StripeMeta&#x27;));
+	customerQuery.equalTo(&#x27;user&#x27;, user);
+	return customerQuery.first()
+		.done(function (result) {
+			if (!result) {
+				return Parse.Promise.error(errors.NO_DATA_FOUND);
+			}
+			return Parse.Promise.as(result);
+		})
+		.fail(function (error) {
+			logger.warn(&#x27;Error querying for stripeMeta based on user id &#x27; + user.id);
+			logger.error(error);
+			return Parse.Promise.error(error);
+		});
+}
+
+function removeAnyExpiredCardsAsync(allUserCards) {
+	if (!allUserCards.length) {
+		return Parse.Promise.as([]);
+	}
+	logger.info(&#x27;Checking user credit cards for expired cards&#x27;);
+	var now = new Date();
+	var currentMonth = now.getMonth() + 1; //Months start from 0
+	var currentYear = now.getYear() + 1900 //Years offset is 1900.
+	var expiredCards = _.filter(allUserCards, function (creditCard) {
+		return creditCard.exp_year &lt;= currentYear &amp;&amp; creditCard.exp_month &lt; currentMonth;
+	});
+	var validCards = allUserCards;
+	var stripeCustomerId = allUserCards[0].customer; //Getting the customer id from creditCard data.
+	var cardsDeleted = [];
+
+
+
+	if (expiredCards.length) {
+		logger.info(expiredCards.length + &#x27; found.&#x27;);
+		expiredCards.forEach(function (expiredCard) {
+			logger.info(&#x27;Removing credit card with id &#x27; + expiredCard.id + &#x27; from stripe customer with id &#x27; + stripeCustomerId);
+			cardsDeleted.push(removeCreditCardAsync(stripeCustomerId, expiredCard.id));
+			validCards = _.without(validCards, _.findWhere(validCards, {
+				id: expiredCard.id
+			}));
+		});
+	}
+
+	var removedExpiredCardsPromise = new Parse.Promise();
+
+	Parse.Promise.when(cardsDeleted)
+		.done(function () {
+			removedExpiredCardsPromise.resolve(validCards);
+		})
+		.fail(removedExpiredCardsPromise.reject);
+
+	return removedExpiredCardsPromise;
+}
+
+function removeCreditCardAsync(stripeCustomerId, creditCardId) {
+	return Stripe.Customers.deleteCard(stripeCustomerId, creditCardId)
+		.fail(function (error) {
+			logger.warn(&#x27;Attempted to remove card with id &#x27; + creditCardId + &#x27; from stripe and failed with error: &#x27; + JSON.stringify(error));
+			logger.error(error);
+			return Parse.Promise.error(error);
+		});
+}
+
+function chargeStripeUserAsync(stripeUserMeta, amountCharged) {
+	var stripeAmountCharged = new StripeAmount(amountCharged);
+	if (!stripeUserMeta) {
+		logger.info(&#x27;Attempted to charge a user who is not stripe customer (has not set credit card info)&#x27;);
+		return Parse.Promise.error(new Error(errors.USER_NOT_STRIPE_CUSTOMER));
+	}
+
+	if (!stripeAmountCharged.isValid) {
+		logger.error(&#x27;The amount to be charged is invalid. &#x27; + amountCharged.errorMessage);
+		return Parse.Promise.error(new Error(amountCharged.errorMessage));
+	}
+
+	logger.info(&#x27;About to create a charge for &#x27; + stripeUserMeta.get(&#x27;user&#x27;).id + &#x27; with customer id &#x27; + stripeUserMeta.get(&#x27;stripeCustomerId&#x27;));
+
+	return Stripe.Charges.create({
+			amount: stripeAmountCharged.valueOf(), // amount in cents, again
+			currency: &quot;usd&quot;,
+			customer: stripeUserMeta.get(&#x27;stripeCustomerId&#x27;)
+		})
+		.fail(function (error) {
+			logger.warn(&#x27;Error trying to charge a user&#x27;);
+			logger.error(error);
+			return Parse.Promise.error(error);
+		});
+}
+
+
+function calculateChargeAmountAsync(order) {
+	return order.relation(&quot;services&quot;).query().find()
+		.done(function (services) {
+			logger.log(&#x27;The available services found are: &#x27; + JSON.stringify(services));
+			var paymenentReceipt = {
+				discount: {},
+				services: [],
+				total: 0
+			};
+			var amountCharged;
+			var discount = order.get(&#x27;discountCode&#x27;);
+			var amount = _.reduce(services, function (totalAmount, service) {
+				var quantity = service.get(&#x27;quantity&#x27;) || 1;
+				var total = totalAmount + (service.get(&#x27;price&#x27;) * quantity);
+
+				paymenentReceipt.services.push({
+					title: service.get(&#x27;title&#x27;),
+					quantity: quantity,
+					price: service.get(&#x27;price&#x27;)
+				});
+
+				logger.debug(&#x27;Calculating for service quantity of &#x27; + quantity + &#x27; for price &#x27; + service.get(&#x27;price&#x27;));
+
+				return total;
+			}, 0);
+
+			paymenentReceipt.total = amount;
+
+			logger.info(&#x27;The base amount is &#x27; + amount);
+
+			if (discount) {
+				logger.info(&#x27;Discount exists. Calculating...&#x27;);
+				return discountCode.calculateDiscountAmountAsync(discount, amountCharged)
+					.done(function (discountAmount) {
+						amountCharged = amount - discountAmount;
+						paymenentReceipt.discount.code = discount;
+						paymenentReceipt.discount.amount = discountAmount;
+						paymenentReceipt.total = amountCharged;
+						order.set(&#x27;paymentReceipt&#x27;, paymenentReceipt);
+
+						if (amountCharged &lt; 0) {
+							logger.warn(&#x27;The amount charged has a negative value after discount. Setting it to 0&#x27;);
+							amountCharged = 0;
+						}
+						return Parse.Promise.as(amountCharged);
+					});
+			} else {
+				amountCharged = amount;
+			}
+
+			order.set(&#x27;paymentReceipt&#x27;, paymenentReceipt);
+			return Parse.Promise.as(amountCharged);
+		})
+		.fail(function (error) {
+			logger.warn(&#x27;Error calculating amount for order &#x27; + order.id);
+			logger.error(error);
+			return Parse.Promise.error(error);
+		});
+}
+
+
+
+exports.chargeOrder = function chargeOrder(order) {
+	Parse.Cloud.useMasterKey();
+	var amountCharged = 0,
+		userCharged = order.get(&#x27;user&#x27;);
+
+	logger.info(&#x27;Charging order &#x27; + order.id);
+
+	if (order.get(&#x27;user&#x27;).get(&#x27;isStripeClient&#x27;) !== true) {
+		logger.warn(&#x27;Payment requested for user without credit card info&#x27;);
+		return Parse.Promise.error(new Error(errors.USER_HAS_NO_CC_DATA));
+	}
+
+	if (order.get(&#x27;payment&#x27;) &amp;&amp; order.get(&#x27;payment&#x27;).get(&#x27;refundStripeTransactionID&#x27;)) {
+		return Parse.Promise.as(order.get(&#x27;payment&#x27;));
+	}
+
+	return Parse.Promise.when([calculateChargeAmountAsync(order), getUserStripeMetaAsync(userCharged)])
+		.done(function chargeUser(chargedAmount, userStripeMeta) {
+			amountCharged = chargedAmount;
+			return chargeStripeUserAsync(userStripeMeta, amountCharged);
+		})
+		.done(function savePaymentInfo(charge) {
+			if (!charge.paid || charge.status !== &quot;succeeded&quot;) {
+				return Parse.Promise.error(new Error(errors.getStripeErrorsFromCharge(charge)));
+			}
+			var paymentInfo = new(Parse.Object.extend(&#x27;Payment&#x27;))();
+			paymentInfo.set(&#x27;user&#x27;, userCharged);
+			paymentInfo.set(&#x27;amount&#x27;, charge.amount);
+			paymentInfo.set(&#x27;stripeTransactionID&#x27;, charge.id);
+			paymentInfo.set(&#x27;order&#x27;, order);
+			return paymentInfo.save();
+		})
+		.fail(function (error) {
+			logger.warn(&#x27;Error trying to create and save a payment to Parse&#x27;);
+			logger.error(error);
+			return Parse.Promise.error(error);
+		});
+};
+
+
+
+exports.applyHooks = function () {
+
+	cloud.afterSave(&#x27;StripeMeta&#x27;, function applyStripeMetaAfterSaveHooks(request, response) {
+		Parse.Cloud.useMasterKey();
+		var stripeMetaUser = request.object.get(&#x27;user&#x27;);
+
+
+		logger.log(&#x27;User &#x27; + JSON.stringify(stripeMetaUser));
+
+		var user = new Parse.User();
+		user.id = request.object.get(&#x27;user&#x27;).id;
+		user.set(&#x27;isStripeClient&#x27;, true);
+		user.set(&#x27;skipWebHooks&#x27;, true);
+		user.save();
+
+		var stripeMetaRestrictions = {};
+		stripeMetaRestrictions[roleManager.MEMBER_ROLE] = [];
+		stripeMetaRestrictions[roleManager.PUBLIC_ROLE] = [];
+		stripeMetaRestrictions[roleManager.LAUNDRY_ROLE] = [];
+		stripeMetaRestrictions[roleManager.DRIVER_ROLE] = [];
+		stripeMetaRestrictions[roleManager.ADMIN_ROLE] = [roleManager.READ_ACCESS];
+		roleManager.setPrivateAccess(null, request.object, stripeMetaRestrictions);
+	});
+
+	cloud.afterSave(&#x27;Payment&#x27;, function applyPaymentAfterSaveHooks(request, response) {
+		var userRequestedPayment = request.object.get(&#x27;user&#x27;);
+
+		var payementRestrictions = {};
+		payementRestrictions[roleManager.SELF_ROLE] = [];
+		payementRestrictions[roleManager.MEMBER_ROLE] = [];
+		payementRestrictions[roleManager.PUBLIC_ROLE] = [];
+		payementRestrictions[roleManager.LAUNDRY_ROLE] = [roleManager.READ_ACCESS];
+		payementRestrictions[roleManager.DRIVER_ROLE] = [];
+		payementRestrictions[roleManager.ADMIN_ROLE] = [roleManager.READ_ACCESS];
+
+		roleManager.setPrivateAccess(userRequestedPayment, request.object, payementRestrictions);
+		// 
+	});
+};
+
+exports.init = function initializeStripe(config) {
+	Stripe.initialize(&#x27;sk_test_Jiu0xI2koZqiMl9V0IWcloGd&#x27;);
+	this.applyHooks();
+};
+    </pre>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/jquery/jquery-1.8.2.min.js"></script>
+<script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script src="../assets/js/yuidoc-bootstrap.js"></script>
+<script>prettyPrint();</script>
+</body>
+</html>

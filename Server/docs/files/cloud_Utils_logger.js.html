@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>cloud\Utils\logger.js - Cleanium_Server</title>
+    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+</head>
+<body class="yui3-skin-sam">
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <h1 class="brand" style="padding: 10px 16px 10px; height: 20px; line-height: 20px; margin-left: 0;">
+	    <img alt="Cleanium_Server" src="..\..\..\Android\Cleanium\app\src\main\res\drawable-xxhdpi\logo.png" style="max-height: 65%;" title="Cleanium_Server">
+            Cleanium_Server
+        </h1>
+	<div class="nav">
+            <li class="divider-vertical"></li>
+            <li>
+                <p class="navbar-text">
+                    API Docs for Version: <b>0.0.0</b>
+                </p>
+            </li>
+        </div>
+        <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/AsyncUtils", "classes/Cloud", "classes/Errors", "classes/Heap", "classes/Logger", "classes/NotificationUtils", "classes/Order", "classes/OrderDate", "classes/OrderRestrictions", "classes/OrderStatus", "classes/OrderValidator", "classes/RoleManager", "classes/Schedule", "classes/Stripe", "classes/StripeAmount", "classes/User"]'>
+        </form>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="span3">
+	    <div>
+	        <h3>APIs</h3>
+	        <div id="sidebar">
+	            <ul id="main-nav" class="nav nav-tabs" style="margin-bottom:0;">
+	                <li class="active"><a href="#classes" data-toggle="tab">Classes</a></li>
+	                <li><a href="#modules" data-toggle="tab">Modules</a></li>
+	            </ul>
+	    
+	            <div id="api-tabview-filter">
+	                <input type="search" placeholder="Type to filter APIs">
+	            </div>
+	    
+	            <div class="tab-content" style="border: 1px solid #DDD; border-top:0;">
+	                <div class="tab-pane active" id="classes">
+	                    <ul id="api-classes" class="nav nav-list">
+	                            <li><a href="../classes/AsyncUtils.html">AsyncUtils</a></li>
+	                            <li><a href="../classes/Cloud.html">Cloud</a></li>
+	                            <li><a href="../classes/Errors.html">Errors</a></li>
+	                            <li><a href="../classes/Heap.html">Heap</a></li>
+	                            <li><a href="../classes/Logger.html">Logger</a></li>
+	                            <li><a href="../classes/NotificationUtils.html">NotificationUtils</a></li>
+	                            <li><a href="../classes/Order.html">Order</a></li>
+	                            <li><a href="../classes/OrderRestrictions.html">OrderRestrictions</a></li>
+	                            <li><a href="../classes/RoleManager.html">RoleManager</a></li>
+	                            <li><a href="../classes/Schedule.html">Schedule</a></li>
+	                            <li><a href="../classes/Stripe.html">Stripe</a></li>
+	                            <li><a href="../classes/User.html">User</a></li>
+	                    </ul>
+	                </div>
+	    
+	                <div class="tab-pane" id="modules">
+	                    <ul id="api-modules" class="nav nav-list">
+	                    </ul>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+        </div>
+        <div class="span9">
+                <form id="options-form" class="form-inline pull-right">
+                    Show:
+                    <label for="api-show-inherited" class="checkbox">
+                        <input type="checkbox" id="api-show-inherited" checked>
+                        Inherited
+                    </label>
+            
+                    <label for="api-show-protected" class="checkbox">
+                        <input type="checkbox" id="api-show-protected">
+                        Protected
+                    </label>
+            
+                    <label for="api-show-private" class="checkbox">
+                        <input type="checkbox" id="api-show-private">
+                        Private
+                    </label>
+                    <label for="api-show-deprecated" class="checkbox">
+                        <input type="checkbox" id="api-show-deprecated">
+                        Deprecated
+                    </label>
+            
+                </form>
+            
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+<div class="page-header">
+    <h1>cloud\Utils\logger.js <small>File</small></h1>
+</div>
+
+<div class="file">
+    <pre class="prettyprint linenums">
+/**
+ * @class Logger
+ * @static
+ */
+var LOG_LEVEL = {
+	WARN: &#x27;warning&#x27;,
+	INFO: &#x27;info&#x27;,
+	ERROR: &#x27;error&#x27;,
+	DEBUG: &#x27;debug&#x27;
+};
+LOG_LEVEL[&#x27;__default&#x27;] = LOG_LEVEL.INFO;
+LOG_LEVEL[&#x27;undefined&#x27;] = LOG_LEVEL.__default;
+LOG_LEVEL[&#x27;null&#x27;] = LOG_LEVEL.__default;
+
+
+function MessageLog(message, logLevel) {
+	var jsonMessage = {
+		origin: &#x27;&#x27;,
+		caller: &#x27;&#x27;,
+		filePath: &#x27;&#x27;,
+		level: logLevel || LOG_LEVEL.__default,
+		message: message
+	};
+
+	this.asJSON = function toJSON() {
+		return JSON.stringify(jsonMessage);
+	}
+	this.asString = function toString() {
+		var fileNameWithoutExtension = jsonMessage.origin.split(&#x27;.&#x27;);
+		fileNameWithoutExtension.pop();
+		return &#x27;[&#x27; + jsonMessage.level.toUpperCase() + &#x27;]&#x27; +
+			fileNameWithoutExtension.join(&#x27;.&#x27;) + &#x27;=&gt;&#x27; + jsonMessage.caller + &#x27;:: &#x27; +
+			jsonMessage.message;
+	}
+
+
+	var setCallerOriginFromStackArray = function (stackArray, fileName) {
+		var origin;
+		for (var i = 0; i &lt; stackArray.length; i++) {
+			origin = stackArray[i + 1];
+			if (!origin) {
+				return;
+			}
+			if (~stackArray[i].indexOf(&#x27;exportsLogMessage&#x27;) || ~origin.indexOf(fileName)) {
+				
+				
+				var leftParenthesisIndex = origin.indexOf(&#x27;(&#x27;);
+				var filePath = origin.slice(leftParenthesisIndex + 1).split(&#x27;/&#x27;);
+				var filename = filePath.pop().split(&#x27;:&#x27;)[0];
+
+				if (~leftParenthesisIndex || (~leftParenthesisIndex &amp;&amp; ~origin.indexOf(fileName))) {
+					jsonMessage.origin = filename
+					jsonMessage.caller = origin.slice(0, leftParenthesisIndex);
+					jsonMessage.caller = jsonMessage.caller.replace(&#x27;Object.&#x27;, &#x27;&#x27;);
+					jsonMessage.filePath = filePath;
+					
+				} else {
+					setCallerOriginFromStackArray(stackArray.slice(i + 2), filename);
+				}
+				i = stackArray.length; //exit for loop
+			}
+		}
+	}
+
+	try {
+		throw new Error(&#x27;error&#x27;)
+	} catch (e) {
+		var stackArray = e.stack.split(&#x27;at &#x27;);
+		setCallerOriginFromStackArray(stackArray);
+
+	}
+}
+
+function Logger() {
+	var DEV_PARSE_APP_ID = &#x27;cGiRSDM8unMmInG0iDO4DG3oesrWm00QGNcU6eUN&#x27;;
+	var isDevelopmentEnv = DEV_PARSE_APP_ID === Parse.applicationId;
+	this.log = function logMessage(message, level) {
+		var messageLog = new MessageLog(message, level);
+		if (level == LOG_LEVEL.DEBUG &amp;&amp; !isDevelopmentEnv) {
+			return;
+		} else if (isDevelopmentEnv) {
+			console.log(messageLog.asString());
+		} else {
+			console.log(messageLog.asJSON());
+		}
+	};
+}
+
+
+var logger = new Logger();
+
+exports.log = function exportsLogMessage(message) {
+	logger.log(message);
+};
+exports.info = function exportsLogMessage(message) {
+	logger.log(message, LOG_LEVEL.INFO);
+};
+exports.warn = function exportsLogMessage(message) {
+	logger.log(message, LOG_LEVEL.WARN);
+};
+exports.error = function exportsLogMessage(message) {
+	logger.log(message, LOG_LEVEL.ERROR);
+};
+exports.debug = function exportsLogMessage(message) {
+	logger.log(message, LOG_LEVEL.DEBUG);
+};
+    </pre>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/jquery/jquery-1.8.2.min.js"></script>
+<script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script src="../assets/js/yuidoc-bootstrap.js"></script>
+<script>prettyPrint();</script>
+</body>
+</html>

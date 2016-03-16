@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:drawable="@drawable/edittext_user_icon_gray"
+        android:top="@dimen/edittext_icon_top"
+        android:bottom="@dimen/edittext_icon_bottom"
+        android:right="@dimen/edittext_icon_right"
+        android:left="@dimen/edittext_icon_left"/>
+
+</layer-list>

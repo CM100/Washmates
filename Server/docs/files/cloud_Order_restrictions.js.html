@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>cloud\Order\restrictions.js - Cleanium_Server</title>
+    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+</head>
+<body class="yui3-skin-sam">
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <h1 class="brand" style="padding: 10px 16px 10px; height: 20px; line-height: 20px; margin-left: 0;">
+	    <img alt="Cleanium_Server" src="..\..\..\Android\Cleanium\app\src\main\res\drawable-xxhdpi\logo.png" style="max-height: 65%;" title="Cleanium_Server">
+            Cleanium_Server
+        </h1>
+	<div class="nav">
+            <li class="divider-vertical"></li>
+            <li>
+                <p class="navbar-text">
+                    API Docs for Version: <b>0.0.0</b>
+                </p>
+            </li>
+        </div>
+        <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/AsyncUtils", "classes/Cloud", "classes/Errors", "classes/Heap", "classes/Logger", "classes/NotificationUtils", "classes/Order", "classes/OrderDate", "classes/OrderRestrictions", "classes/OrderStatus", "classes/OrderValidator", "classes/RoleManager", "classes/Schedule", "classes/Stripe", "classes/StripeAmount", "classes/User"]'>
+        </form>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="span3">
+	    <div>
+	        <h3>APIs</h3>
+	        <div id="sidebar">
+	            <ul id="main-nav" class="nav nav-tabs" style="margin-bottom:0;">
+	                <li class="active"><a href="#classes" data-toggle="tab">Classes</a></li>
+	                <li><a href="#modules" data-toggle="tab">Modules</a></li>
+	            </ul>
+	    
+	            <div id="api-tabview-filter">
+	                <input type="search" placeholder="Type to filter APIs">
+	            </div>
+	    
+	            <div class="tab-content" style="border: 1px solid #DDD; border-top:0;">
+	                <div class="tab-pane active" id="classes">
+	                    <ul id="api-classes" class="nav nav-list">
+	                            <li><a href="../classes/AsyncUtils.html">AsyncUtils</a></li>
+	                            <li><a href="../classes/Cloud.html">Cloud</a></li>
+	                            <li><a href="../classes/Errors.html">Errors</a></li>
+	                            <li><a href="../classes/Heap.html">Heap</a></li>
+	                            <li><a href="../classes/Logger.html">Logger</a></li>
+	                            <li><a href="../classes/NotificationUtils.html">NotificationUtils</a></li>
+	                            <li><a href="../classes/Order.html">Order</a></li>
+	                            <li><a href="../classes/OrderRestrictions.html">OrderRestrictions</a></li>
+	                            <li><a href="../classes/RoleManager.html">RoleManager</a></li>
+	                            <li><a href="../classes/Schedule.html">Schedule</a></li>
+	                            <li><a href="../classes/Stripe.html">Stripe</a></li>
+	                            <li><a href="../classes/User.html">User</a></li>
+	                    </ul>
+	                </div>
+	    
+	                <div class="tab-pane" id="modules">
+	                    <ul id="api-modules" class="nav nav-list">
+	                    </ul>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+        </div>
+        <div class="span9">
+                <form id="options-form" class="form-inline pull-right">
+                    Show:
+                    <label for="api-show-inherited" class="checkbox">
+                        <input type="checkbox" id="api-show-inherited" checked>
+                        Inherited
+                    </label>
+            
+                    <label for="api-show-protected" class="checkbox">
+                        <input type="checkbox" id="api-show-protected">
+                        Protected
+                    </label>
+            
+                    <label for="api-show-private" class="checkbox">
+                        <input type="checkbox" id="api-show-private">
+                        Private
+                    </label>
+                    <label for="api-show-deprecated" class="checkbox">
+                        <input type="checkbox" id="api-show-deprecated">
+                        Deprecated
+                    </label>
+            
+                </form>
+            
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+<div class="page-header">
+    <h1>cloud\Order\restrictions.js <small>File</small></h1>
+</div>
+
+<div class="file">
+    <pre class="prettyprint linenums">
+/*globals Parse, require, exports*/
+/**
+ * @class OrderRestrictions
+ * @static
+ */
+var logger = require(&#x27;cloud/Utils/logger&#x27;);
+var errors = require(&#x27;cloud/Utils/errors&#x27;);
+var orderStatuses = require(&#x27;cloud/Order/status&#x27;);
+var _ = require(&#x27;underscore&#x27;);
+
+
+var oneHourInMilliSeconds = 60 * 60 * 1000;
+var oneDayInMilliSeconds = 24 * oneHourInMilliSeconds;
+var oneWeekInMilliSeconds = 7 * oneDayInMilliSeconds;
+
+/**
+ * A constructor that calculates based on the current date the minimum and maximum order to be placed
+ * This sucks a lot cause moment was unable to add hours/days although in client side works. Also setTime
+ * breaks for some reason.
+ * 
+ * @class OrderDate
+ * @private
+ * @returns {Object} An object with &#x60;minimumAllowed&#x60; and &#x60;maximumAllowed&#x60; dates an order can be placed
+ */
+exports.OrderDate = function OrderDateRestrictions(config) {
+	config = config || Parse.Config.current();
+
+	var driverAvailabilityInterval = config.get(&#x27;driverAvailabilityInterval&#x27;) || 1800000;
+
+	var absoluteToHour = new Date();
+	absoluteToHour.setMilliseconds(0);
+	absoluteToHour.setSeconds(0);
+	absoluteToHour.setMinutes(0);
+
+	var msDiffereceFromAbsoluteHour = Date.now() - absoluteToHour;
+
+	var anHourFromNow;
+
+	if (msDiffereceFromAbsoluteHour % driverAvailabilityInterval &gt; 0) {
+		var nextAvailableSlotFromAbsoluteHour = (~~(msDiffereceFromAbsoluteHour / driverAvailabilityInterval) + 1) * driverAvailabilityInterval;
+		anHourFromNow = new Date(absoluteToHour.getTime() + nextAvailableSlotFromAbsoluteHour);
+	} else {
+		anHourFromNow = new Date();
+	}
+
+
+	logger.debug(&#x27;About to add one hour from &#x27; + anHourFromNow);
+	anHourFromNow = new Date(anHourFromNow.getTime() + oneHourInMilliSeconds);
+	logger.debug(&#x27;The new date an hour ahead is &#x27; + anHourFromNow);
+
+	var twoWeeksFromNow = new Date();
+	logger.debug(&#x27;About to add two weeeks from &#x27; + twoWeeksFromNow);
+	twoWeeksFromNow = new Date(anHourFromNow.getTime() + (2 * oneWeekInMilliSeconds));
+	logger.debug(&#x27;The new date two weeks ahead is &#x27; + twoWeeksFromNow);
+
+	this.minimumAllowed = anHourFromNow;
+	this.maximumAllowed = twoWeeksFromNow;
+
+	return this;
+};
+
+/**
+ * Validates an order based on restrictions described on specification and some obvious ones
+ * 
+ * @class OrderValidator
+ * @private
+ * @param {Object} order  A Parse.Object for Order.
+ * @param {Object} config The Parse.Config object (can be found on Parse application dashboard)
+ */
+exports.OrderValidator = function OrderValidator(order, config) {
+
+
+	this.isValid = true;
+
+	this.errorMessages = [];
+
+	/**
+	* Validates an order in a synchronous maner. Is used when all of the order&#x27;s dependencies
+	* are present as &#x60;Parse.Object&#x60;s and not pointers. Its use is on create order function where
+	* all the data for an order are given beforehand
+	* 
+	* @method validate
+	*/
+	this.validate = function validateOrder() {
+		logger.info(&#x27;Validating order &#x27; + order.id);
+
+		this._validateSchedule();
+		this._validateStatus();
+
+		logger.info(&#x27;Order validated as &#x27; + (this.isValid ? &#x27;valid&#x27; : &#x27;invalid&#x27;));
+
+	}
+	
+	/**
+	* Validates the scheduling part of an order based on business logic and basic restrictions
+	* that need to be met.
+	* 
+	* @method _validateSchedule
+	* @private
+	*/
+	this._validateSchedule = function validateSchedule() {
+		logger.info(&#x27;Validating schedule for order &#x27; + order.id);
+		
+		var pickUpSchedule = order.get(&#x27;pickUpSchedule&#x27;);
+		logger.debug(&#x27;pickUpSchedule: &#x27; + JSON.stringify(pickUpSchedule) );
+		
+		var deliverySchedule = order.get(&#x27;deliverySchedule&#x27;);
+		logger.debug(&#x27;deliverySchedule: &#x27; + JSON.stringify(deliverySchedule) );
+		
+		var pickUpFromDate = pickUpSchedule.get(&#x27;fromDate&#x27;).getTime();
+		logger.debug(&#x27;pickUpFromDate: &#x27; + JSON.stringify(pickUpFromDate) );
+		
+		var pickUpToDate = pickUpSchedule.get(&#x27;toDate&#x27;).getTime();
+		logger.debug(&#x27;pickUpToDate: &#x27; + JSON.stringify(pickUpToDate) );
+		
+		var pickUpDuration = pickUpToDate - pickUpFromDate;
+		logger.debug(&#x27;pickUpDuration: &#x27; + JSON.stringify(pickUpDuration) );
+		
+		var deliveryFromDate = deliverySchedule.get(&#x27;fromDate&#x27;).getTime();
+		logger.debug(&#x27;deliveryFromDate: &#x27; + JSON.stringify(deliveryFromDate) );
+		
+		var deliveryToDate = deliverySchedule.get(&#x27;toDate&#x27;).getTime();
+		logger.debug(&#x27;deliveryToDate: &#x27; + JSON.stringify(deliveryToDate) );
+		
+		var deliveryDuration = deliveryToDate - deliveryFromDate;
+		logger.debug(&#x27;deliveryDuration: &#x27; + JSON.stringify(deliveryDuration) );
+		
+		var pickUpDeliveryTimeDifferenceMS = deliveryFromDate - pickUpFromDate;
+		logger.debug(&#x27;pickUpDeliveryTimeDifferenceMS: &#x27; + JSON.stringify(pickUpDeliveryTimeDifferenceMS) );
+		
+		var shouldDryClean = !!order.get(&#x27;washAndDry&#x27;);
+		logger.debug(&#x27;shouldDryClean: &#x27; + JSON.stringify(shouldDryClean) );
+
+
+		var now = new Date();
+
+		
+		if (pickUpFromDate &gt; pickUpToDate) {
+			this.isValid = false;
+			this.errorMessages.push(errors.ORDER_DATE_DURATION_NOT_VALID);
+			logger.warn(&#x27;Order invalid. fromDate is higher than toDate for pick up.&#x27;);
+		}
+
+		if (deliveryFromDate &gt; deliveryToDate) {
+			this.isValid = false;
+			this.errorMessages.push(errors.ORDER_DATE_DURATION_NOT_VALID);
+			logger.warn(&#x27;Order invalid. fromDate is higher than toDate for delivery.&#x27;);
+		}
+
+		if (deliveryFromDate &lt; pickUpFromDate) {
+			this.isValid = false;
+			this.errorMessages.push(errors.ORDER_DATE_DELIVERY_PICKUP_NOT_VALID);
+			logger.warn(&#x27;Order invalid. The delivery date given is smaller than pick up date.&#x27;)
+		}
+
+		if (deliveryDuration !== pickUpDuration &amp;&amp; pickUpDuration !== config.get(&#x27;driverAvailabilityInterval&#x27;)) {
+			this.isValid = false;
+			this.errorMessages.push(errors.ORDER_DATE_DURATION_NOT_EQUALS_AVAILABILITY_INTERVAL);
+			logger.warn(&#x27;Order invalid. The specified duration of a pick up or delivery does not match the duration set on the settings variable driverAvailabilityInterval.&#x27;);
+		}
+
+		if (shouldDryClean) {
+			if (pickUpDeliveryTimeDifferenceMS &lt; oneDayInMilliSeconds) {
+				this.isValid = false;
+				this.errorMessages.push(errors.ORDER_DATES_INVALID_FOR_DRY_CLEAN);
+				logger.warn(&#x27;Order invalid. Dryclean is selected but the difference between pickup-delivery is set to less than 24h.&#x27;)
+			}
+		} else {
+			if (pickUpDeliveryTimeDifferenceMS &lt; 6 * oneHourInMilliSeconds) {
+				this.isValid = false;
+				this.errorMessages.push(errors.ORDER_DATES_INVALID_BETWEEN_DELIVERY_DROPOFF);
+				logger.warn(&#x27;Order invalid. The difference between pickup-delivery is set to less than 6h.&#x27;)
+			}
+		}
+
+		if (deliveryFromDate - pickUpFromDate &gt; oneWeekInMilliSeconds) {
+			this.isValid = false;
+			this.errorMessages.push(errors.ORDER_DATES_BIG_DIFFERENCE_BETWEEN_PICKUP_DELIVERY);
+			logger.warn(&#x27;Order invalid. The difference between pickup date and delivery date is higher than 7 days.&#x27;)
+		}
+
+		if (pickUpFromDate - now.getTime() &gt; oneWeekInMilliSeconds) {
+			this.isValid = false;
+			this.errorMessages.push(errors.ORDER_DATE_BIG_DIFFERENCE_BETWEEN_NOW_PICKUP);
+			logger.warn(&#x27;Order invalid. The requested pick up date is later than 7 days from now.&#x27;);
+		}
+	}
+
+	/**
+	* Validates the status text of an order based on available statuses.
+	* 
+	* @method _validateStatus
+	* @private
+	*/
+	this._validateStatus = function validateStatus() {
+		var configStatuses = Object.keys(orderStatuses);
+		var orderStatus = order.get(&#x27;status&#x27;);
+		
+		logger.debug(&#x27;Checking status &#x27; + orderStatus + &#x27; in cofnig statuses &#x27; + JSON.stringify(configStatuses) );
+		
+		var orderStatusInConfig = _.find(configStatuses, function(configStatus){
+			return orderStatuses[configStatus] === orderStatus;
+		});
+		
+		logger.debug(&#x27;For the given status found order status in config &#x27; + orderStatusInConfig ) ;
+
+		if (orderStatusInConfig === undefined) {
+			this.isValid = false;
+			this.errorMessages.push(errors.ORDER_STATUS_INVALID);
+			logger.warn(&#x27;Order invalid. The status &#x27; + orderStatus + &#x27; can not be found in config. &#x27;);
+		}
+	}
+
+	this.validate();
+}
+    </pre>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/jquery/jquery-1.8.2.min.js"></script>
+<script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script src="../assets/js/yuidoc-bootstrap.js"></script>
+<script>prettyPrint();</script>
+</body>
+</html>

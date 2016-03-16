@@ -1,0 +1,25 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    tools:context="singularity.com.cleanium.ui.screens.SignUpActivity">
+
+    <include
+        android:id="@+id/signup_bar"
+        layout="@layout/signup_bar"/>
+
+    <FrameLayout
+        android:id="@+id/signupContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/signup_bar"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/toolbar_shadow"
+        android:layout_below="@+id/signup_bar"/>
+
+</RelativeLayout>

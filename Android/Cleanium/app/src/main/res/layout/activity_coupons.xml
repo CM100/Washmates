@@ -1,0 +1,98 @@
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <RelativeLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/navigationDrawer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:popupTheme="@style/Theme.AppCompat"
+            app:theme="@style/ToolbarTheme">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/toolbar_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:layout_toLeftOf="@+id/logo"
+                    android:text="@string/coupon_header_text"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/font_size_16sp"
+                    android:textStyle="bold" />
+                <ImageView
+                    android:id="@+id/logo"
+                    android:layout_width="32dp"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerInside"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="8dp"
+                    android:src="@drawable/logo_menu" />
+            </RelativeLayout>
+        </android.support.v7.widget.Toolbar>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_below="@id/toolbar"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/coupon_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/login_fragment_edittext_height"
+                android:layout_marginLeft="@dimen/login_fragment_elements_horizontal_margin"
+                android:layout_marginRight="@dimen/login_fragment_elements_horizontal_margin"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="@dimen/login_fragment_edittext_margin_bottom"
+                android:paddingRight="@dimen/login_fragment_edittext_drawable_padding"
+                android:drawablePadding="@dimen/login_fragment_edittext_drawable_padding"
+                android:hint="@string/coupon_edittext_hint"
+                android:textSize="@dimen/font_size_13sp"
+                android:inputType="textEmailAddress"
+                android:singleLine="true"
+                android:drawableLeft="@drawable/email_edittext_drawable_left"
+                android:background="@drawable/edittext_background" />
+
+            <Button
+                android:id="@+id/coupon_submit_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/coupon_submit_button_text"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/font_size_16sp"
+                android:layout_marginLeft="@dimen/login_fragment_elements_horizontal_margin"
+                android:layout_marginRight="@dimen/login_fragment_elements_horizontal_margin"
+                android:layout_marginBottom="@dimen/login_fragment_button_margin_bottom"
+                android:background="@drawable/login_button_background"/>
+        </LinearLayout>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/toolbar_shadow"
+            android:layout_below="@id/toolbar"/>
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/navigation_drawer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="left"
+        android:background="@color/navigation_drawer_background"
+        android:scrollbars="none">
+    </android.support.v7.widget.RecyclerView>
+</android.support.v4.widget.DrawerLayout>

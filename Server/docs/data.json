@@ -1,0 +1,1173 @@
+{
+    "project": {
+        "name": "Cleanium_Server",
+        "description": "Cleanium server-side logic based on Parse platform",
+        "version": "0.0.0",
+        "url": "",
+        "logo": "..\\..\\Android\\Cleanium\\app\\src\\main\\res\\drawable-xxhdpi\\logo.png"
+    },
+    "files": {
+        "cloud\\DiscountCode\\discount.js": {
+            "name": "cloud\\DiscountCode\\discount.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "cloud\\Order\\order.js": {
+            "name": "cloud\\Order\\order.js",
+            "modules": {},
+            "classes": {
+                "Order": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "cloud\\Order\\restrictions.js": {
+            "name": "cloud\\Order\\restrictions.js",
+            "modules": {},
+            "classes": {
+                "OrderRestrictions": 1,
+                "OrderDate": 1,
+                "OrderValidator": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "cloud\\Order\\schedule.js": {
+            "name": "cloud\\Order\\schedule.js",
+            "modules": {},
+            "classes": {
+                "Schedule": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "cloud\\Order\\status.js": {
+            "name": "cloud\\Order\\status.js",
+            "modules": {},
+            "classes": {
+                "OrderStatus": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "cloud\\Stripe\\amount.js": {
+            "name": "cloud\\Stripe\\amount.js",
+            "modules": {},
+            "classes": {
+                "StripeAmount": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "cloud\\Stripe\\index.js": {
+            "name": "cloud\\Stripe\\index.js",
+            "modules": {},
+            "classes": {
+                "Stripe": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "cloud\\User\\index.js": {
+            "name": "cloud\\User\\index.js",
+            "modules": {},
+            "classes": {
+                "User": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "cloud\\Utils\\async.js": {
+            "name": "cloud\\Utils\\async.js",
+            "modules": {},
+            "classes": {
+                "AsyncUtils": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "cloud\\Utils\\errors.js": {
+            "name": "cloud\\Utils\\errors.js",
+            "modules": {},
+            "classes": {
+                "Errors": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "cloud\\Utils\\heap.js": {
+            "name": "cloud\\Utils\\heap.js",
+            "modules": {},
+            "classes": {
+                "Heap": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "cloud\\Utils\\logger.js": {
+            "name": "cloud\\Utils\\logger.js",
+            "modules": {},
+            "classes": {
+                "Logger": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "cloud\\Utils\\notification.js": {
+            "name": "cloud\\Utils\\notification.js",
+            "modules": {},
+            "classes": {
+                "NotificationUtils": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "cloud\\cloud.js": {
+            "name": "cloud\\cloud.js",
+            "modules": {},
+            "classes": {
+                "Cloud": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "cloud\\main.js": {
+            "name": "cloud\\main.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "cloud\\roleManager.js": {
+            "name": "cloud\\roleManager.js",
+            "modules": {},
+            "classes": {
+                "RoleManager": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {},
+    "classes": {
+        "Order": {
+            "name": "Order",
+            "shortname": "Order",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "cloud\\Order\\order.js",
+            "line": 2,
+            "static": 1
+        },
+        "OrderRestrictions": {
+            "name": "OrderRestrictions",
+            "shortname": "OrderRestrictions",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "cloud\\Order\\restrictions.js",
+            "line": 2,
+            "static": 1
+        },
+        "OrderDate": {
+            "name": "OrderDate",
+            "shortname": "OrderDate",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "cloud\\Order\\restrictions.js",
+            "line": 16,
+            "description": "A constructor that calculates based on the current date the minimum and maximum order to be placed\nThis sucks a lot cause moment was unable to add hours/days although in client side works. Also setTime\nbreaks for some reason.",
+            "access": "private",
+            "tagname": "",
+            "return": {
+                "description": "An object with `minimumAllowed` and `maximumAllowed` dates an order can be placed",
+                "type": "Object"
+            }
+        },
+        "OrderValidator": {
+            "name": "OrderValidator",
+            "shortname": "OrderValidator",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "cloud\\Order\\restrictions.js",
+            "line": 62,
+            "description": "Validates an order based on restrictions described on specification and some obvious ones",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "order",
+                    "description": "A Parse.Object for Order.",
+                    "type": "Object"
+                },
+                {
+                    "name": "config",
+                    "description": "The Parse.Config object (can be found on Parse application dashboard)",
+                    "type": "Object"
+                }
+            ]
+        },
+        "Schedule": {
+            "name": "Schedule",
+            "shortname": "Schedule",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "cloud\\Order\\schedule.js",
+            "line": 2,
+            "static": 1
+        },
+        "OrderStatus": {
+            "name": "OrderStatus",
+            "shortname": "OrderStatus",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "cloud\\Order\\status.js",
+            "line": 2,
+            "access": "private",
+            "tagname": ""
+        },
+        "StripeAmount": {
+            "name": "StripeAmount",
+            "shortname": "StripeAmount",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "cloud\\Stripe\\amount.js",
+            "line": 4,
+            "description": "It translates the amount on Stripe acceptable amount since Stripe requires it to be\nin cents. Also validates the amount given on constructor against basic and Stripe's\nrestrictions.",
+            "is_constructor": 1,
+            "access": "protected",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "chargeAmount",
+                    "description": "The amount to be converted in cents",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "Amount in cents. Rounded up to the closest digit since javascript\n                  gets sometime quirky with math calculations.",
+                "type": "Number"
+            }
+        },
+        "Stripe": {
+            "name": "Stripe",
+            "shortname": "Stripe",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "cloud\\Stripe\\index.js",
+            "line": 2,
+            "static": 1
+        },
+        "User": {
+            "name": "User",
+            "shortname": "User",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "cloud\\User\\index.js",
+            "line": 2,
+            "static": 1
+        },
+        "AsyncUtils": {
+            "name": "AsyncUtils",
+            "shortname": "AsyncUtils",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "cloud\\Utils\\async.js",
+            "line": 2
+        },
+        "Errors": {
+            "name": "Errors",
+            "shortname": "Errors",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "cloud\\Utils\\errors.js",
+            "line": 2,
+            "static": 1
+        },
+        "Heap": {
+            "name": "Heap",
+            "shortname": "Heap",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "cloud\\Utils\\heap.js",
+            "line": 2
+        },
+        "Logger": {
+            "name": "Logger",
+            "shortname": "Logger",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "cloud\\Utils\\logger.js",
+            "line": 1,
+            "static": 1
+        },
+        "NotificationUtils": {
+            "name": "NotificationUtils",
+            "shortname": "NotificationUtils",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "cloud\\Utils\\notification.js",
+            "line": 2
+        },
+        "Cloud": {
+            "name": "Cloud",
+            "shortname": "Cloud",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "cloud\\cloud.js",
+            "line": 2,
+            "static": 1
+        },
+        "RoleManager": {
+            "name": "RoleManager",
+            "shortname": "RoleManager",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "cloud\\roleManager.js",
+            "line": 2,
+            "static": 1
+        }
+    },
+    "classitems": [
+        {
+            "file": "cloud\\DiscountCode\\discount.js",
+            "line": 9,
+            "description": "Calculates the discounted amount based on the given discount code and\ntotal amount for an order before discount",
+            "itemtype": "method",
+            "name": "calculateDiscountAmountAsync",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "code",
+                    "description": "Parse Object or Pointer of a `DiscountCode` class",
+                    "type": "Object"
+                },
+                {
+                    "name": "totalAmount",
+                    "description": "The total amount of an order before discount",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "A Promise with the discount amount if the code is given.",
+                "type": "Promise"
+            },
+            "class": "Order"
+        },
+        {
+            "file": "cloud\\DiscountCode\\discount.js",
+            "line": 45,
+            "description": "Verifies that the discount code is valid and the user has never used it on\na past order.",
+            "itemtype": "method",
+            "name": "verifyDiscountCodeAsync",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "discountCode",
+                    "description": "The code string provided to the user",
+                    "type": "Object"
+                },
+                {
+                    "name": "appliedByUser",
+                    "description": "A `Parse.User` object of the user who\n                                asked verification of the code.",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "A `Parse.Promise` with the discount code object if valid or\n                   an error message if invalid.",
+                "type": "Promise"
+            },
+            "class": "Order"
+        },
+        {
+            "file": "cloud\\DiscountCode\\discount.js",
+            "line": 119,
+            "description": "Parse cloud function for verification of discount code.",
+            "itemtype": "method",
+            "name": "verifyDiscountCode",
+            "params": [
+                {
+                    "name": "params.discountCode",
+                    "description": "The code string provided to the user",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "A `Parse.Promise` with the discount code object if valid or\n                   an error message if invalid.",
+                "type": "Promise"
+            },
+            "class": "Order"
+        },
+        {
+            "file": "cloud\\Order\\order.js",
+            "line": 18,
+            "description": "Allows the user to rate an order. Params are send as a json object with the following properties:",
+            "itemtype": "method",
+            "name": "rateOrder",
+            "params": [
+                {
+                    "name": "orderId",
+                    "description": "The id of the order about to be rated.",
+                    "type": "String"
+                },
+                {
+                    "name": "rating[rating=0]",
+                    "description": "The rating in percentage. Minimum value is 0.0 and maximum is 1.0.",
+                    "type": "Number"
+                }
+            ],
+            "class": "Order"
+        },
+        {
+            "file": "cloud\\Order\\order.js",
+            "line": 62,
+            "description": "Cloud function `createOrder` creates an order for the user who invokes this function. As parameter is passed an object representing\nan order",
+            "itemtype": "method",
+            "name": "createOrder",
+            "params": [
+                {
+                    "name": "order",
+                    "description": "An order object which includes certain properties as described by the example:\n                         ```javascript\n                         {\n                         pickUpSchedule: {\n\t                            fromDate: [Date],\n \t                        toDate: [Date]\n                          },\n                          (user: {\n\t                            id|objectId: [String]\n                          },)\n                          deliverySchedule: {\n\t                            fromDate: [Date],\n \t                        toDate: [Date]\n                          },\n                          pickUpAddress: {\n                             id|objectId: [String],\n                             postCode: [Number]\n                          },\n                          deliveryAddress: {\n                             id|objectId: [String],\n                             postCode: [Number]\n                          },\n                          (discountCode: {\n                             code: [String]\n                          },)\n                          (washAndDry: [Boolean])\n                          }\n                          ```",
+                    "type": "Object"
+                }
+            ],
+            "class": "Order"
+        },
+        {
+            "file": "cloud\\Order\\order.js",
+            "line": 203,
+            "description": "Notifies the user for a status change event on the order by sending a push notification",
+            "itemtype": "method",
+            "name": "notifyUserStatusChange",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "order",
+                    "description": "The order in question as a Parse.Object",
+                    "type": "Object"
+                },
+                {
+                    "name": "config",
+                    "description": "The Parse.Config file",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "A Parse.Promise",
+                "type": "Object"
+            },
+            "class": "Order"
+        },
+        {
+            "file": "cloud\\Order\\order.js",
+            "line": 225,
+            "description": "Generates a Parse.Query which is used to find all the available drivers who operate within a certain\npost code which is retrieved from either a pickUp or delivery driver's schedule.",
+            "itemtype": "method",
+            "name": "createAvailableDriverQueryForDateAndCode",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "schedule",
+                    "description": "A Parse.Object for DriverSchedule table",
+                    "type": "Object"
+                },
+                {
+                    "name": "postCode",
+                    "description": "A postal code where the query should be based on finding available driver",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "A Parse.Query object.",
+                "type": "Object"
+            },
+            "class": "Order"
+        },
+        {
+            "file": "cloud\\Order\\order.js",
+            "line": 275,
+            "description": "Given an order assigns pickup/delivery drivers to order and a laundry whihch will\nhandle the processing of that order",
+            "itemtype": "method",
+            "name": "assignDriverAndLaundryToOrder",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "order",
+                    "description": "The order in question",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "A Parse.Promise. If successfull the order will be returned on success. \n                  Otherwise the error message that occured during processing.",
+                "type": "Object"
+            },
+            "class": "Order"
+        },
+        {
+            "file": "cloud\\Order\\restrictions.js",
+            "line": 77,
+            "description": "Validates an order in a synchronous maner. Is used when all of the order's dependencies\nare present as `Parse.Object`s and not pointers. Its use is on create order function where\nall the data for an order are given beforehand",
+            "itemtype": "method",
+            "name": "validate",
+            "class": "OrderValidator"
+        },
+        {
+            "file": "cloud\\Order\\restrictions.js",
+            "line": 94,
+            "description": "Validates the scheduling part of an order based on business logic and basic restrictions\nthat need to be met.",
+            "itemtype": "method",
+            "name": "_validateSchedule",
+            "access": "private",
+            "tagname": "",
+            "class": "OrderValidator"
+        },
+        {
+            "file": "cloud\\Order\\restrictions.js",
+            "line": 189,
+            "description": "Validates the status text of an order based on available statuses.",
+            "itemtype": "method",
+            "name": "_validateStatus",
+            "access": "private",
+            "tagname": "",
+            "class": "OrderValidator"
+        },
+        {
+            "file": "cloud\\Order\\schedule.js",
+            "line": 66,
+            "description": "Creates a query that queries for reccuring and none reccuring schedules for laundries that serve within\nthe given postcodes. Also looks only for schedules within certain dates.",
+            "itemtype": "method",
+            "name": "createLaundryScheduleQueryForPostCodes",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "postCodes",
+                    "description": "An array with the postcodes. A valid laundry should serve at least one of them.",
+                    "type": "Array"
+                },
+                {
+                    "name": "fromDateMin",
+                    "description": "A minimum date to be used as criterion. Finding schedules later than that date.",
+                    "type": "Date"
+                },
+                {
+                    "name": "toDateMax",
+                    "description": "A maximum date to be used as criterion. Finding schedules earlier than that date.",
+                    "type": "Date"
+                }
+            ],
+            "return": {
+                "description": "A `Parse.Query` object.",
+                "type": "Object"
+            },
+            "class": "Schedule"
+        },
+        {
+            "file": "cloud\\Order\\schedule.js",
+            "line": 130,
+            "description": "Creates a query that queries for  reccuring and none reccuring schedules for drivers that work for specific\nlaundries. Also looks only for schedules within certain dates.",
+            "itemtype": "method",
+            "name": "createDriverScheduleQueryForLaundries",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "postCodes",
+                    "description": "An array with the laundries. A valid driver should work for one of them.",
+                    "type": "Array"
+                },
+                {
+                    "name": "fromDateMin",
+                    "description": "A minimum date to be used as criterion. Finding schedules later than that date.",
+                    "type": "Date"
+                },
+                {
+                    "name": "toDateMax",
+                    "description": "A maximum date to be used as criterion. Finding schedules earlier than that date.",
+                    "type": "Date"
+                }
+            ],
+            "return": {
+                "description": "A `Parse.Query` object.",
+                "type": "Object"
+            },
+            "class": "Schedule"
+        },
+        {
+            "file": "cloud\\Order\\schedule.js",
+            "line": 200,
+            "description": "Given the schedules both of driver and laundries, it calculates the reserved hours for each driver on\neach post code he may serve.",
+            "itemtype": "method",
+            "name": "getAllSchedules",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "laundrySchedules",
+                    "description": "The schedule with reserved hours of the laundry service providers",
+                    "type": "Array",
+                    "optional": true,
+                    "optdefault": "[]"
+                },
+                {
+                    "name": "driverSchedules",
+                    "description": "The drivers' schedule with all the reserved hours.",
+                    "type": "Array",
+                    "optional": true,
+                    "optdefault": "[]"
+                },
+                {
+                    "name": "dateRestrictions",
+                    "description": "A `DateRestrictions` instance with restrictions for minimum and maximum\n\t\t\t\t\t\t\t\t\t\tallowed date where the schedule will be rendered.",
+                    "type": "Object",
+                    "optional": true
+                }
+            ],
+            "return": {
+                "description": "Returns an array of objects where each object describes the diver availability per post\n                 code.",
+                "type": "Array"
+            },
+            "class": "Schedule"
+        },
+        {
+            "file": "cloud\\Order\\schedule.js",
+            "line": 396,
+            "description": "Gets all the reserved hours a business will have in conjuction with the schedule of its drivers",
+            "itemtype": "method",
+            "name": "getSchedulesForPostCodes",
+            "params": [
+                {
+                    "name": "postCodes",
+                    "description": "The post codes on where to look for available laundries. Is an array\n                          since the user may have more than one adresses registered to him.",
+                    "type": "Array"
+                },
+                {
+                    "name": "response",
+                    "description": "An object with reserved hours per post code.\n                          An example of result would be:\n                          ```javascript\n                          {\n                 \t     \tminPickUpDate: 29 Jul 2015T12:00,\n                  \t       \tmaxDeliveryDate: 12 Aug 2015T12:00,\n                   \t      \treserved: [{\n\t\t\t\t\t      \t\t\tfromDate: 29 Jul 2015T15:00,\n\t \t\t\t\t        \t\ttoDate: 29 Jul 2015T15:30,\n \t             \t\t\t\tpostCode: 34111\n\t\t\t\t\t\t      \t},{\n\t\t\t\t\t\t      \t\tfromDate: 29 Jul 2015T15:00,\n\t\t\t\t\t        \t\ttoDate: 29 Jul 2015T15:30,\n              \t\t\t\t\tpostCode: 58100\n\t\t\t\t\t    \t  \t}]\n\t\t\t                  }\n                    ```",
+                    "type": "Object"
+                }
+            ],
+            "class": "Schedule"
+        },
+        {
+            "file": "cloud\\Stripe\\amount.js",
+            "line": 22,
+            "itemtype": "property",
+            "name": "isValid",
+            "class": "StripeAmount"
+        },
+        {
+            "file": "cloud\\Stripe\\amount.js",
+            "line": 26,
+            "itemtype": "property",
+            "name": "errorMessage",
+            "class": "StripeAmount"
+        },
+        {
+            "file": "cloud\\Stripe\\amount.js",
+            "line": 35,
+            "description": "Validates the amount. Ensures the amount is a number is greater than 50 cents\nwhich is the minimum allowed amount per transaction for Stripe. Sets the\n`isValid` & `errorMessage` properties to the results of the validation.",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "_validateAmount",
+            "class": "StripeAmount"
+        },
+        {
+            "file": "cloud\\Stripe\\index.js",
+            "line": 17,
+            "description": "Creates a stripe customer for a user and saves the ID to the database for future use.\nIn case the user is already stripe customer adds the new card to its stripe customer account.",
+            "itemtype": "method",
+            "name": "createStripeCustomer",
+            "params": [
+                {
+                    "name": "creditCardToken",
+                    "description": "The token generated by stripe for a specific credit card.",
+                    "type": "String"
+                }
+            ],
+            "class": "Stripe"
+        },
+        {
+            "file": "cloud\\Stripe\\index.js",
+            "line": 76,
+            "description": "Listing all stripe cards available to a user. User required to be stripe customer already.\nIn the process removes any expired card the user may have.",
+            "itemtype": "method",
+            "name": "listStripeCards",
+            "return": {
+                "description": "An array with all the valid stripe cards of the user.",
+                "type": "Array"
+            },
+            "class": "Stripe"
+        },
+        {
+            "file": "cloud\\Stripe\\index.js",
+            "line": 111,
+            "description": "Changes the user's default card to the one of his choice. The default card is the one\nthe user added first.",
+            "itemtype": "method",
+            "name": "selectDefaultCard",
+            "params": [
+                {
+                    "name": "card",
+                    "description": "The card to be default. Can be either the id of the card or the card\n                                object as per Stripe response of a card object.",
+                    "type": "Object|String"
+                }
+            ],
+            "class": "Stripe"
+        },
+        {
+            "file": "cloud\\Stripe\\index.js",
+            "line": 154,
+            "description": "Removes the given credit card from stripe's customer account.",
+            "itemtype": "method",
+            "name": "removeCard",
+            "params": [
+                {
+                    "name": "card",
+                    "description": "The card object as per stripe's credit card response \n                                or the credit card id of the card to be deleted.",
+                    "type": "Object|String"
+                }
+            ],
+            "class": "Stripe"
+        },
+        {
+            "file": "cloud\\Stripe\\index.js",
+            "line": 205,
+            "description": "Allows the admin to refund an order. Params are send as a json object with the following properties:",
+            "itemtype": "method",
+            "name": "refundOrder",
+            "params": [
+                {
+                    "name": "orderId",
+                    "description": "The id of the order about to be rated.",
+                    "type": "String"
+                },
+                {
+                    "name": "reason",
+                    "description": "The reason for the refund.",
+                    "type": "String"
+                }
+            ],
+            "class": "Stripe"
+        },
+        {
+            "file": "cloud\\Stripe\\index.js",
+            "line": 263,
+            "description": "Allows the user to make a payment. Params are send as a json object on `request.params` with the following properties:",
+            "itemtype": "method",
+            "name": "chargeOrder",
+            "params": [
+                {
+                    "name": "order",
+                    "description": "The order be charged. Can be the id as a string or an Order Parse.Object",
+                    "type": "String|Object"
+                },
+                {
+                    "name": "amount[amount=1]",
+                    "description": "The amount to be charged. Minimum value is 0.5$.",
+                    "type": "Number"
+                }
+            ],
+            "class": "Stripe"
+        },
+        {
+            "file": "cloud\\User\\index.js",
+            "line": 19,
+            "description": "Assigns a role to a user. Used from cloud functions `makeUserAdmin`, `makeUserDriver`, `makeUserLaundry`, `makeUserMember`.\nBefore any assignement it verified that the user who requested the assignment has Admin rights to do so.",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "assignerUser",
+                    "description": "The Parse.User that requests the assingment.",
+                    "type": "Object"
+                },
+                {
+                    "name": "assigneeUser",
+                    "description": "The Parse.User that gets the role assinged to him.",
+                    "type": "Object"
+                },
+                {
+                    "name": "roleName",
+                    "description": "The role name to assign on assignee.",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "A Parse.Promise",
+                "type": "Object"
+            },
+            "class": "User"
+        },
+        {
+            "file": "cloud\\Utils\\async.js",
+            "line": 5,
+            "description": "Gets a parse asynchronous call and transforms it into a promise.",
+            "itemtype": "method",
+            "name": "runAsPromise",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "parseObject",
+                    "description": "The parse object on which the async method will be called for.",
+                    "type": "Object"
+                },
+                {
+                    "name": "method",
+                    "description": "The name of the method to call as a string. e.g. 'save'",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "A Parse.Promise",
+                "type": "Promise"
+            },
+            "class": "AsyncUtils"
+        },
+        {
+            "file": "cloud\\Utils\\errors.js",
+            "line": 49,
+            "description": "Helper function which iterates over all error messages and returns the proper one \nas response to client. If the error is not found, the generic error is returned instead",
+            "itemtype": "method",
+            "name": "getErrorResponse",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "error",
+                    "description": "The `Error` object to be resolved",
+                    "type": "Object|String"
+                }
+            ],
+            "return": {
+                "description": "The error message for the specified error object or generic \n                         error response",
+                "type": "String"
+            },
+            "class": "Errors"
+        },
+        {
+            "file": "cloud\\Utils\\errors.js",
+            "line": 76,
+            "description": "Maps possible errors from stripe charge response to custom application errors",
+            "itemtype": "method",
+            "name": "getStripeErrorsFromCharge",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "charge",
+                    "description": "Stripe `Charge` object",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "A string with all errors contained in a `Charge` response.",
+                "type": "String"
+            },
+            "class": "Errors"
+        },
+        {
+            "file": "cloud\\Utils\\notification.js",
+            "line": 12,
+            "description": "Sends user push notifications based on their IDs. Due to parse limitation a channel can not start from number\nalthough user IDs can. Therefor a channel prefix is appended to ensure that. \n\nATTENTION:: The same prefix has to be appended on the client side as well.",
+            "itemtype": "method",
+            "name": "sendUserNotifications",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "message",
+                    "description": "The message that the notification will display.",
+                    "type": "String"
+                },
+                {
+                    "name": "receivers",
+                    "description": "An array of user IDs that would receive the notificaiton.",
+                    "type": "Array",
+                    "optional": true,
+                    "optdefault": "[]"
+                }
+            ],
+            "return": {
+                "description": "A Parse.Promise",
+                "type": "Promise"
+            },
+            "class": "NotificationUtils"
+        },
+        {
+            "file": "cloud\\cloud.js",
+            "line": 48,
+            "description": "Wrapper around beforeSave hook in order to skip triggering any logic when flag `skipWebHooks` is set\nAlso stores the name of the resource in an array in order to propagate similar logic on afterSave",
+            "params": [
+                {
+                    "name": "resource",
+                    "description": "The Parse Class as string or Parse Object (e.g. Parse.User) \n                                      on which the hook will apply",
+                    "type": "String|Parse.Object"
+                },
+                {
+                    "name": "action",
+                    "description": "A function to be called on beforeSave hook",
+                    "type": "Function"
+                }
+            ],
+            "class": "Cloud"
+        },
+        {
+            "file": "cloud\\main.js",
+            "line": 20,
+            "itemtype": "method",
+            "name": "getAll\nGets all entries from a table that passed as parameter. Can be passed different query criteria.",
+            "params": [
+                {
+                    "name": "table",
+                    "description": "The name of the table from which the results will be returned.",
+                    "type": "String"
+                },
+                {
+                    "name": "include",
+                    "description": "An array of tables to include.\n                         e.g. \n                         ```javascript\n                         ['user', 'deliveryAddress']\n                         ```",
+                    "type": "Array"
+                },
+                {
+                    "name": "criteria",
+                    "description": "The criteria for restricting the query to certain results. Criteria should \n                         have as key the column name on which restrictions will be applied and as value\n                         another object with compare function name as key and compare value as value . \n                         Compare function name is a parse query comparisson function while value the \n                         value to compare the column against.\n                         e.g.\n                         ```javascript\n                         criteria = {\n                         \tobjectId: {equalTo: '142sfa1'}\n                         }\n                         ```",
+                    "type": "Object"
+                }
+            ],
+            "class": "RoleManager"
+        },
+        {
+            "file": "cloud\\roleManager.js",
+            "line": 39,
+            "description": "Sets a Role to a user",
+            "itemtype": "method",
+            "name": "setUserRole",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "user",
+                    "description": "A Parse.User object",
+                    "type": "Object"
+                },
+                {
+                    "name": "roleName",
+                    "description": "The name of the desired role.",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "A Parse.Promise",
+                "type": "Promise"
+            },
+            "class": "RoleManager"
+        },
+        {
+            "file": "cloud\\roleManager.js",
+            "line": 74,
+            "description": "Sets private access for a user. Additional restrictions can be enforced for public read/write access\nas well for declared roles. An example of restrictions cound be\n`{}`",
+            "itemtype": "method",
+            "name": "setPrivateAccess",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "user",
+                    "description": "A valid Parse user",
+                    "type": "Object"
+                },
+                {
+                    "name": "resource",
+                    "description": "A Parse Object. The resource where restrictions will apply",
+                    "type": "Object"
+                },
+                {
+                    "name": "restrictions",
+                    "description": "An object with `read`/`write` restrictions for public and Roles. As an example could be:\n                                    \t`{public: [\"read\"], Admin: [\"read\", \"write]}`",
+                    "type": "Object"
+                },
+                {
+                    "name": "applyToExistingResource",
+                    "description": "Setup the restrictions to existing users as well. By default the restrictions are applied\n                                    \tonly on a newly created user",
+                    "type": "Boolean"
+                }
+            ],
+            "return": {
+                "description": "A Parse.Promise. If successful returns the resource passed as argument. Otherwise an error message",
+                "type": "Promise"
+            },
+            "class": "RoleManager"
+        },
+        {
+            "file": "cloud\\roleManager.js",
+            "line": 167,
+            "description": "Checks if a user belongs to a specific role",
+            "itemtype": "method",
+            "name": "checkIfUserInRoles",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "user",
+                    "description": "The user in question",
+                    "type": "Object"
+                },
+                {
+                    "name": "roleName",
+                    "description": "The names of the Roles as array or a string space separated.\n                                     Please use roleManager's role constants",
+                    "type": "Array | String"
+                }
+            ],
+            "return": {
+                "description": "A Parse.Promise. If successfull return either true/false depending on the user\n                   is in role or not",
+                "type": "Promise"
+            },
+            "class": "RoleManager"
+        }
+    ],
+    "warnings": [
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " cloud\\DiscountCode\\discount.js:9"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " cloud\\DiscountCode\\discount.js:45"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " cloud\\DiscountCode\\discount.js:119"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " cloud\\Order\\order.js:203"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " cloud\\Order\\order.js:225"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " cloud\\Order\\order.js:275"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " cloud\\Order\\restrictions.js:16"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " cloud\\Order\\schedule.js:66"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " cloud\\Order\\schedule.js:130"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " cloud\\Order\\schedule.js:200"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " cloud\\Stripe\\amount.js:4"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " cloud\\Stripe\\index.js:76"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " cloud\\User\\index.js:19"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " cloud\\Utils\\async.js:5"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " cloud\\Utils\\errors.js:49"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " cloud\\Utils\\errors.js:76"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " cloud\\Utils\\notification.js:12"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " cloud\\roleManager.js:39"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " cloud\\roleManager.js:74"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " cloud\\roleManager.js:167"
+        },
+        {
+            "message": "Missing item type\nAssigns a role to a user. Used from cloud functions `makeUserAdmin`, `makeUserDriver`, `makeUserLaundry`, `makeUserMember`.\nBefore any assignement it verified that the user who requested the assignment has Admin rights to do so.",
+            "line": " cloud\\User\\index.js:19"
+        },
+        {
+            "message": "Missing item type\nWrapper around beforeSave hook in order to skip triggering any logic when flag `skipWebHooks` is set\nAlso stores the name of the resource in an array in order to propagate similar logic on afterSave",
+            "line": " cloud\\cloud.js:48"
+        }
+    ]
+}

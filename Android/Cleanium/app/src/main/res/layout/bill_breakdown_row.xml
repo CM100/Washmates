@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/breakdown_row_wrapper"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:focusable="false"
+    android:focusableInTouchMode="false"
+    android:clickable="false"
+    android:background="@android:color/white"
+    android:paddingTop="@dimen/bill_row_vertical_padding"
+    android:paddingBottom="@dimen/bill_row_vertical_padding">
+    <TextView
+        android:id="@+id/service_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:text="Wash &amp; Fold"
+        android:textSize="@dimen/font_size_14sp"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:clickable="false"
+        android:textColor="#6d6d6d"
+        android:layout_toLeftOf="@+id/service_price"
+        android:layout_marginRight="@dimen/bill_row_vertical_padding"/>
+
+    <TextView
+        android:id="@id/service_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:clickable="false"
+        android:text="$25"
+        android:textColor="#6d6d6d"
+        android:textSize="@dimen/font_size_14sp"
+        android:layout_alignParentRight="true"/>
+
+</RelativeLayout>

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>cloud\main.js - Cleanium_Server</title>
+    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+</head>
+<body class="yui3-skin-sam">
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <h1 class="brand" style="padding: 10px 16px 10px; height: 20px; line-height: 20px; margin-left: 0;">
+	    <img alt="Cleanium_Server" src="..\..\..\Android\Cleanium\app\src\main\res\drawable-xxhdpi\logo.png" style="max-height: 65%;" title="Cleanium_Server">
+            Cleanium_Server
+        </h1>
+	<div class="nav">
+            <li class="divider-vertical"></li>
+            <li>
+                <p class="navbar-text">
+                    API Docs for Version: <b>0.0.0</b>
+                </p>
+            </li>
+        </div>
+        <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/AsyncUtils", "classes/Cloud", "classes/Errors", "classes/Heap", "classes/Logger", "classes/NotificationUtils", "classes/Order", "classes/OrderDate", "classes/OrderRestrictions", "classes/OrderStatus", "classes/OrderValidator", "classes/RoleManager", "classes/Schedule", "classes/Stripe", "classes/StripeAmount", "classes/User"]'>
+        </form>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="span3">
+	    <div>
+	        <h3>APIs</h3>
+	        <div id="sidebar">
+	            <ul id="main-nav" class="nav nav-tabs" style="margin-bottom:0;">
+	                <li class="active"><a href="#classes" data-toggle="tab">Classes</a></li>
+	                <li><a href="#modules" data-toggle="tab">Modules</a></li>
+	            </ul>
+	    
+	            <div id="api-tabview-filter">
+	                <input type="search" placeholder="Type to filter APIs">
+	            </div>
+	    
+	            <div class="tab-content" style="border: 1px solid #DDD; border-top:0;">
+	                <div class="tab-pane active" id="classes">
+	                    <ul id="api-classes" class="nav nav-list">
+	                            <li><a href="../classes/AsyncUtils.html">AsyncUtils</a></li>
+	                            <li><a href="../classes/Cloud.html">Cloud</a></li>
+	                            <li><a href="../classes/Errors.html">Errors</a></li>
+	                            <li><a href="../classes/Heap.html">Heap</a></li>
+	                            <li><a href="../classes/Logger.html">Logger</a></li>
+	                            <li><a href="../classes/NotificationUtils.html">NotificationUtils</a></li>
+	                            <li><a href="../classes/Order.html">Order</a></li>
+	                            <li><a href="../classes/OrderRestrictions.html">OrderRestrictions</a></li>
+	                            <li><a href="../classes/RoleManager.html">RoleManager</a></li>
+	                            <li><a href="../classes/Schedule.html">Schedule</a></li>
+	                            <li><a href="../classes/Stripe.html">Stripe</a></li>
+	                            <li><a href="../classes/User.html">User</a></li>
+	                    </ul>
+	                </div>
+	    
+	                <div class="tab-pane" id="modules">
+	                    <ul id="api-modules" class="nav nav-list">
+	                    </ul>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+        </div>
+        <div class="span9">
+                <form id="options-form" class="form-inline pull-right">
+                    Show:
+                    <label for="api-show-inherited" class="checkbox">
+                        <input type="checkbox" id="api-show-inherited" checked>
+                        Inherited
+                    </label>
+            
+                    <label for="api-show-protected" class="checkbox">
+                        <input type="checkbox" id="api-show-protected">
+                        Protected
+                    </label>
+            
+                    <label for="api-show-private" class="checkbox">
+                        <input type="checkbox" id="api-show-private">
+                        Private
+                    </label>
+                    <label for="api-show-deprecated" class="checkbox">
+                        <input type="checkbox" id="api-show-deprecated">
+                        Deprecated
+                    </label>
+            
+                </form>
+            
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+<div class="page-header">
+    <h1>cloud\main.js <small>File</small></h1>
+</div>
+
+<div class="file">
+    <pre class="prettyprint linenums">
+/*globals  require, Parse*/
+var user = require(&#x27;cloud/User/index.js&#x27;);
+var stripe = require(&#x27;cloud/Stripe/index.js&#x27;);
+var order = require(&#x27;cloud/Order/order&#x27;);
+var address = require(&#x27;cloud/Address/address&#x27;);
+var logger = require(&#x27;cloud/Utils/logger&#x27;);
+var discount = require(&#x27;cloud/DiscountCode/discount&#x27;);
+
+
+initializeModules();
+
+function initializeModules(config) {
+	user.init(config);
+	stripe.init(config);
+	order.init(config);
+	address.init(config);
+	discount.init(config);
+}
+
+/**
+ * @method getAll
+ * Gets all entries from a table that passed as parameter. Can be passed different query criteria.
+ * @param {String} table     The name of the table from which the results will be returned.
+ * @param {Array} include   An array of tables to include.
+ *                          e.g. 
+ *                          &#x60;&#x60;&#x60;javascript
+ *                          [&#x27;user&#x27;, &#x27;deliveryAddress&#x27;]
+ *                          &#x60;&#x60;&#x60;
+ *                          
+ * @param {Object} criteria The criteria for restricting the query to certain results. Criteria should 
+ *                          have as key the column name on which restrictions will be applied and as value
+ *                          another object with compare function name as key and compare value as value . 
+ *                          Compare function name is a parse query comparisson function while value the 
+ *                          value to compare the column against.
+ *                          e.g.
+ *                          &#x60;&#x60;&#x60;javascript
+ *                          criteria = {
+ *                          	objectId: {equalTo: &#x27;142sfa1&#x27;}
+ *                          }
+ *                          &#x60;&#x60;&#x60;
+ */
+Parse.Cloud.define(&#x27;getAll&#x27;, function (request, response) {
+	var tableName = request.params.table;
+
+	var criteria = request.params.criteria;
+
+	var include = request.params.include || [];
+
+
+	logger.debug(include);
+	var results = [];
+
+	var processCallback = function (res) {
+		results = results.concat(res);
+		//Query for the next 1k-set entries since Parse has limit on 1k results per query
+		if (res.length === 1000) {
+			process(res[res.length - 1].id);
+			return;
+		}
+
+		response.success(results);
+	}
+
+	var castToJSON = function (input) {
+		var result;
+		if (Object.prototype.toString.call(input) === &#x27;[object String]&#x27;) {
+			logger.debug(&#x27;Input is string. Casting to JSON&#x27;);
+			try {
+				result = JSON.parse(input);
+			}catch(e){
+				result = input;
+			}
+			logger.debug(result);
+		} else {
+			result = input;
+			logger.debug(&#x27;Input is object. Do nothing&#x27;);
+		}
+
+		return result;
+	}
+
+	var setCriteriaToQuery = function (query, criteria) {
+		Object.keys(criteria).forEach(function (columnName) {
+			var criterion = castToJSON(criteria[columnName]);
+			Object.keys(criterion).forEach(function (compareFnName) {
+				logger.debug(&#x27;query.&#x27; + compareFnName + &#x27;(&quot;&#x27; + columnName + &#x27;&quot;, &#x27; + criterion[compareFnName] + &#x27;)&#x27;);
+				query[compareFnName](columnName, castToJSON(criterion[compareFnName]));
+			});
+		});
+		return query;
+	}
+
+	var includeTablesToQuery = function (query, includes) {
+		includes.forEach(function (tableName) {
+			logger.debug(&#x27;Including &#x27; + tableName + &#x27; to query.&#x27;);
+			query.include(tableName);
+		});
+	}
+	var process = function (skip) {
+
+		var query = new Parse.Query(Parse.Object.extend(tableName));
+
+		if (criteria !== undefined) {
+			criteria = castToJSON(criteria);
+			setCriteriaToQuery(query, criteria);
+		}
+
+		if (include.length &gt; 0) {
+			includeTablesToQuery(query, include);
+		}
+
+		if (skip) {
+			query.greaterThan(&quot;objectId&quot;, skip);
+		}
+
+		query.limit(1000);
+		query.ascending(&quot;objectId&quot;);
+		query.find()
+			.done(function querySuccess(res) {
+				processCallback(res);
+			})
+			.fail(function queryFailed(error) {
+				response.error(error);
+			});
+	}
+
+
+	process(false);
+});
+    </pre>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/jquery/jquery-1.8.2.min.js"></script>
+<script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script src="../assets/js/yuidoc-bootstrap.js"></script>
+<script>prettyPrint();</script>
+</body>
+</html>

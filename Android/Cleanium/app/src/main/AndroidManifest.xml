@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.singularity.cleanium" android:versionName="1.0.2" android:versionCode="3">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:name="singularity.com.cleanium.Cleanium"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+
+        <meta-data
+            android:name="com.parse.APPLICATION_ID"
+            android:value="@string/parse_app_id" />
+        <meta-data
+            android:name="com.parse.CLIENT_KEY"
+            android:value="@string/parse_client_key" />
+
+        <activity
+            android:name="singularity.com.cleanium.ui.screens.SplashscreenActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="singularity.com.cleanium.ui.screens.StartingActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
+        </activity>
+        <activity
+            android:name="singularity.com.cleanium.ui.screens.SignUpActivity"
+            android:label="@string/title_activity_signup"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" >
+        </activity>
+        <activity
+            android:name="singularity.com.cleanium.ui.screens.SchedulePickupActivity"
+            android:label="@string/title_activity_schedule_pickup"
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="singularity.com.cleanium.ui.screens.BaseNavigationDrawerActivity"
+            android:label="@string/schedule_pickup"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="singularity.com.cleanium.ui.screens.RateServiceActivity"
+            android:label="@string/rate_our_service"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="singularity.com.cleanium.ui.screens.WashingStatusActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="singularity.com.cleanium.ui.screens.TutorialActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="singularity.com.cleanium.ui.screens.SettingsActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="singularity.com.cleanium.ui.screens.OrderHistoryActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="singularity.com.cleanium.ui.screens.CouponsActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="singularity.com.cleanium.ui.screens.SupportActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="singularity.com.cleanium.ui.screens.PricingActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="singularity.com.cleanium.ui.screens.ProfileActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="singularity.com.cleanium.ui.screens.PaymentInformationActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="singularity.com.cleanium.ui.screens.AddressListActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="singularity.com.cleanium.ui.screens.AddressActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+        </activity>
+    </application>
+</manifest>

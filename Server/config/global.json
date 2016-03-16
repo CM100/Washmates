@@ -1,0 +1,17 @@
+{
+	"global": {
+		"parseVersion": "1.4.2"
+	},
+	"applications": {
+		"Cleanium": {
+			"applicationId": "cGiRSDM8unMmInG0iDO4DG3oesrWm00QGNcU6eUN",
+			"masterKey": "qrPww7p0SwqSfun0R53hxLoWiIVSBI6yOjBHwpwM"
+		},
+		"_default": {
+			"link": "Cleanium"
+		},
+		"cleanium-web": {
+			"link": "Cleanium"
+		}
+	}
+}

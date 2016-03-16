@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>cloud\DiscountCode\discount.js - Cleanium_Server</title>
+    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+</head>
+<body class="yui3-skin-sam">
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <h1 class="brand" style="padding: 10px 16px 10px; height: 20px; line-height: 20px; margin-left: 0;">
+	    <img alt="Cleanium_Server" src="..\..\..\Android\Cleanium\app\src\main\res\drawable-xxhdpi\logo.png" style="max-height: 65%;" title="Cleanium_Server">
+            Cleanium_Server
+        </h1>
+	<div class="nav">
+            <li class="divider-vertical"></li>
+            <li>
+                <p class="navbar-text">
+                    API Docs for Version: <b>0.0.0</b>
+                </p>
+            </li>
+        </div>
+        <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/AsyncUtils", "classes/Cloud", "classes/Errors", "classes/Heap", "classes/Logger", "classes/NotificationUtils", "classes/Order", "classes/OrderDate", "classes/OrderRestrictions", "classes/OrderStatus", "classes/OrderValidator", "classes/RoleManager", "classes/Schedule", "classes/Stripe", "classes/StripeAmount", "classes/User"]'>
+        </form>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="span3">
+	    <div>
+	        <h3>APIs</h3>
+	        <div id="sidebar">
+	            <ul id="main-nav" class="nav nav-tabs" style="margin-bottom:0;">
+	                <li class="active"><a href="#classes" data-toggle="tab">Classes</a></li>
+	                <li><a href="#modules" data-toggle="tab">Modules</a></li>
+	            </ul>
+	    
+	            <div id="api-tabview-filter">
+	                <input type="search" placeholder="Type to filter APIs">
+	            </div>
+	    
+	            <div class="tab-content" style="border: 1px solid #DDD; border-top:0;">
+	                <div class="tab-pane active" id="classes">
+	                    <ul id="api-classes" class="nav nav-list">
+	                            <li><a href="../classes/AsyncUtils.html">AsyncUtils</a></li>
+	                            <li><a href="../classes/Cloud.html">Cloud</a></li>
+	                            <li><a href="../classes/Errors.html">Errors</a></li>
+	                            <li><a href="../classes/Heap.html">Heap</a></li>
+	                            <li><a href="../classes/Logger.html">Logger</a></li>
+	                            <li><a href="../classes/NotificationUtils.html">NotificationUtils</a></li>
+	                            <li><a href="../classes/Order.html">Order</a></li>
+	                            <li><a href="../classes/OrderRestrictions.html">OrderRestrictions</a></li>
+	                            <li><a href="../classes/RoleManager.html">RoleManager</a></li>
+	                            <li><a href="../classes/Schedule.html">Schedule</a></li>
+	                            <li><a href="../classes/Stripe.html">Stripe</a></li>
+	                            <li><a href="../classes/User.html">User</a></li>
+	                    </ul>
+	                </div>
+	    
+	                <div class="tab-pane" id="modules">
+	                    <ul id="api-modules" class="nav nav-list">
+	                    </ul>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+        </div>
+        <div class="span9">
+                <form id="options-form" class="form-inline pull-right">
+                    Show:
+                    <label for="api-show-inherited" class="checkbox">
+                        <input type="checkbox" id="api-show-inherited" checked>
+                        Inherited
+                    </label>
+            
+                    <label for="api-show-protected" class="checkbox">
+                        <input type="checkbox" id="api-show-protected">
+                        Protected
+                    </label>
+            
+                    <label for="api-show-private" class="checkbox">
+                        <input type="checkbox" id="api-show-private">
+                        Private
+                    </label>
+                    <label for="api-show-deprecated" class="checkbox">
+                        <input type="checkbox" id="api-show-deprecated">
+                        Deprecated
+                    </label>
+            
+                </form>
+            
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+<div class="page-header">
+    <h1>cloud\DiscountCode\discount.js <small>File</small></h1>
+</div>
+
+<div class="file">
+    <pre class="prettyprint linenums">
+/*globals require, exports, Parse*/
+
+var errors = require(&#x27;cloud/Utils/errors&#x27;);
+var logger = require(&#x27;cloud/Utils/logger&#x27;);
+var orderStatus = require(&#x27;cloud/Order/status&#x27;);
+
+exports.init = function () {};
+
+/**
+ * Calculates the discounted amount based on the given discount code and
+ * total amount for an order before discount
+ * 
+ * @method calculateDiscountAmountAsync
+ * @private
+ * @param   {Object}  code        Parse Object or Pointer of a &#x60;DiscountCode&#x60; class
+ * @param   {Number}  totalAmount The total amount of an order before discount
+ * @returns {Promise} A Promise with the discount amount if the code is given.
+ */
+exports.calculateDiscountAmountAsync = function (code, totalAmount, services) {
+	logger.info(&#x27;Calculating discount amount for code&#x27; + code.id);
+	return exports.verifyDiscountCodeAsync(code)
+		.done(function (discountCode) {
+			var discountAmount = discountCode.get(&#x27;amount&#x27;);
+
+			if (discountCode.get(&#x27;isPercentage&#x27;)) {
+				if (discountAmount &gt; 1) {
+					discountAmount = discountAmount / 100;
+				}
+				discountAmount = discountAmount * totalAmount;
+				logger.info(&#x27;Discount is percentage. The effective amount to charge is set to &#x27; + totalAmount + &#x27; AUD. A discount of &#x27; + discountAmount + &#x27; AUD was calculated.&#x27;);
+
+			} else {
+				logger.info(&#x27;The effective amount to charge is set to &#x27; + totalAmount + &#x27; AUD. A discount of &#x27; + discountAmount + &#x27; AUD was provided.&#x27;);
+
+			}
+			return Parse.Promise.as(discountAmount);
+		})
+		.fail(function (error) {
+			logger.warn(&#x27;Error calculating discount for code &#x27; + JSON.stringify(code));
+			logger.error(error);
+			return Parse.Promise.error(error);
+		});
+};
+
+/**
+ * Verifies that the discount code is valid and the user has never used it on
+ * a past order.
+ * 
+ * @method verifyDiscountCodeAsync
+ * @private
+ * @param   {Object} discountCode  The code string provided to the user
+ * @param   {Object} appliedByUser A &#x60;Parse.User&#x60; object of the user who
+ *                                 asked verification of the code.
+ * @returns {Promise} A &#x60;Parse.Promise&#x60; with the discount code object if valid or
+ *                    an error message if invalid.
+ */
+exports.verifyDiscountCodeAsync = function (discountCode, appliedByUser) {
+	Parse.Cloud.useMasterKey();
+	var discountCodeString = discountCode.id || discountCode.get(&#x27;code&#x27;);
+	logger.info(&#x27;Verification of discount code &#x27; + discountCodeString + &#x27; was requested by user &#x27; + appliedByUser.id);
+	var discountCodeQuery = new Parse.Query(Parse.Object.extend(&#x27;DiscountCode&#x27;));
+	if (discountCode.id) {
+		discountCodeQuery.equalTo(&#x27;objectId&#x27;, discountCode.id);
+	} else {
+		discountCodeQuery.equalTo(&#x27;code&#x27;, discountCodeString);
+	}
+	return discountCodeQuery.first()
+		.fail(function(error){
+			logger.warn(&#x27;Unable to find discount code for query &#x27; + JSON.stringify(discountCodeQuery));
+			logger.error(error);
+			return Parse.Promise.error(error);
+		})
+		.done(function verifyDiscountCodeOnly(discount) {
+			var now = new Date();
+			var error;
+
+			if (!discount) {
+				logger.warn(&#x27;The code &#x27; + discountCodeString + &#x27; was invalid [non existing].&#x27;);
+				logger.error(errors.DISCOUNT_CODE_INVALID);
+				error = new Error(errors.DISCOUNT_CODE_INVALID);
+				return Parse.Promise.error(error);
+
+			}
+
+			if (discount.get(&#x27;expiresAt&#x27;) !== undefined &amp;&amp; discount.get(&#x27;expiresAt&#x27;) &lt; now) {
+				logger.info(&#x27;Discount code with ID &#x27; + discount.id + &#x27; is already expired at &#x27; + discount.get(&#x27;expiresAt&#x27;));
+				error = new Error(errors.DISCOUNT_CODE_EXPIRED);
+				return Parse.Promise.error(error);
+			}
+
+			if (!discount.get(&#x27;canBeUsedOnce&#x27;)) {
+				return Parse.Promise.as(discount);
+				
+			} else {
+				if (!appliedByUser) {
+					logger.error(&#x27;Discount code verification could not proceed because no user provided when it should.&#x27;);
+				}
+				var ordersWithDiscountQuery = new Parse.Query(Parse.Object.extend(&#x27;Order&#x27;));
+				ordersWithDiscountQuery.equalTo(&#x27;discountCode&#x27;, discount);
+				ordersWithDiscountQuery.equalTo(&#x27;user&#x27;, appliedByUser);
+				return ordersWithDiscountQuery.find().done(function (results) {
+					if (results.length === 0 || (results.length === 1 &amp;&amp; results[0].get(&#x27;status&#x27;) !== orderStatus.ORDER_COMPLETED)) {
+						var error = new Error(errors.DISCOUNT_CODE_USED);
+						return Parse.Promise.error(error);
+					} else {
+						logger.info(&#x27;Discount code with ID &#x27; + discount.id + &#x27; is valid&#x27;);
+						return Parse.Promise.as(discount);
+					}
+				});
+			}
+		})
+		.fail(function(error){
+			logger.warn(&#x27;Failed to verify the discount code&#x27;);
+			logger.error(error);
+			return Parse.Promise.error(error);
+		});
+};
+
+/**
+ * Parse cloud function for verification of discount code.
+ * 
+ * @method verifyDiscountCode
+ * @param   {String} params.discountCode  The code string provided to the user
+ * @returns {Promise} A &#x60;Parse.Promise&#x60; with the discount code object if valid or
+ *                    an error message if invalid.
+ */
+Parse.Cloud.define(&#x27;verifyDiscountCode&#x27;, function (request, response) {
+	var user = request.user;
+	var discountCode = request.params.discountCode;
+
+	var discount = new(Parse.Object.extend(&#x27;DiscountCode&#x27;))({
+		code: discountCode
+	});
+
+	if (!discountCode) {
+		response.error(errors.DISCOUNT_CODE_INVALID);
+		return;
+	}
+	exports.verifyDiscountCodeAsync(discount, user)
+		.done(function verifyDiscountCodeOnSuccess(discount) {
+			response.success(discount);
+		})
+		.fail(function verifyDiscountCodeOnError(error) {
+			logger.warn(&#x27;Error during verification of discount code.&#x27;)
+			logger.error(error);
+			response.error(errors.getErrorResponse(error));
+		});
+});
+    </pre>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/jquery/jquery-1.8.2.min.js"></script>
+<script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script src="../assets/js/yuidoc-bootstrap.js"></script>
+<script>prettyPrint();</script>
+</body>
+</html>

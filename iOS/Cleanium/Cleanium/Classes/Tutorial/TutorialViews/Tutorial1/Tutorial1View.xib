@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="Tutorial1View">
+            <connections>
+                <outlet property="contentView" destination="FYw-nl-RTG" id="UaJ-eR-ZZp"/>
+                <outlet property="imageWidthConstraint" destination="Suf-bi-uyr" id="CGU-fZ-gMD"/>
+                <outlet property="imgView" destination="SH4-zh-yWe" id="YpR-rj-dCV"/>
+                <outlet property="lblText" destination="1BQ-pC-59U" id="LtU-Bq-qsQ"/>
+                <outlet property="lblWidthConstraint" destination="huA-do-mmd" id="Gs4-Ak-rfC"/>
+                <outlet property="topConstraint" destination="Nzk-bD-lRi" id="6t6-z0-K3f"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FYw-nl-RTG" userLabel="ContentView">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SCHEDULE A WASH" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pDe-Ij-cf3">
+                            <rect key="frame" x="206" y="60" width="189" height="24"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tut1.png" translatesAutoresizingMaskIntoConstraints="NO" id="SH4-zh-yWe">
+                            <rect key="frame" x="165" y="124" width="270" height="270"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="SH4-zh-yWe" secondAttribute="height" multiplier="1:1" id="XTR-kG-zgs"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="1BQ-pC-59U">
+                            <rect key="frame" x="165" y="424" width="270" height="0.0"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                            <variation key="heightClass=regular-widthClass=regular">
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="30"/>
+                            </variation>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G6V-Ux-Jke">
+                            <rect key="frame" x="281" y="561" width="38" height="34"/>
+                            <state key="normal" title="Next">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="nextAction:" destination="-1" eventType="touchUpInside" id="gTJ-BM-MoV"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="SH4-zh-yWe" firstAttribute="top" secondItem="pDe-Ij-cf3" secondAttribute="bottom" constant="40" id="1oz-PB-h3f"/>
+                        <constraint firstItem="pDe-Ij-cf3" firstAttribute="top" secondItem="FYw-nl-RTG" secondAttribute="top" constant="60" id="Nzk-bD-lRi"/>
+                        <constraint firstItem="1BQ-pC-59U" firstAttribute="centerX" secondItem="SH4-zh-yWe" secondAttribute="centerX" id="QxE-9O-T62"/>
+                        <constraint firstItem="SH4-zh-yWe" firstAttribute="width" secondItem="FYw-nl-RTG" secondAttribute="width" multiplier="0.45" id="Suf-bi-uyr"/>
+                        <constraint firstItem="1BQ-pC-59U" firstAttribute="top" secondItem="SH4-zh-yWe" secondAttribute="bottom" constant="30" id="Tkv-C4-uUF"/>
+                        <constraint firstAttribute="centerX" secondItem="pDe-Ij-cf3" secondAttribute="centerX" id="YpG-6N-pPA"/>
+                        <constraint firstAttribute="centerX" secondItem="G6V-Ux-Jke" secondAttribute="centerX" id="f2s-gB-prS"/>
+                        <constraint firstItem="1BQ-pC-59U" firstAttribute="width" secondItem="SH4-zh-yWe" secondAttribute="width" id="huA-do-mmd"/>
+                        <constraint firstAttribute="centerX" secondItem="SH4-zh-yWe" secondAttribute="centerX" id="k9K-j8-1OW"/>
+                        <constraint firstAttribute="bottom" secondItem="G6V-Ux-Jke" secondAttribute="bottom" constant="5" id="nvL-Pn-CHe"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="FYw-nl-RTG" secondAttribute="bottom" id="14Q-BD-cRq"/>
+                <constraint firstItem="FYw-nl-RTG" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="OzO-bI-XUo"/>
+                <constraint firstItem="FYw-nl-RTG" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="esJ-dS-VgN"/>
+                <constraint firstAttribute="trailing" secondItem="FYw-nl-RTG" secondAttribute="trailing" id="fh8-iS-obs"/>
+            </constraints>
+        </view>
+    </objects>
+    <resources>
+        <image name="tut1.png" width="512" height="512"/>
+    </resources>
+</document>

@@ -1,0 +1,36 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="singularity.com.cleanium.ui.screens.StartingActivity">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/background"/>
+
+    <LinearLayout
+        android:id="@+id/logo_wrapper"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/logo_wrapper_margin_top"
+        android:layout_marginBottom="@dimen/logo_wrapper_margin_bottom"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/logo_margin_bottom"
+            android:src="@drawable/logo"/>
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/prelogin_screen_frame_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/logo_wrapper" />
+</RelativeLayout>

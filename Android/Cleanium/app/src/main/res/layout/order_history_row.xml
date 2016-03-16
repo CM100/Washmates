@@ -1,0 +1,121 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/order_history_row_wrapper"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#6dc1e3"
+    android:padding="10dp"
+    android:layout_marginBottom="1dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/pickup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/pickup_icon"
+                android:drawablePadding="12dp"
+                android:gravity="center_vertical"
+                android:text="@string/order_history_pickup"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/font_size_16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignTop="@id/pickup"
+                android:layout_alignBottom="@id/pickup"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="110dp"
+                android:text="11.11.2011"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/font_size_16sp"
+                android:id="@+id/pickUpDate" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp">
+
+            <TextView
+                android:id="@+id/drop_off"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/drop_off_icon"
+                android:drawablePadding="12dp"
+                android:gravity="center_vertical"
+                android:text="@string/order_history_drop_off"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/font_size_16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignTop="@id/drop_off"
+                android:layout_alignBottom="@id/drop_off"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="110dp"
+                android:text="11.11.2011"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/font_size_16sp"
+                android:id="@+id/dropOffDate" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp">
+
+            <TextView
+                android:id="@+id/cost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/cost_icon"
+                android:drawablePadding="12dp"
+                android:gravity="center_vertical"
+                android:text="@string/order_history_cost"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/font_size_16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignTop="@id/cost"
+                android:layout_alignBottom="@id/cost"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="110dp"
+                android:text="11.11.2011"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/font_size_16sp"
+                android:id="@+id/orderPrice" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="7dp"
+        android:paddingBottom="7dp"
+        android:paddingRight="12dp"
+        android:paddingLeft="12dp"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/order_history_status_background"
+        android:gravity="center"
+        android:text="COMPLETED"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/font_size_12sp"
+        android:id="@+id/orderStatus" />
+</RelativeLayout>
+
+
+

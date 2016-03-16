@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>cloud\User\index.js - Cleanium_Server</title>
+    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+</head>
+<body class="yui3-skin-sam">
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <h1 class="brand" style="padding: 10px 16px 10px; height: 20px; line-height: 20px; margin-left: 0;">
+	    <img alt="Cleanium_Server" src="..\..\..\Android\Cleanium\app\src\main\res\drawable-xxhdpi\logo.png" style="max-height: 65%;" title="Cleanium_Server">
+            Cleanium_Server
+        </h1>
+	<div class="nav">
+            <li class="divider-vertical"></li>
+            <li>
+                <p class="navbar-text">
+                    API Docs for Version: <b>0.0.0</b>
+                </p>
+            </li>
+        </div>
+        <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/AsyncUtils", "classes/Cloud", "classes/Errors", "classes/Heap", "classes/Logger", "classes/NotificationUtils", "classes/Order", "classes/OrderDate", "classes/OrderRestrictions", "classes/OrderStatus", "classes/OrderValidator", "classes/RoleManager", "classes/Schedule", "classes/Stripe", "classes/StripeAmount", "classes/User"]'>
+        </form>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="span3">
+	    <div>
+	        <h3>APIs</h3>
+	        <div id="sidebar">
+	            <ul id="main-nav" class="nav nav-tabs" style="margin-bottom:0;">
+	                <li class="active"><a href="#classes" data-toggle="tab">Classes</a></li>
+	                <li><a href="#modules" data-toggle="tab">Modules</a></li>
+	            </ul>
+	    
+	            <div id="api-tabview-filter">
+	                <input type="search" placeholder="Type to filter APIs">
+	            </div>
+	    
+	            <div class="tab-content" style="border: 1px solid #DDD; border-top:0;">
+	                <div class="tab-pane active" id="classes">
+	                    <ul id="api-classes" class="nav nav-list">
+	                            <li><a href="../classes/AsyncUtils.html">AsyncUtils</a></li>
+	                            <li><a href="../classes/Cloud.html">Cloud</a></li>
+	                            <li><a href="../classes/Errors.html">Errors</a></li>
+	                            <li><a href="../classes/Heap.html">Heap</a></li>
+	                            <li><a href="../classes/Logger.html">Logger</a></li>
+	                            <li><a href="../classes/NotificationUtils.html">NotificationUtils</a></li>
+	                            <li><a href="../classes/Order.html">Order</a></li>
+	                            <li><a href="../classes/OrderRestrictions.html">OrderRestrictions</a></li>
+	                            <li><a href="../classes/RoleManager.html">RoleManager</a></li>
+	                            <li><a href="../classes/Schedule.html">Schedule</a></li>
+	                            <li><a href="../classes/Stripe.html">Stripe</a></li>
+	                            <li><a href="../classes/User.html">User</a></li>
+	                    </ul>
+	                </div>
+	    
+	                <div class="tab-pane" id="modules">
+	                    <ul id="api-modules" class="nav nav-list">
+	                    </ul>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+        </div>
+        <div class="span9">
+                <form id="options-form" class="form-inline pull-right">
+                    Show:
+                    <label for="api-show-inherited" class="checkbox">
+                        <input type="checkbox" id="api-show-inherited" checked>
+                        Inherited
+                    </label>
+            
+                    <label for="api-show-protected" class="checkbox">
+                        <input type="checkbox" id="api-show-protected">
+                        Protected
+                    </label>
+            
+                    <label for="api-show-private" class="checkbox">
+                        <input type="checkbox" id="api-show-private">
+                        Private
+                    </label>
+                    <label for="api-show-deprecated" class="checkbox">
+                        <input type="checkbox" id="api-show-deprecated">
+                        Deprecated
+                    </label>
+            
+                </form>
+            
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+<div class="page-header">
+    <h1>cloud\User\index.js <small>File</small></h1>
+</div>
+
+<div class="file">
+    <pre class="prettyprint linenums">
+/*globals Parse, exports, require */
+/**
+ * @class User
+ * @static
+ */
+var roleManager = require(&#x27;cloud/roleManager&#x27;);
+var cloud = require(&#x27;cloud/cloud&#x27;);
+var logger = require(&#x27;cloud/Utils/logger&#x27;);
+
+function copyEmailToUsername(user) {
+	if (!user.get(&#x27;username&#x27;) || user.get(&#x27;username&#x27;) !== user.get(&#x27;email&#x27;) ) {
+		logger.log(&#x27;Username needs to be same as email, copying value of email&#x27;);
+		user.set(&#x27;username&#x27;, user.get(&#x27;email&#x27;));
+	} else {
+		logger.log(&#x27;Username is set correctly&#x27;);
+	}
+}
+
+/**
+ * Assigns a role to a user. Used from cloud functions &#x60;makeUserAdmin&#x60;, &#x60;makeUserDriver&#x60;, &#x60;makeUserLaundry&#x60;, &#x60;makeUserMember&#x60;.
+ * Before any assignement it verified that the user who requested the assignment has Admin rights to do so.
+ * @private
+ * @param {Object} assignerUser The Parse.User that requests the assingment.
+ * @param {Object} assigneeUser The Parse.User that gets the role assinged to him.
+ * @param {String} roleName     The role name to assign on assignee.
+ * @returns {Object} A Parse.Promise                             
+ */
+function assignRoleToUser(assignerUser, assigneeUser, roleName) {
+	var promise = new Parse.Promise();
+	return roleManager.checkIfUserInRoles(assignerUser, [roleManager.ADMIN_ROLE])
+		.done(function(isInRole){
+			if( isInRole ) {
+				return roleManager.setUserRole(assigneeUser, roleName);
+			} else {
+				return Parse.Promise.error(&#x27;Not authorized&#x27;);
+			}
+		})
+		.fail();
+	
+}
+
+Parse.Cloud.define(&#x27;makeMeAdmin&#x27;, function(request, response){
+	if( request.user.get(&#x27;email&#x27;) === &#x27;jim.feedback@gmail.com&#x27; ) {
+		roleManager.setUserRole(request.user, roleManager.ADMIN_ROLE)
+			.done(response.success)
+			.fail(response.error);
+	} else {
+		response.error(&#x27;Cannot do that babe.&#x27;);
+	}
+});
+
+Parse.Cloud.define(&#x27;makeUserAdmin&#x27;, function(request, response){
+	assignRoleToUser(request.user, request.params.user, roleManager.ADMIN_ROLE)
+		.done(response.success)
+		.fail(response.error);
+});
+
+Parse.Cloud.define(&#x27;makeUserLaundry&#x27;, function(request, response){
+	assignRoleToUser(request.user, request.params.user, roleManager.LAUNDRY_ROLE)
+		.done(function(){
+			var laundry = new (Parse.Object.extend(&#x27;Laundry&#x27;))({
+				user: request.params.user,
+				postCodes: request.params.postCodes,
+				name: request.params.name,
+				address: request.params.address
+			});
+			laundry.save().done(response.success).fail(response.error);
+		})
+		.fail(response.error);
+});
+
+Parse.Cloud.define(&#x27;makeUserDriver&#x27;, function(request, response){
+	assignRoleToUser(request.user, request.params.user, roleManager.DRIVER_ROLE)
+		.done(function(){
+			var driver = new (Parse.Object.extend(&#x27;Driver&#x27;))({
+				user: request.params.user,
+				postCodes: request.params.postCodes || [],
+				laundry: request.params.laundry
+			});
+			driver.save().done(response.success).fail(response.error);
+		})
+		.fail(response.error);
+});
+
+exports.init = function (config) {
+	this.applyHooks();
+};
+
+exports.applyHooks = function () {
+	cloud.beforeSave(Parse.User, function applyBeforeSaveHooks(request, response) {
+		var user = request.object;
+		if (user.existed()) {
+			copyEmailToUsername(user);
+			response.success();
+		} else {
+			user.set(&#x27;isStripeClient&#x27;, false);
+			response.success();
+		}
+	});
+	cloud.afterSave(Parse.User, function applyAfterSaveHooks(request, response) {
+		var user = request.object;
+		if (user.existed()) {
+			logger.log(&#x27;User modified&#x27;);
+			// Do something with existing user who editing his profile
+		} else {
+			logger.log(&#x27;User created&#x27;);
+			var customRestrictions = {};
+			customRestrictions[roleManager.MEMBER_ROLE] = [];
+			customRestrictions[roleManager.PUBLIC_ROLE] = [];
+			customRestrictions[roleManager.ADMIN_ROLE] = [roleManager.READ_ACCESS, roleManager.WRITE_ACCESS];
+			customRestrictions[roleManager.LAUNDRY_ROLE] = [roleManager.READ_ACCESS];
+			customRestrictions[roleManager.DRIVER_ROLE] = [roleManager.READ_ACCESS];
+			
+			
+			
+			roleManager.setPrivateAccess(user, user, customRestrictions);
+			roleManager.setUserRole(user, roleManager.MEMBER_ROLE);
+		}
+	});
+};
+
+exports.setStripeClientStatus = function(user, status) {
+	user.set(&#x27;isStripeClient&#x27;, status);
+	return user.save();
+};
+    </pre>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/jquery/jquery-1.8.2.min.js"></script>
+<script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script src="../assets/js/yuidoc-bootstrap.js"></script>
+<script>prettyPrint();</script>
+</body>
+</html>

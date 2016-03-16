@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Order - Cleanium_Server</title>
+    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+</head>
+<body class="yui3-skin-sam">
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <h1 class="brand" style="padding: 10px 16px 10px; height: 20px; line-height: 20px; margin-left: 0;">
+	    <img alt="Cleanium_Server" src="..\..\..\Android\Cleanium\app\src\main\res\drawable-xxhdpi\logo.png" style="max-height: 65%;" title="Cleanium_Server">
+            Cleanium_Server
+        </h1>
+	<div class="nav">
+            <li class="divider-vertical"></li>
+            <li>
+                <p class="navbar-text">
+                    API Docs for Version: <b>0.0.0</b>
+                </p>
+            </li>
+        </div>
+        <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/AsyncUtils", "classes/Cloud", "classes/Errors", "classes/Heap", "classes/Logger", "classes/NotificationUtils", "classes/Order", "classes/OrderDate", "classes/OrderRestrictions", "classes/OrderStatus", "classes/OrderValidator", "classes/RoleManager", "classes/Schedule", "classes/Stripe", "classes/StripeAmount", "classes/User"]'>
+        </form>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="span3">
+	    <div>
+	        <h3>APIs</h3>
+	        <div id="sidebar">
+	            <ul id="main-nav" class="nav nav-tabs" style="margin-bottom:0;">
+	                <li class="active"><a href="#classes" data-toggle="tab">Classes</a></li>
+	                <li><a href="#modules" data-toggle="tab">Modules</a></li>
+	            </ul>
+	    
+	            <div id="api-tabview-filter">
+	                <input type="search" placeholder="Type to filter APIs">
+	            </div>
+	    
+	            <div class="tab-content" style="border: 1px solid #DDD; border-top:0;">
+	                <div class="tab-pane active" id="classes">
+	                    <ul id="api-classes" class="nav nav-list">
+	                            <li><a href="../classes/AsyncUtils.html">AsyncUtils</a></li>
+	                            <li><a href="../classes/Cloud.html">Cloud</a></li>
+	                            <li><a href="../classes/Errors.html">Errors</a></li>
+	                            <li><a href="../classes/Heap.html">Heap</a></li>
+	                            <li><a href="../classes/Logger.html">Logger</a></li>
+	                            <li><a href="../classes/NotificationUtils.html">NotificationUtils</a></li>
+	                            <li><a href="../classes/Order.html">Order</a></li>
+	                            <li><a href="../classes/OrderRestrictions.html">OrderRestrictions</a></li>
+	                            <li><a href="../classes/RoleManager.html">RoleManager</a></li>
+	                            <li><a href="../classes/Schedule.html">Schedule</a></li>
+	                            <li><a href="../classes/Stripe.html">Stripe</a></li>
+	                            <li><a href="../classes/User.html">User</a></li>
+	                    </ul>
+	                </div>
+	    
+	                <div class="tab-pane" id="modules">
+	                    <ul id="api-modules" class="nav nav-list">
+	                    </ul>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+        </div>
+        <div class="span9">
+                <form id="options-form" class="form-inline pull-right">
+                    Show:
+                    <label for="api-show-inherited" class="checkbox">
+                        <input type="checkbox" id="api-show-inherited" checked>
+                        Inherited
+                    </label>
+            
+                    <label for="api-show-protected" class="checkbox">
+                        <input type="checkbox" id="api-show-protected">
+                        Protected
+                    </label>
+            
+                    <label for="api-show-private" class="checkbox">
+                        <input type="checkbox" id="api-show-private">
+                        Private
+                    </label>
+                    <label for="api-show-deprecated" class="checkbox">
+                        <input type="checkbox" id="api-show-deprecated">
+                        Deprecated
+                    </label>
+            
+                </form>
+            
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+<div class="page-header">
+    <h1>Order <small>Class</small></h1>
+</div>
+
+<div class="well well-small">
+
+
+        <div class="foundat">
+            Defined in: <a href="../files/cloud_Order_order.js.html#l2"><code>cloud\Order\order.js:2</code></a>
+        </div>
+
+
+</div>
+
+
+<div class="well well-small">
+    
+</div>
+
+
+<div>
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#index">Index</a></li>
+
+            <li><a data-toggle="tab" href="#methods">Methods</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div id="index" class="tab-pane active">
+            <h2 class="off-left">Item Index</h2>
+
+                <div class="index-section methods">
+                    <h3>Methods</h3>
+
+                    <ul class="index-list methods">
+                            <li class="index-item method private">
+                                <a href="#" data-tabid="#methods" data-anchor="#method_assignDriverAndLaundryToOrder" data-tablink="assignDriverAndLaundryToOrder">assignDriverAndLaundryToOrder</a>
+
+                            </li>
+                            <li class="index-item method private">
+                                <a href="#" data-tabid="#methods" data-anchor="#method_calculateDiscountAmountAsync" data-tablink="calculateDiscountAmountAsync">calculateDiscountAmountAsync</a>
+
+                            </li>
+                            <li class="index-item method private">
+                                <a href="#" data-tabid="#methods" data-anchor="#method_createAvailableDriverQueryForDateAndCode" data-tablink="createAvailableDriverQueryForDateAndCode">createAvailableDriverQueryForDateAndCode</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#" data-tabid="#methods" data-anchor="#method_createOrder" data-tablink="createOrder">createOrder</a>
+
+                            </li>
+                            <li class="index-item method private">
+                                <a href="#" data-tabid="#methods" data-anchor="#method_notifyUserStatusChange" data-tablink="notifyUserStatusChange">notifyUserStatusChange</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#" data-tabid="#methods" data-anchor="#method_rateOrder" data-tablink="rateOrder">rateOrder</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#" data-tabid="#methods" data-anchor="#method_verifyDiscountCode" data-tablink="verifyDiscountCode">verifyDiscountCode</a>
+
+                            </li>
+                            <li class="index-item method private">
+                                <a href="#" data-tabid="#methods" data-anchor="#method_verifyDiscountCodeAsync" data-tablink="verifyDiscountCodeAsync">verifyDiscountCodeAsync</a>
+
+                            </li>
+                    </ul>
+                </div>
+
+
+
+        </div>
+
+            <div id="methods" class="tab-pane">
+                <h2 class="off-left">Methods</h2>
+
+                    <div id="method_assignDriverAndLaundryToOrder" class="method item private">
+                        <h3 class="name"><code>assignDriverAndLaundryToOrder</code></h3>
+                    
+                            <div class="args">
+                                <span class="paren">(</span><ul class="args-list inline commas">
+                                    <li class="arg">
+                                            <code>order</code>
+                                    </li>
+                                </ul><span class="paren">)</span>
+                            </div>
+                    
+                            <span class="returns-inline">
+                                <span class="type">Object</span>
+                            </span>
+                    
+                    
+                            <span class="flag private">private</span>
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/cloud_Order_order.js.html#l275"><code>cloud\Order\order.js:275</code></a>
+                            </p>
+                    
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Given an order assigns pickup/delivery drivers to order and a laundry whihch will
+                    handle the processing of that order</p>
+                    
+                        </div>
+                    
+                            <div class="params">
+                                <h4>Parameters:</h4>
+                    
+                                <ul class="params-list">
+                                    <li class="param">
+                                            <code class="param-name">order</code>
+                                            <span class="type">Object</span>
+                    
+                    
+                                        <div class="param-description">
+                                            <p>The order in question</p>
+                    
+                                        </div>
+                    
+                                    </li>
+                                </ul>
+                            </div>
+                    
+                            <div class="returns">
+                                <h4>Returns:</h4>
+                    
+                                <div class="returns-description">
+                                            <span class="type">Object</span>:
+                                        <p>A Parse.Promise. If successfull the order will be returned on success.
+                    Otherwise the error message that occured during processing.</p>
+                    
+                                </div>
+                            </div>
+                    
+                    </div>
+                    <div id="method_calculateDiscountAmountAsync" class="method item private">
+                        <h3 class="name"><code>calculateDiscountAmountAsync</code></h3>
+                    
+                            <div class="args">
+                                <span class="paren">(</span><ul class="args-list inline commas">
+                                    <li class="arg">
+                                            <code>code</code>
+                                    </li>
+                                    <li class="arg">
+                                            <code>totalAmount</code>
+                                    </li>
+                                </ul><span class="paren">)</span>
+                            </div>
+                    
+                            <span class="returns-inline">
+                                <span class="type">Promise</span>
+                            </span>
+                    
+                    
+                            <span class="flag private">private</span>
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/cloud_DiscountCode_discount.js.html#l9"><code>cloud\DiscountCode\discount.js:9</code></a>
+                            </p>
+                    
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Calculates the discounted amount based on the given discount code and
+                    total amount for an order before discount</p>
+                    
+                        </div>
+                    
+                            <div class="params">
+                                <h4>Parameters:</h4>
+                    
+                                <ul class="params-list">
+                                    <li class="param">
+                                            <code class="param-name">code</code>
+                                            <span class="type">Object</span>
+                    
+                    
+                                        <div class="param-description">
+                                            <p>Parse Object or Pointer of a <code>DiscountCode</code> class</p>
+                    
+                                        </div>
+                    
+                                    </li>
+                                    <li class="param">
+                                            <code class="param-name">totalAmount</code>
+                                            <span class="type">Number</span>
+                    
+                    
+                                        <div class="param-description">
+                                            <p>The total amount of an order before discount</p>
+                    
+                                        </div>
+                    
+                                    </li>
+                                </ul>
+                            </div>
+                    
+                            <div class="returns">
+                                <h4>Returns:</h4>
+                    
+                                <div class="returns-description">
+                                            <span class="type">Promise</span>:
+                                        <p>A Promise with the discount amount if the code is given.</p>
+                    
+                                </div>
+                            </div>
+                    
+                    </div>
+                    <div id="method_createAvailableDriverQueryForDateAndCode" class="method item private">
+                        <h3 class="name"><code>createAvailableDriverQueryForDateAndCode</code></h3>
+                    
+                            <div class="args">
+                                <span class="paren">(</span><ul class="args-list inline commas">
+                                    <li class="arg">
+                                            <code>schedule</code>
+                                    </li>
+                                    <li class="arg">
+                                            <code>postCode</code>
+                                    </li>
+                                </ul><span class="paren">)</span>
+                            </div>
+                    
+                            <span class="returns-inline">
+                                <span class="type">Object</span>
+                            </span>
+                    
+                    
+                            <span class="flag private">private</span>
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/cloud_Order_order.js.html#l225"><code>cloud\Order\order.js:225</code></a>
+                            </p>
+                    
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Generates a Parse.Query which is used to find all the available drivers who operate within a certain
+                    post code which is retrieved from either a pickUp or delivery driver's schedule.</p>
+                    
+                        </div>
+                    
+                            <div class="params">
+                                <h4>Parameters:</h4>
+                    
+                                <ul class="params-list">
+                                    <li class="param">
+                                            <code class="param-name">schedule</code>
+                                            <span class="type">Object</span>
+                    
+                    
+                                        <div class="param-description">
+                                            <p>A Parse.Object for DriverSchedule table</p>
+                    
+                                        </div>
+                    
+                                    </li>
+                                    <li class="param">
+                                            <code class="param-name">postCode</code>
+                                            <span class="type">Number</span>
+                    
+                    
+                                        <div class="param-description">
+                                            <p>A postal code where the query should be based on finding available driver</p>
+                    
+                                        </div>
+                    
+                                    </li>
+                                </ul>
+                            </div>
+                    
+                            <div class="returns">
+                                <h4>Returns:</h4>
+                    
+                                <div class="returns-description">
+                                            <span class="type">Object</span>:
+                                        <p>A Parse.Query object.</p>
+                    
+                                </div>
+                            </div>
+                    
+                    </div>
+                    <div id="method_createOrder" class="method item">
+                        <h3 class="name"><code>createOrder</code></h3>
+                    
+                            <div class="args">
+                                <span class="paren">(</span><ul class="args-list inline commas">
+                                    <li class="arg">
+                                            <code>order</code>
+                                    </li>
+                                </ul><span class="paren">)</span>
+                            </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/cloud_Order_order.js.html#l62"><code>cloud\Order\order.js:62</code></a>
+                            </p>
+                    
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Cloud function <code>createOrder</code> creates an order for the user who invokes this function. As parameter is passed an object representing
+                    an order</p>
+                    
+                        </div>
+                    
+                            <div class="params">
+                                <h4>Parameters:</h4>
+                    
+                                <ul class="params-list">
+                                    <li class="param">
+                                            <code class="param-name">order</code>
+                                            <span class="type">Object</span>
+                    
+                    
+                                        <div class="param-description">
+                                            <p>An order object which includes certain properties as described by the example:
+                    <code>javascript { pickUpSchedule: { fromDate: [Date], toDate: [Date] }, (user: { id|objectId: [String] },) deliverySchedule: { fromDate: [Date], toDate: [Date] }, pickUpAddress: { id|objectId: [String], postCode: [Number] }, deliveryAddress: { id|objectId: [String], postCode: [Number] }, (discountCode: { code: [String] },) (washAndDry: [Boolean]) }</code></p>
+                    
+                                        </div>
+                    
+                                    </li>
+                                </ul>
+                            </div>
+                    
+                    
+                    </div>
+                    <div id="method_notifyUserStatusChange" class="method item private">
+                        <h3 class="name"><code>notifyUserStatusChange</code></h3>
+                    
+                            <div class="args">
+                                <span class="paren">(</span><ul class="args-list inline commas">
+                                    <li class="arg">
+                                            <code>order</code>
+                                    </li>
+                                    <li class="arg">
+                                            <code>config</code>
+                                    </li>
+                                </ul><span class="paren">)</span>
+                            </div>
+                    
+                            <span class="returns-inline">
+                                <span class="type">Object</span>
+                            </span>
+                    
+                    
+                            <span class="flag private">private</span>
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/cloud_Order_order.js.html#l203"><code>cloud\Order\order.js:203</code></a>
+                            </p>
+                    
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Notifies the user for a status change event on the order by sending a push notification</p>
+                    
+                        </div>
+                    
+                            <div class="params">
+                                <h4>Parameters:</h4>
+                    
+                                <ul class="params-list">
+                                    <li class="param">
+                                            <code class="param-name">order</code>
+                                            <span class="type">Object</span>
+                    
+                    
+                                        <div class="param-description">
+                                            <p>The order in question as a Parse.Object</p>
+                    
+                                        </div>
+                    
+                                    </li>
+                                    <li class="param">
+                                            <code class="param-name">config</code>
+                                            <span class="type">Object</span>
+                    
+                    
+                                        <div class="param-description">
+                                            <p>The Parse.Config file</p>
+                    
+                                        </div>
+                    
+                                    </li>
+                                </ul>
+                            </div>
+                    
+                            <div class="returns">
+                                <h4>Returns:</h4>
+                    
+                                <div class="returns-description">
+                                            <span class="type">Object</span>:
+                                        <p>A Parse.Promise</p>
+                    
+                                </div>
+                            </div>
+                    
+                    </div>
+                    <div id="method_rateOrder" class="method item">
+                        <h3 class="name"><code>rateOrder</code></h3>
+                    
+                            <div class="args">
+                                <span class="paren">(</span><ul class="args-list inline commas">
+                                    <li class="arg">
+                                            <code>orderId</code>
+                                    </li>
+                                    <li class="arg">
+                                            <code>rating[rating=0]</code>
+                                    </li>
+                                </ul><span class="paren">)</span>
+                            </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/cloud_Order_order.js.html#l18"><code>cloud\Order\order.js:18</code></a>
+                            </p>
+                    
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Allows the user to rate an order. Params are send as a json object with the following properties:</p>
+                    
+                        </div>
+                    
+                            <div class="params">
+                                <h4>Parameters:</h4>
+                    
+                                <ul class="params-list">
+                                    <li class="param">
+                                            <code class="param-name">orderId</code>
+                                            <span class="type">String</span>
+                    
+                    
+                                        <div class="param-description">
+                                            <p>The id of the order about to be rated.</p>
+                    
+                                        </div>
+                    
+                                    </li>
+                                    <li class="param">
+                                            <code class="param-name">rating[rating=0]</code>
+                                            <span class="type">Number</span>
+                    
+                    
+                                        <div class="param-description">
+                                            <p>The rating in percentage. Minimum value is 0.0 and maximum is 1.0.</p>
+                    
+                                        </div>
+                    
+                                    </li>
+                                </ul>
+                            </div>
+                    
+                    
+                    </div>
+                    <div id="method_verifyDiscountCode" class="method item">
+                        <h3 class="name"><code>verifyDiscountCode</code></h3>
+                    
+                            <div class="args">
+                                <span class="paren">(</span><ul class="args-list inline commas">
+                                    <li class="arg">
+                                            <code>params.discountCode</code>
+                                    </li>
+                                </ul><span class="paren">)</span>
+                            </div>
+                    
+                            <span class="returns-inline">
+                                <span class="type">Promise</span>
+                            </span>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/cloud_DiscountCode_discount.js.html#l119"><code>cloud\DiscountCode\discount.js:119</code></a>
+                            </p>
+                    
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Parse cloud function for verification of discount code.</p>
+                    
+                        </div>
+                    
+                            <div class="params">
+                                <h4>Parameters:</h4>
+                    
+                                <ul class="params-list">
+                                    <li class="param">
+                                            <code class="param-name">params.discountCode</code>
+                                            <span class="type">String</span>
+                    
+                    
+                                        <div class="param-description">
+                                            <p>The code string provided to the user</p>
+                    
+                                        </div>
+                    
+                                    </li>
+                                </ul>
+                            </div>
+                    
+                            <div class="returns">
+                                <h4>Returns:</h4>
+                    
+                                <div class="returns-description">
+                                            <span class="type">Promise</span>:
+                                        <p>A <code>Parse.Promise</code> with the discount code object if valid or
+                    an error message if invalid.</p>
+                    
+                                </div>
+                            </div>
+                    
+                    </div>
+                    <div id="method_verifyDiscountCodeAsync" class="method item private">
+                        <h3 class="name"><code>verifyDiscountCodeAsync</code></h3>
+                    
+                            <div class="args">
+                                <span class="paren">(</span><ul class="args-list inline commas">
+                                    <li class="arg">
+                                            <code>discountCode</code>
+                                    </li>
+                                    <li class="arg">
+                                            <code>appliedByUser</code>
+                                    </li>
+                                </ul><span class="paren">)</span>
+                            </div>
+                    
+                            <span class="returns-inline">
+                                <span class="type">Promise</span>
+                            </span>
+                    
+                    
+                            <span class="flag private">private</span>
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/cloud_DiscountCode_discount.js.html#l45"><code>cloud\DiscountCode\discount.js:45</code></a>
+                            </p>
+                    
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Verifies that the discount code is valid and the user has never used it on
+                    a past order.</p>
+                    
+                        </div>
+                    
+                            <div class="params">
+                                <h4>Parameters:</h4>
+                    
+                                <ul class="params-list">
+                                    <li class="param">
+                                            <code class="param-name">discountCode</code>
+                                            <span class="type">Object</span>
+                    
+                    
+                                        <div class="param-description">
+                                            <p>The code string provided to the user</p>
+                    
+                                        </div>
+                    
+                                    </li>
+                                    <li class="param">
+                                            <code class="param-name">appliedByUser</code>
+                                            <span class="type">Object</span>
+                    
+                    
+                                        <div class="param-description">
+                                            <p>A <code>Parse.User</code> object of the user who
+                    asked verification of the code.</p>
+                    
+                                        </div>
+                    
+                                    </li>
+                                </ul>
+                            </div>
+                    
+                            <div class="returns">
+                                <h4>Returns:</h4>
+                    
+                                <div class="returns-description">
+                                            <span class="type">Promise</span>:
+                                        <p>A <code>Parse.Promise</code> with the discount code object if valid or
+                    an error message if invalid.</p>
+                    
+                                </div>
+                            </div>
+                    
+                    </div>
+            </div>
+
+
+
+    </div>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/jquery/jquery-1.8.2.min.js"></script>
+<script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script src="../assets/js/yuidoc-bootstrap.js"></script>
+<script>prettyPrint();</script>
+</body>
+</html>

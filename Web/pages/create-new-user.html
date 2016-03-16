@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Washmates</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="../bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Parse Javascript SDK -->
+    <script src="../js/parse.js"></script>
+
+    <!-- Moment DateTime JS library [http://momentjs.com] -->
+    <script src="../js/moment.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="dashboard.html">Washmates Administration</a>
+            </div>
+            <!-- /.navbar-header -->
+
+            <ul class="nav navbar-top-links navbar-right">
+                <!-- /.dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-bell fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-alerts">
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <i class="fa fa-comment fa-fw"></i> New Comment
+                                    <span class="pull-right text-muted small">4 minutes ago</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <i class="fa fa-envelope fa-fw"></i> Message Sent
+                                    <span class="pull-right text-muted small">4 minutes ago</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <i class="fa fa-shopping-cart fa-fw"></i> New Order
+                                    <span class="pull-right text-muted small">4 minutes ago</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a class="text-center" href="#">
+                                <strong>See All Alerts</strong>
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-alerts -->
+                </li>
+                <!-- /.dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                        </li>
+                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a class="log-out-btn"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+            <!-- /.navbar-top-links -->
+
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li class="sidebar-search">
+                            <div class="input-group custom-search-form">
+                                <input type="text" class="form-control" placeholder="Search...">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </span>
+                            </div>
+                            <!-- /input-group -->
+                        </li>
+                        <li>
+                            <a href="dashboard.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                        </li>
+                        <li>
+                            <a href="calendar.html"><i class="fa fa-calendar fa-fw"></i> Calendar</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa fa-users fa-fw"></i> Users<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="users.html">List of Users</a>
+                                </li>
+                                <li>
+                                    <a href="create-new-user.html">Create New User</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="laundries.html"><i class="fa fa-hospital-o fa-fw"></i> Laundries</a>
+                        </li>
+                        <li>
+                            <a href="drivers.html"><i class="fa fa-bus fa-fw"></i> Drivers</a>
+                        </li>
+                        <li>
+                            <a href="orders.html"><i class="fa fa-shopping-cart fa-fw"></i> Orders</span></a>
+                        </li>
+                        <li>
+                            <a href="issues.html"><i class="fa fa-support fa-fw"></i> Issues</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+
+        <!-- Page Content -->
+        <div id="page-wrapper">
+            <form>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h1 class="page-header">Create New User</h1>
+                        </div>
+                        <!-- /.col-lg-12 -->
+                    </div>
+                    <!-- /.row -->
+                    <div class="row">
+
+                        <div class="form-group">
+                            <label for="recipient-name" class="control-label">Upload Photo:</label>
+                            <input type="file" id="profile-photo-input" accept="image/x-png, image/jpeg">
+                            <img id="blah" />
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="control-label">Email:</label>
+                            <input type="email" class="form-control" id="email-input" placeholder="UsernEmailame" required min="5">
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="control-label">Password:</label>
+                            <input type="password" class="form-control" id="password-input" placeholder="********" min="5">
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="control-label">Repeat Password:</label>
+                            <input type="password" class="form-control" id="repeat-password-input" placeholder="********" min="5">
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="control-label">First Name:</label>
+                            <input type="text" class="form-control" id="fname-input" placeholder="First Name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="control-label">Last Name:</label>
+                            <input type="text" class="form-control" id="lname-input" placeholder="Last Name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="control-label">Phone Number:</label>
+                            <input type="text" class="form-control" id="phone-input" placeholder="Phone Number" required min="9">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Select Role:</label>
+                            <br/>
+                            <div class="btn-group" data-toggle="buttons">
+
+                                <label class="btn btn-primary active">
+                                    <i class="fa fa-user"></i>
+                                    <br>
+                                    <input type="radio" name="user-radio-role" value="Member" checked="checked"> Member
+                                </label>
+                                <label class="btn btn-primary">
+                                    <i class="fa fa-truck"></i>
+                                    <br>
+                                    <input type="radio" name="user-radio-role" value="Driver"> Driver
+                                </label>
+                                <label class="btn btn-primary">
+                                    <i class="fa fa-building-o"></i>
+                                    <br>
+                                    <input type="radio" name="user-radio-role" value="Laundry"> Laundry
+                                </label>
+                                <label class="btn btn-danger">
+                                    <i class="fa fa-adn"></i>
+                                    <br>
+                                    <input type="radio" name="user-radio-role" value="Admin"> Admin
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="footer">
+                        <button type="submit" class="btn btn-primary" id="save-new-user">Save</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" id="reset-input-fields">Reset</button>
+                    </div>
+                </div>
+                <!-- /.container-fluid -->
+            </form>
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="../bower_components/metisMenu/dist/metisMenu.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="../dist/js/sb-admin-2.js"></script>
+
+    <!-- Extensions for alerts -->
+    <script src="../js/jquery-extensions.js"></script>
+
+    <script>
+        var Smoothie = {
+            'requirePath': ['../js/']
+        }
+    </script>
+
+    <script src="../js/require.js"></script>
+
+    <!-- Below add page script -->
+
+
+    <script type="text/javascript">
+        var app = require("./app");
+        var parseService = require("./parseService");
+        app.ready(function () {
+            clearModalFields();
+
+            $('input[name="user-radio-role"][type="radio"]').on('change', function () {
+                if ($(this).val() === 'Driver') {
+                    $("#profile-photo-input").attr('required', 'required');
+                } else {
+                    $("#profile-photo-input").removeAttr('required');
+                }
+            })
+
+            $('form').on('submit', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                var $body = $(document.body);
+
+                if ($('#password-input').val() !== $('#repeat-password-input').val()) {
+                    $body.showAlertDialog("Passwords dont match!");
+                    return;
+                }
+
+                if (!$('form')[0].checkValidity()) {
+                    return;
+                }
+
+                var roleRadio = $('input[name="user-radio-role"][type="radio"]:checked');
+
+                var user = new Parse.User();
+
+                var profilePhotoInput = $("#profile-photo-input");
+                var imageFile, fileName;
+                if (profilePhotoInput.val()) {
+                    fileName = profilePhotoInput.val().split(/\\|\//gi);
+                    fileName = fileName[fileName.length - 1];
+                    imageFile = new Parse.File(fileName, profilePhotoInput[0].files[0]);
+                    user.set('image', imageFile);
+                }
+                user.set('username', $('#email-input').val());
+                user.set('email', $('#email-input').val());
+                user.set('password', $('#password-input').val());
+                user.set('fname', $('#fname-input').val());
+                user.set('lname', $('#lname-input').val());
+                user.set('phone', +$('#phone-input').val());
+                user.set('isStripeClient', false); // default
+
+                user.save(null, {
+                    success: function (user) {
+                        clearModalFields();
+                        $body.showConfirmDialog("The user has been created");
+                        if (roleRadio.val() !== 'Member') {
+                            Parse.Cloud.run('makeUser' + roleRadio.val(), {
+                                    user: app.utils.parseToPointer(user)
+                                })
+                                .done(function () {
+                                    app.setRoleToUser(roleRadio.val(), user);
+                                    $body.showConfirmDialog("The user has been created");
+                                })
+                                .fail(function (err) {
+                                    $body.showAlertDialog(err);
+                                });
+                        } else {
+                            $body.showConfirmDialog("The user has been created");
+                        }
+                    },
+                    error: function (user, error) {
+                        // Show the error message somewhere and let the user try again.
+                        $body.showAlertDialog(error.message);
+                    }
+                });
+            })
+        });
+
+        $('#reset-input-fields').click(function () {
+            clearModalFields();
+        });
+
+        var clearModalFields = function () {
+            $('#email-input').val('');
+            $('#password-input').val('');
+            $('#repeat-password-input').val('');
+            $('#fname-input').val('');
+            $('#lname-input').val('');
+            $('#phone-input').val('');
+            $('[name="user-radio-role"][value="Member"]').attr("checked", "checked").click();
+        };
+    </script>
+
+</body>
+
+</html>

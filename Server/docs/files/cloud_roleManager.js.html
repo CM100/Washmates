@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>cloud\roleManager.js - Cleanium_Server</title>
+    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+</head>
+<body class="yui3-skin-sam">
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <h1 class="brand" style="padding: 10px 16px 10px; height: 20px; line-height: 20px; margin-left: 0;">
+	    <img alt="Cleanium_Server" src="..\..\..\Android\Cleanium\app\src\main\res\drawable-xxhdpi\logo.png" style="max-height: 65%;" title="Cleanium_Server">
+            Cleanium_Server
+        </h1>
+	<div class="nav">
+            <li class="divider-vertical"></li>
+            <li>
+                <p class="navbar-text">
+                    API Docs for Version: <b>0.0.0</b>
+                </p>
+            </li>
+        </div>
+        <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/AsyncUtils", "classes/Cloud", "classes/Errors", "classes/Heap", "classes/Logger", "classes/NotificationUtils", "classes/Order", "classes/OrderDate", "classes/OrderRestrictions", "classes/OrderStatus", "classes/OrderValidator", "classes/RoleManager", "classes/Schedule", "classes/Stripe", "classes/StripeAmount", "classes/User"]'>
+        </form>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="span3">
+	    <div>
+	        <h3>APIs</h3>
+	        <div id="sidebar">
+	            <ul id="main-nav" class="nav nav-tabs" style="margin-bottom:0;">
+	                <li class="active"><a href="#classes" data-toggle="tab">Classes</a></li>
+	                <li><a href="#modules" data-toggle="tab">Modules</a></li>
+	            </ul>
+	    
+	            <div id="api-tabview-filter">
+	                <input type="search" placeholder="Type to filter APIs">
+	            </div>
+	    
+	            <div class="tab-content" style="border: 1px solid #DDD; border-top:0;">
+	                <div class="tab-pane active" id="classes">
+	                    <ul id="api-classes" class="nav nav-list">
+	                            <li><a href="../classes/AsyncUtils.html">AsyncUtils</a></li>
+	                            <li><a href="../classes/Cloud.html">Cloud</a></li>
+	                            <li><a href="../classes/Errors.html">Errors</a></li>
+	                            <li><a href="../classes/Heap.html">Heap</a></li>
+	                            <li><a href="../classes/Logger.html">Logger</a></li>
+	                            <li><a href="../classes/NotificationUtils.html">NotificationUtils</a></li>
+	                            <li><a href="../classes/Order.html">Order</a></li>
+	                            <li><a href="../classes/OrderRestrictions.html">OrderRestrictions</a></li>
+	                            <li><a href="../classes/RoleManager.html">RoleManager</a></li>
+	                            <li><a href="../classes/Schedule.html">Schedule</a></li>
+	                            <li><a href="../classes/Stripe.html">Stripe</a></li>
+	                            <li><a href="../classes/User.html">User</a></li>
+	                    </ul>
+	                </div>
+	    
+	                <div class="tab-pane" id="modules">
+	                    <ul id="api-modules" class="nav nav-list">
+	                    </ul>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+        </div>
+        <div class="span9">
+                <form id="options-form" class="form-inline pull-right">
+                    Show:
+                    <label for="api-show-inherited" class="checkbox">
+                        <input type="checkbox" id="api-show-inherited" checked>
+                        Inherited
+                    </label>
+            
+                    <label for="api-show-protected" class="checkbox">
+                        <input type="checkbox" id="api-show-protected">
+                        Protected
+                    </label>
+            
+                    <label for="api-show-private" class="checkbox">
+                        <input type="checkbox" id="api-show-private">
+                        Private
+                    </label>
+                    <label for="api-show-deprecated" class="checkbox">
+                        <input type="checkbox" id="api-show-deprecated">
+                        Deprecated
+                    </label>
+            
+                </form>
+            
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+<div class="page-header">
+    <h1>cloud\roleManager.js <small>File</small></h1>
+</div>
+
+<div class="file">
+    <pre class="prettyprint linenums">
+/*globals Parse, exports, require*/
+/**
+ * @class RoleManager
+ * @static
+ */
+var logger = require(&#x27;cloud/Utils/logger.js&#x27;);
+var errors = require(&#x27;cloud/Utils/errors&#x27;);
+
+var _ = Parse._;
+var READ_ACCESS = &#x27;read&#x27;;
+var WRITE_ACCESS = &#x27;write&#x27;;
+
+
+/* Constant access permissions */
+exports.READ_ACCESS = READ_ACCESS;
+
+exports.WRITE_ACCESS = WRITE_ACCESS;
+
+/* Constant User roles */
+exports.SELF_ROLE = &#x27;self&#x27;;
+
+exports.PUBLIC_ROLE = &#x27;public&#x27;;
+
+exports.MEMBER_ROLE = &#x27;Member&#x27;;
+
+exports.ADMIN_ROLE = &#x27;Admin&#x27;;
+
+exports.LAUNDRY_ROLE = &#x27;Laundry&#x27;;
+
+exports.DRIVER_ROLE = &#x27;Driver&#x27;;
+
+/* Module methods */
+exports.setPrivateAccess = setPrivateAccess;
+
+exports.setUserRole = setUserRole;
+
+exports.checkIfUserInRoles = checkIfUserInRoles;
+
+/**
+ * Sets a Role to a user
+ * 
+ * @method setUserRole
+ * @private
+ * @param   {Object}  user     A Parse.User object
+ * @param   {String}  roleName The name of the desired role.
+ * @returns {Promise} A Parse.Promise
+ */
+function setUserRole(user, roleName) {
+	// master key has all permissions
+	Parse.Cloud.useMasterKey();
+
+	logger.log(&#x27;Setting user role...&#x27;);
+
+	// add user to role
+	var roleQuery = new Parse.Query(Parse.Role);
+	roleQuery.equalTo(&quot;name&quot;, roleName);
+	return roleQuery.first()
+		.done(function roleFound(role) {
+			if (!role) {
+				logger.error(&#x27;No role found with the name: &#x27; + roleName);
+				return Parse.Promise.error(errors.GENERIC_ERROR_RESPONSE);
+			}
+			logger.log(&#x27;Role &quot;&#x27; + roleName + &#x27;&quot; found. Adding user to role &#x27; + role);
+			role.relation(&#x27;users&#x27;).add(user);
+			// save role
+			return role.save();
+		})
+		.fail(function errorFindingRole(e) {
+			logger.error(&#x27;Role &#x27; + roleName + &#x27; not found. Exiting with error &#x27; + e);
+			return Parse.Promise.error(e);
+		});
+}
+
+/**
+ * Sets private access for a user. Additional restrictions can be enforced for public read/write access
+ * as well for declared roles. An example of restrictions cound be
+ * &#x60;{}&#x60;
+ * 
+ * @method setPrivateAccess
+ * @private
+ * @param   {Object}  user                A valid Parse user
+ * @param   {Object}  resource            A Parse Object. The resource where restrictions will apply
+ * @param   {Object}  restrictions        An object with &#x60;read&#x60;/&#x60;write&#x60; restrictions for public and Roles. As an example could be:
+ *                                     	&#x60;{public: [&quot;read&quot;], Admin: [&quot;read&quot;, &quot;write]}&#x60;
+ * @param   {Boolean} applyToExistingResource Setup the restrictions to existing users as well. By default the restrictions are applied
+ *                                     	only on a newly created user
+ * @returns {Promise} A Parse.Promise. If successful returns the resource passed as argument. Otherwise an error message
+ */
+function setPrivateAccess(user, resource, restrictions, applyToExistingResource) {
+	Parse.Cloud.useMasterKey();
+
+	restrictions = restrictions || {};
+	restrictions.public = restrictions.public || []; //By default no public restrictions
+
+	applyToExistingResource = applyToExistingResource || false;
+
+	if (!(resource instanceof Parse.Object)) {
+		logger.warn(&quot;Rolemanager::setPrivateAccess Resource parameter not set correctly. Parse Objects expected&quot;);
+		return Parse.Promise.error(errors.INVALID_ARGUMENT);
+	}
+
+	if (!_.isObject(restrictions)) {
+		logger.warn(&quot;Rolemanager::setPrivateAccess Restrictions parameter not set correctly. Object expected&quot;);
+		return Parse.Promise.error(errors.INVALID_ARGUMENT);
+	}
+
+	if (resource.existed() &amp;&amp; !applyToExistingResource) {
+		logger.info(&#x27;Resource exists, no need to set role. Exiting&#x27;);
+		return Parse.Promise.as(resource);
+	}
+
+	var privateAccessACL;
+	if (!(user instanceof Parse.User)) {
+		privateAccessACL = new Parse.ACL();
+		delete restrictions[exports.SELF_ROLE];
+	} else {
+		privateAccessACL = new Parse.ACL(user);
+	}
+
+	logger.debug(&#x27;Restrictions to be applied &#x27; + JSON.stringify(restrictions));
+
+
+	// set ACL so only the user himself can see his own data
+
+
+
+	restrictions.public = restrictions.public || [];
+
+	Object.keys(restrictions).forEach(function (roleRestriction) {
+		var accessSet = restrictions[roleRestriction] || [];
+		if (!_.isArray(accessSet)) {
+			throw &#x27;Rolemanager::setPrivateAccess An array was expected for restriction &#x27; + roleRestriction + &#x27;. &#x27; + accessSet + &#x27; was given.&#x27;;
+		}
+		logger.debug(&#x27;Setting &#x27; + roleRestriction + &#x27; restrictions &#x27; + JSON.stringify(accessSet));
+		if (roleRestriction === exports.SELF_ROLE) {
+
+			privateAccessACL.setReadAccess(!!~accessSet.indexOf(READ_ACCESS));
+			logger.debug(&#x27;Setting &#x27; + roleRestriction + &#x27;  READ restriction to &#x27; + privateAccessACL.getReadAccess());
+
+			privateAccessACL.setWriteAccess(!!~accessSet.indexOf(WRITE_ACCESS));
+			logger.debug(&#x27;Setting &#x27; + roleRestriction + &#x27;  WRITE restriction to &#x27; + privateAccessACL.getWriteAccess());
+
+		} else if (roleRestriction === exports.PUBLIC_ROLE) {
+
+			privateAccessACL.setPublicReadAccess(!!~accessSet.indexOf(READ_ACCESS));
+			logger.debug(&#x27;Setting &#x27; + roleRestriction + &#x27;  READ restriction to &#x27; + privateAccessACL.getPublicReadAccess());
+
+			privateAccessACL.setPublicWriteAccess(!!~accessSet.indexOf(WRITE_ACCESS));
+			logger.debug(&#x27;Setting &#x27; + roleRestriction + &#x27;  WRITE restriction to &#x27; + privateAccessACL.getPublicWriteAccess());
+
+		} else {
+
+			privateAccessACL.setRoleReadAccess(roleRestriction, !!~accessSet.indexOf(READ_ACCESS));
+			logger.debug(&#x27;Setting &#x27; + roleRestriction + &#x27;  READ restriction to &#x27; + privateAccessACL.getRoleReadAccess(roleRestriction));
+
+			privateAccessACL.setRoleWriteAccess(roleRestriction, !!~accessSet.indexOf(WRITE_ACCESS));
+			logger.debug(&#x27;Setting &#x27; + roleRestriction + &#x27;  WRITE restriction to &#x27; + privateAccessACL.getRoleWriteAccess(roleRestriction));
+		}
+	});
+
+	resource.setACL(privateAccessACL);
+	resource.set(&#x27;skipWebHooks&#x27;, true);
+	return resource.save();
+
+}
+
+/**
+ * Checks if a user belongs to a specific role
+ * 
+ * @method checkIfUserInRoles
+ * @private
+ * @param   {Object}           user     The user in question
+ * @param   {Array | String}   roleName The names of the Roles as array or a string space separated.
+ *                                      Please use roleManager&#x27;s role constants
+ * @returns {Promise} A Parse.Promise. If successfull return either true/false depending on the user
+ *                    is in role or not
+ */
+function checkIfUserInRoles(user, roleNames) {
+	var promise = new Parse.Promise();
+	var roleQueries = [];
+	
+	if ( typeof roleNames === &quot;string&quot; ) {
+		roleNames = roleNames.split(&#x27; &#x27;);
+	}
+	
+	roleNames.forEach(function(roleName){
+		var roleQuery = new Parse.Query(Parse.Role);
+		roleQuery.equalTo(&quot;name&quot;, roleName);
+		roleQueries.push(roleQuery);
+	});
+	
+	var query;
+	if( roleQueries.length === 1 ) {
+		query = roleQueries[0];
+	} else {
+		query = Parse.Query.or.apply(Parse.Query, roleQueries);
+	}
+	
+	query.equalTo(&quot;users&quot;, user);
+	
+	query.first()
+		.done(function (role) {
+			promise.resolve(!!role);
+		})
+		.fail(promise.reject);
+	
+	return promise;
+}
+    </pre>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/jquery/jquery-1.8.2.min.js"></script>
+<script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script src="../assets/js/yuidoc-bootstrap.js"></script>
+<script>prettyPrint();</script>
+</body>
+</html>

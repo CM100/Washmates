@@ -1,0 +1,5 @@
+<<<<<<< HEAD
+include ':', ':app', ':data', ':dao', 'repository', ':network', ':presenter', ':stripe'
+=======
+include ':', ':app', ':data', ':dao', ':network', ':repository', ':stripe', ':presenter'
+>>>>>>> d632456c7e55fde43122ffcb7d07d251e34578cc

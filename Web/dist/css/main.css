@@ -1,0 +1,63 @@
+
+input.option[type="radio"] {
+    display:none;
+}
+input.option[type="radio"] + label {
+    font-family:Arial, sans-serif;
+    font-size:11px;
+	color: gray;
+	position: absolute;
+	display: inline;
+	right: 5%;
+}
+
+input.option[type="radio"] + label span {
+    display:inline-block;
+    width:19px;
+    height:19px;
+    margin:-1px 4px 0 0;
+    vertical-align:middle;
+    cursor:pointer;
+    -moz-border-radius:  50%;
+    border-radius:  50%;
+}
+
+input.option[type="radio"]:checked + label{
+     display:none;
+}
+
+input.option[type="radio"] + label,
+input.option[type="radio"]:checked + label {
+  -webkit-transition:color 0.4s linear;
+  -o-transition:color 0.4s linear;
+  -moz-transition:color 0.4s linear;
+  transition:color 0.4s linear;
+}
+
+input.option ~ .panel-body form {
+	display: none;
+}
+
+.option#login:checked ~ .panel-body form.login-form,
+.option#register:checked ~ .panel-body form.register-form{
+     display: block;
+}
+
+.option#login:checked ~ .panel-heading .panel-title:before {
+     content: "Please Sign In";
+}
+.option#register:checked ~ .panel-heading .panel-title:before {
+     content: "Please Sign Up";
+}
+
+body.laundry-user *[data-roles-allowed*="laundry"] {
+	display: initial;
+}
+
+body.admin-user *[data-roles-allowed*="admin"] {
+	display: initial;
+}
+
+body.member-user *[data-roles-allowed*="driver"] {
+	display: initial;
+}

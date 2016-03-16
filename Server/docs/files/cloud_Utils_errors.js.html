@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>cloud\Utils\errors.js - Cleanium_Server</title>
+    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+</head>
+<body class="yui3-skin-sam">
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <h1 class="brand" style="padding: 10px 16px 10px; height: 20px; line-height: 20px; margin-left: 0;">
+	    <img alt="Cleanium_Server" src="..\..\..\Android\Cleanium\app\src\main\res\drawable-xxhdpi\logo.png" style="max-height: 65%;" title="Cleanium_Server">
+            Cleanium_Server
+        </h1>
+	<div class="nav">
+            <li class="divider-vertical"></li>
+            <li>
+                <p class="navbar-text">
+                    API Docs for Version: <b>0.0.0</b>
+                </p>
+            </li>
+        </div>
+        <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
+            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='["classes/AsyncUtils", "classes/Cloud", "classes/Errors", "classes/Heap", "classes/Logger", "classes/NotificationUtils", "classes/Order", "classes/OrderDate", "classes/OrderRestrictions", "classes/OrderStatus", "classes/OrderValidator", "classes/RoleManager", "classes/Schedule", "classes/Stripe", "classes/StripeAmount", "classes/User"]'>
+        </form>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="span3">
+	    <div>
+	        <h3>APIs</h3>
+	        <div id="sidebar">
+	            <ul id="main-nav" class="nav nav-tabs" style="margin-bottom:0;">
+	                <li class="active"><a href="#classes" data-toggle="tab">Classes</a></li>
+	                <li><a href="#modules" data-toggle="tab">Modules</a></li>
+	            </ul>
+	    
+	            <div id="api-tabview-filter">
+	                <input type="search" placeholder="Type to filter APIs">
+	            </div>
+	    
+	            <div class="tab-content" style="border: 1px solid #DDD; border-top:0;">
+	                <div class="tab-pane active" id="classes">
+	                    <ul id="api-classes" class="nav nav-list">
+	                            <li><a href="../classes/AsyncUtils.html">AsyncUtils</a></li>
+	                            <li><a href="../classes/Cloud.html">Cloud</a></li>
+	                            <li><a href="../classes/Errors.html">Errors</a></li>
+	                            <li><a href="../classes/Heap.html">Heap</a></li>
+	                            <li><a href="../classes/Logger.html">Logger</a></li>
+	                            <li><a href="../classes/NotificationUtils.html">NotificationUtils</a></li>
+	                            <li><a href="../classes/Order.html">Order</a></li>
+	                            <li><a href="../classes/OrderRestrictions.html">OrderRestrictions</a></li>
+	                            <li><a href="../classes/RoleManager.html">RoleManager</a></li>
+	                            <li><a href="../classes/Schedule.html">Schedule</a></li>
+	                            <li><a href="../classes/Stripe.html">Stripe</a></li>
+	                            <li><a href="../classes/User.html">User</a></li>
+	                    </ul>
+	                </div>
+	    
+	                <div class="tab-pane" id="modules">
+	                    <ul id="api-modules" class="nav nav-list">
+	                    </ul>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+        </div>
+        <div class="span9">
+                <form id="options-form" class="form-inline pull-right">
+                    Show:
+                    <label for="api-show-inherited" class="checkbox">
+                        <input type="checkbox" id="api-show-inherited" checked>
+                        Inherited
+                    </label>
+            
+                    <label for="api-show-protected" class="checkbox">
+                        <input type="checkbox" id="api-show-protected">
+                        Protected
+                    </label>
+            
+                    <label for="api-show-private" class="checkbox">
+                        <input type="checkbox" id="api-show-private">
+                        Private
+                    </label>
+                    <label for="api-show-deprecated" class="checkbox">
+                        <input type="checkbox" id="api-show-deprecated">
+                        Deprecated
+                    </label>
+            
+                </form>
+            
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+<div class="page-header">
+    <h1>cloud\Utils\errors.js <small>File</small></h1>
+</div>
+
+<div class="file">
+    <pre class="prettyprint linenums">
+/*globals exports, require*/
+/**
+ * @class Errors
+ * @static
+ */
+var _ = require(&#x27;underscore&#x27;);
+
+/*Generic Errors*/
+exports.GENERIC_ERROR_RESPONSE = &#x27;Something went bad. We will shortly look into it.&#x27;;
+exports.INVALID_ARGUMENT = &#x27;The request could not be completed due to some missing parameters. If the issue persists please contact Cleanium team&#x27;;
+exports.NO_DATA_FOUND = &#x27;No data found for your request&#x27;;
+
+
+/*Payments*/
+exports.CHARGE_NOT_AUTHORIZED = &#x27;This account is not authorized to charge money. This incindent will be reported&#x27;;
+exports.CHARGE_AMOUNT_NOT_VALID = &#x27;The amount for the charge could not be processed&#x27;;
+exports.CHARGE_AMOUNT_TOO_SMALL = &#x27;The amount for the charge could not be processed&#x27;;
+exports.CHARGE_ALREADY_OCCURED = &#x27;The order has been already charged on the past. Charging an order more than once is not allowed&#x27;;
+exports.REFUND_NOT_AUTHORIZED = &#x27;This account is not authorized to refund an order. This incident will be reported&#x27;;
+
+exports.USER_NOT_STRIPE_CUSTOMER = &#x27;No stripe details found linked with that user&#x27;;
+exports.USER_ALREADY_STRIPE_CUSTOMER = &#x27;The user has been already linked to a stripe customer&#x27;;
+
+
+/*Ordering*/
+exports.ORDER_DATE_DELIVERY_PICKUP_NOT_VALID = &#x27;The dropoff date appears to be earlier than pick up date.&#x27;;
+exports.ORDER_DATE_DURATION_NOT_VALID = &#x27;The duration provided is not valid.&#x27;;
+exports.ORDER_DATE_DURATION_NOT_EQUALS_AVAILABILITY_INTERVAL = &#x27;It seems that the duration of a pick up or delivery is different than drivers allowed duration&#x27;;
+exports.ORDER_DATES_INVALID_FOR_DRY_CLEAN = &#x27;The minimum period between a pick up and dropoff when dry clean is selected is 24h.&#x27;;
+exports.ORDER_DATES_INVALID_BETWEEN_DELIVERY_DROPOFF = &#x27;The minimum period between a pick up and dropoff is 6h.&#x27;;
+exports.ORDER_STATUS_INVALID = &quot;The status given for this order is invalid&quot;;
+exports.USER_HAS_NO_CC_DATA = &quot;Unable to proceed with order. There is no credit card entered.&quot;;
+exports.ORDER_DATES_BIG_DIFFERENCE_BETWEEN_PICKUP_DELIVERY = &quot;The maximum allowed date for scheduling a drop off is 7 days after pick up date.&quot;;
+exports.ORDER_DATE_BIG_DIFFERENCE_BETWEEN_NOW_PICKUP = &quot;You can not schedule a pick up date further than one week from now.&quot;;
+exports.USER_NOT_AUTHORIZED_FOR_ORDER = &quot;Placing an order on behalf of other user is not allowed. The incident will be reported&quot;;
+
+
+exports.DRIVER_NOT_AVAILABLE_PICKUP = &#x27;Unfortunately there is no driver available on your area able to collect your clothings on the specified date.&#x27;;
+exports.DRIVER_NOT_AVAILABLE_DELIVERY = &#x27;Unfortunately there is no driver available on your area able to delivery back to you your clothings on the specified date.&#x27;;
+
+/* DiscountCodes */
+exports.DISCOUNT_CODE_INVALID = &#x27;The code provided is invalid&#x27;;
+exports.DISCOUNT_CODE_USED = &#x27;You have already used this code in a previous order&#x27;;
+exports.DISCOUNT_CODE_EXPIRED = &#x27;This code has expired&#x27;;
+
+exports.SCHEDULE_DRIVER_EXISTS = &#x27;The specific driver has already a schedule in that time frame.&#x27;;
+exports.SCHEDULE_LAUNDRY_EXISTS = &#x27;The specific laundry has already a schedule in that time frame.&#x27;;
+exports.SCHEDULE_BAD_DATES = &#x27;The dates specified for pickup/dopoff seem wrong. Please review your input.&#x27;;
+/**
+ * Helper function which iterates over all error messages and returns the proper one 
+ * as response to client. If the error is not found, the generic error is returned instead
+ * 
+ * @method getErrorResponse
+ * @private
+ * @param   {Object|String} error The &#x60;Error&#x60; object to be resolved
+ * @returns {String}        The error message for the specified error object or generic 
+ *                          error response
+ */
+exports.getErrorResponse = function(error) {
+	
+	var errorMessage = &#x27;&#x27;;
+	if( _.isString(error) ) {
+		errorMessage = error;
+	} else {
+		errorMessage = error.message;
+	}
+	
+	var message = _.find(exports, function(existingMessage){
+		return existingMessage === errorMessage
+	});
+	
+	return message || exports.GENERIC_ERROR_RESPONSE;
+};
+
+
+/**
+ * Maps possible errors from stripe charge response to custom application errors
+ * 
+ * @method getStripeErrorsFromCharge
+ * @private
+ * @param   {Object} charge Stripe &#x60;Charge&#x60; object
+ * @returns {String} A string with all errors contained in a &#x60;Charge&#x60; response.
+ */
+exports.getStripeErrorsFromCharge = function (charge) {
+	var errorResponse = &#x27;Payment failed. &#x27;;
+	var chargeErrors = {
+		cvc_check: {
+			&#x27;undefined&#x27;: &#x27;&#x27;,
+			pass: &#x27;&#x27;,
+			unchecked: &#x27;&#x27;,
+			fail: &#x27;The CVC is incorrect. &#x27;,
+			unavailable: &#x27;The bank did not check the CVC provided. &#x27;
+		},
+		address_zip_check: {
+			&#x27;undefined&#x27;: &#x27;&#x27;,
+			pass: &#x27;&#x27;,
+			unchecked: &#x27;&#x27;,
+			fail: &#x27;The ZIP code provided is incorrect. &#x27;,
+			unavailable: &#x27;The bank did not check the ZIP code provided. &#x27;
+		}
+	}
+	errorResponse += chargeErrors.cvc_check[charge.cvc_check];
+	errorResponse += chargeErrors.address_zip_check[charge.address_zip_check];
+	return errorResponse;
+};
+    </pre>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/jquery/jquery-1.8.2.min.js"></script>
+<script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script src="../assets/js/yuidoc-bootstrap.js"></script>
+<script>prettyPrint();</script>
+</body>
+</html>
